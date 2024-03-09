@@ -1,0 +1,13 @@
+.app {
+  background-color: #efefef;
+  /**TODO: remove height **/
+  height: 100vh;
+}
+
+.app h1 {
+  font-weight: 400;
+}
+
+.app p {
+  color: var(--secondary-color);
+}
