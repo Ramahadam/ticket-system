@@ -9,17 +9,19 @@
   --light-lim: #d0fdc8;
   --light-blue: #38b6ff;
   --dark-red: #ff3306;
+  --color-orange: #ff6838;
   --light-red: #fdf1f1;
-  -dark-gray: #999999;
+  --dark-gray: #999999;
 
   --bg-gray: #e6e6e6;
-  --bg-light-gray: #efefef;
+  --bg-light-gray: #f2f2f2;
 }
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Fredoka", sans-serif;
 }
 
 *::before,
@@ -29,15 +31,13 @@
 
 html {
   color: var(--color-text);
-
-  font-family: "Fredoka", sans-serif;
   font-weight: 300;
-
   font-size: 0.625rem;
 }
 
 body {
   font-size: 1.6rem;
+  background-color: var(--bg-gray);
 }
 
 h1 {

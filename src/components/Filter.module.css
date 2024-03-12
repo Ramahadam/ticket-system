@@ -1,0 +1,31 @@
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  flex-basis: 28rem;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  column-gap: 0.3rem;
+  font-weight: 500;
+  font-size: 1.4rem;
+  background-color: transparent;
+
+  outline: none;
+  border: none;
+  border-radius: 1rem;
+  padding: 1rem 1.2rem;
+  cursor: pointer;
+}
+
+.btnFilter {
+  border: 1px solid var(--bg-gray);
+}
+
+.btnNewTicket {
+  font-size: 1.6rem;
+  color: #fff;
+  background-image: linear-gradient(to right, #8664fc, #5ed9e7);
+}

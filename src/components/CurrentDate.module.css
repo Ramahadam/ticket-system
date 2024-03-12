@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.9rem;
+}
+
+.timing {
+  font-weight: 400;
+  font-size: 1.4rem;
+}

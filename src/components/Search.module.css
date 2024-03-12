@@ -1,0 +1,28 @@
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  width: 30rem;
+  min-width: fit-content;
+  padding: 1rem 1.5rem;
+  border-radius: 20px;
+}
+
+.form:focus-within {
+  /* border: 1px solid var(--color-primary) */
+  box-shadow: 0px 0px 0px 2px var(--color-primary);
+}
+
+.form input {
+  font-family: inherit;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 1.6rem;
+  padding-right: 0.5rem;
+}
+
+.form ::placeholder {
+  font-size: 1.4rem;
+}

@@ -1,0 +1,6 @@
+.message p:first-child {
+  font-size: 1.4rem;
+}
+.message p:last-child {
+  font-weight: 500;
+}

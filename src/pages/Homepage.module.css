@@ -1,4 +1,4 @@
-.app {
+.container {
   background-color: var(--bg-light-gray);
   /**TODO: remove height **/
   height: 100vh;
@@ -8,10 +8,10 @@
   grid-template-columns: 24rem 1fr;
 }
 
-.app h1 {
+.container h1 {
   font-weight: 400;
 }
 
-.app p {
+.container p {
   color: var(--secondary-color);
 }
