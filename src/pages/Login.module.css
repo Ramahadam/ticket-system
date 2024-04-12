@@ -1,8 +1,15 @@
-.login {
+.loginPage {
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   width: 48rem;
   background-color: #fff;

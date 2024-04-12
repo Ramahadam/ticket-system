@@ -49,3 +49,17 @@ Border Raduis
 10 px
 15 px
 20 px
+
+//TODO: Project breakdown steps
+
+1. Create fake json server and add data in json format you may refer to Udemy
+2. Create login page and homepage
+3. Create new incident component and add it to the route homepage/newTicket
+   I. The upolad file can be a feature to be implemnted in future
+4. Create a componet for displaying single incident and use the id to get the data you may also use the hook useParams check Udemy video on how to fetch data using useParams.
+   Single incident has 3 internal pages (Tabs).
+   i. Ticket.
+   ii. Attachemnets.
+   iii. Notes.
+
+5. Create users component to dislay users details and also peform curd opetaions on users
