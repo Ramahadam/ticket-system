@@ -62,4 +62,17 @@ Border Raduis
    ii. Attachemnets.
    iii. Notes.
 
-5. Create users component to dislay users details and also peform curd opetaions on users
+5. Create users component to dislay user details and also peform CRUD opetaions on users
+
+## #Tools
+
+1.React component
+2.Props
+3.Custom hooks.
+4.useEffect, useState, useReucer, Context API, useMemo, useParams
+5.Axios api and fetch.
+6.Lazy loading.
+7.Authentication.
+
+TODO:
+Working on redux store specifically in ticketsSlice=> BUG resume

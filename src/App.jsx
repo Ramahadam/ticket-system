@@ -1,26 +1,46 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Homepage from "./pages/Homepage";
-import Login from "./pages/Login";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AppLayout from "./ui/AppLayout";
 
-import TicketList from "./components/TicketsList";
-import TicketCreation from "./components/TicketCreation";
-import PageNotFound from "./pages/PageNotFound";
-import TicketDetails from "./components/TicketDetails";
+import Login from "./ui/Login";
+import TicketsList, {
+	loader as ticketsLoader,
+} from "./features/ticket/TicketsList";
+import DisplayTicket, {
+	loader as ticketLoader,
+} from "./features/ticket/DisplayTicket";
+import NewTicket from "./features/ticket/NewTicket";
+
+const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <AppLayout />,
+		errorElement: <div>Page could not be found go back</div>,
+
+		children: [
+			{
+				index: true,
+				element: <TicketsList />,
+				loader: ticketsLoader,
+			},
+			{
+				path: "/tickets/:id",
+				element: <DisplayTicket />,
+				loader: ticketLoader,
+			},
+			{
+				path: "new",
+				element: <NewTicket />,
+			},
+		],
+	},
+	{
+		path: "/login",
+		element: <Login />,
+	},
+]);
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="homepage" element={<Homepage />}>
-          <Route index element={<TicketList />}></Route>
-          <Route path="newticket" element={<TicketCreation />} />
-          <Route path=":id" element={<TicketDetails />} />
-        </Route>
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </BrowserRouter>
-  );
+	return <RouterProvider router={router} />;
 }
 
 export default App;

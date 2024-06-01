@@ -1,0 +1,93 @@
+.wrapper {
+  background-color: #fff;
+  width: 100%;
+  font-size: 1.4rem;
+  padding: 1.5rem;
+  font-weight: 400;
+  border-radius: 1.5rem;
+  border-collapse: collapse;
+}
+
+.newTicket form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.newTicket h2 {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.newTicket .icon {
+  font-size: 2rem;
+}
+
+.newTicket input,
+.newTicket textarea,
+select {
+  font-size: 1.6rem;
+  font-family: "Fredoka", sans-serif;
+  color: inherit;
+  max-width: 30rem;
+  height: 5rem;
+  outline: none;
+  padding: 1.5rem;
+  border: 1px solid var(--bg-gray);
+  border-radius: 5px;
+  margin-bottom: 2rem;
+}
+
+.newTicket textarea {
+  min-height: 18rem;
+}
+
+.newTicket::placeholder {
+  color: var(--light-gray);
+}
+
+.mandatory::before {
+  content: "*";
+  color: red;
+  font-size: 2rem;
+  display: inline-block;
+}
+
+.newTicket .file {
+  width: 60rem;
+  justify-self: center;
+  grid-column: 1 / span 2;
+  border: 1px dashed var(--bg-gray);
+  padding: 1.5rem;
+  border-radius: 20rem;
+  -webkit-border-radius: 20rem;
+  -moz-border-radius: 20rem;
+  -ms-border-radius: 20rem;
+  -o-border-radius: 20rem;
+  text-align: center;
+}
+
+.fileWrapper label span {
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.newTicket [type="file"] {
+  background-color: red;
+  /* visibility: hidden; */
+  display: none;
+}
+
+.fileWrapper {
+  top: 0;
+  z-index: 999;
+}
+
+.newTicket footer {
+  text-align: center;
+  grid-column: 1 / span 2;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 2rem;
+}

@@ -1,11 +1,13 @@
 .container {
   background-color: var(--bg-light-gray);
   /**TODO: remove height **/
-  height: 100vh;
+  min-height: 100vh;
   max-width: 144rem;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 24rem 1fr;
+
+  position: relative;
 }
 
 .container h1 {
@@ -14,4 +16,15 @@
 
 .container p {
   color: var(--secondary-color);
+}
+
+.overlay::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(200, 200, 200, 0.897);
+  z-index: 99;
 }
