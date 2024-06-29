@@ -1,11 +1,10 @@
-import { useLoaderData, useParams } from "react-router-dom";
 import styles from "./DisplayTicket.module.css";
-import { useTickets } from "../../context/TicketsContext";
-import { useEffect } from "react";
+import { redirect, useLoaderData, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolderOpen } from "@fortawesome/free-solid-svg-icons/faFolderOpen";
 import { faBug } from "@fortawesome/free-solid-svg-icons";
-import { getTicket } from "../../services/apiFetchdata";
+import { getTicket, updateTicketApi } from "../../services/apiFetchdata";
+import { useState } from "react";
 
 function DisplayTicket() {
 	const ticket = useLoaderData();
@@ -22,8 +21,6 @@ function DisplayTicket() {
 				</menu>
 
 				<TicketDetails ticket={ticket} />
-				<TicketNotes />
-				<TicketAttachments />
 			</div>
 		</div>
 	);
@@ -40,11 +37,48 @@ function TicketDetails({ ticket }) {
 		description,
 		solution,
 		notes,
+		status,
 	} = ticket.at(0);
-	console.log(ticket);
-	const status = ["open", "on hold", "in progress", "completed"];
-	const prorities = ["low", "normal", "high"];
 
+	const [formPriority, setFormProiority] = useState(prority);
+	const [formNotes, setFormNotes] = useState(notes);
+	const [formStatus, setFormStatus] = useState(status);
+	const navigate = useNavigate();
+
+	const statusValues = ["open", "on hold", "in progress", "completed"];
+	const prorities = ["low", "normal", "high"];
+	console.log(formPriority);
+
+	function handelFormSubmit(e) {
+		e.preventDefault();
+		console.log("form handle");
+
+		const updatedTicket = {
+			id,
+			client,
+			subject,
+			created,
+			updated: new Date(),
+			prority: formPriority,
+			description,
+			solution,
+			notes: [
+				...notes,
+				{
+					createdBy: "Garbas",
+					createdDate: new Date(),
+					note: formNotes,
+					noteId: Date.now(),
+				},
+			],
+			status: formStatus,
+		};
+
+		updateTicketApi(id, updatedTicket);
+		console.log(updatedTicket);
+
+		navigate(0);
+	}
 	return (
 		<div className={styles.cols}>
 			<div className={styles.leftCol}>
@@ -75,11 +109,17 @@ function TicketDetails({ ticket }) {
 					<p>1 User</p>
 				</div>
 
-				<label htmlFor="status">
-					<strong>Status</strong>
+				<label htmlFor="status ">
+					<strong>Status&nbsp;</strong>
+					<span className="openLable"> {formStatus}</span>
 				</label>
-				<select name="status" id="status">
-					{status.map((stat) => {
+				<select
+					disabled={status === "completed"}
+					name="status"
+					id="status"
+					defaultValue={formStatus}
+					onChange={(e) => setFormStatus(e.target.value)}>
+					{statusValues.map((stat) => {
 						return (
 							<option value={stat} key={stat}>
 								{stat}
@@ -89,12 +129,15 @@ function TicketDetails({ ticket }) {
 				</select>
 
 				<label htmlFor="priority">
-					<strong>Priority</strong>
+					<strong>Priority ({formPriority})</strong>
 				</label>
-				<select name="prority" id="prority">
-					{prorities.map((priority) => {
+				<select
+					disabled={status === "completed"}
+					defaultValue={formPriority}
+					onChange={(e) => setFormProiority(e.target.value)}>
+					{prorities.map((priority, i) => {
 						return (
-							<option value={prority} key={priority}>
+							<option value={priority} key={i}>
 								{priority}
 							</option>
 						);
@@ -124,13 +167,14 @@ function TicketDetails({ ticket }) {
 							  })
 							: ""}
 					</div>
-					<form action="">
+					<form action="" onSubmit={(e) => handelFormSubmit(e)}>
 						<textarea
 							name="conversation"
 							id=""
 							cols="30"
 							rows="10"
-							placeholder="add internal note"></textarea>
+							placeholder="add internal note"
+							onChange={(e) => setFormNotes(e.target.value)}></textarea>
 						<div className={styles.fileWrapper}>
 							<FontAwesomeIcon icon={faFolderOpen} />
 							<label htmlFor="fileInput">
@@ -146,7 +190,9 @@ function TicketDetails({ ticket }) {
 							/>
 						</div>
 
-						<button className="btn btn--primary">Send</button>
+						<button className="btn btn--primary">
+							{status === "completed" ? "Add internal note" : "Update ticket"}
+						</button>
 					</form>
 				</div>
 			</div>
@@ -154,9 +200,9 @@ function TicketDetails({ ticket }) {
 	);
 }
 
-function TicketNotes() {}
+// function TicketNotes() {}
 
-function TicketAttachments() {}
+// function TicketAttachments() {}
 
 export async function loader({ params }) {
 	const ticketId = params.id;

@@ -12,7 +12,6 @@ Colors
 ---
 
 --color-text: #062b4b;
-
 --color-primary: #5e5bff;
 --color-secondary: #007ace;
 --color-accent: #dff0ff;
@@ -76,3 +75,16 @@ Border Raduis
 
 TODO:
 Working on redux store specifically in ticketsSlice=> BUG resume
+Display all tickets.
+Display one ticket details.
+Create ticket.
+update ticket.
+
+TODO:
+Feature: Create users (Admin users are memebers) standard user won't be displayed in memebers group sidebar.
+
+Create user.
+Update user.
+User must have a role.
+Admin users have full rights and can view all tickets.
+Standard user can view his/her ticket only.

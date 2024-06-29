@@ -14,9 +14,16 @@ import { Link, useLoaderData, useNavigation } from "react-router-dom";
 import { getTickets } from "../../services/apiFetchdata";
 import ErrorMessage from "../../ui/Message";
 import { dateDifference } from "../../utils/helper";
+import { useDispatch } from "react-redux";
+import { allTicketsState } from "./ticketSlice";
 
 function TicketsList() {
+	const dispatch = useDispatch();
 	const tickets = useLoaderData();
+
+	//Update the redux state by dispacting actoin.
+	dispatch(allTicketsState(tickets));
+
 	const pageLoadingState = useNavigation();
 	const isLoading = pageLoadingState.state === "loading" ?? "submitting";
 
@@ -81,7 +88,7 @@ function TicketsList() {
 											{ticket.deadline} hours
 										</span>
 									</td>
-									<td data-th="Assignee">{ticket.assginee.name}</td>
+									<td data-th="Assignee">{ticket.assginee?.name}</td>
 									<td data-th="Updated">
 										{dateDifference(ticket.created, ticket.updated)}
 									</td>

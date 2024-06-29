@@ -1,19 +1,10 @@
 import styles from "./Login.module.css";
-import { useNavigate } from "react-router-dom";
 
 function Login() {
-	const navigate = useNavigate();
-
-	function handleSubmit(e) {
-		e.preventDefault();
-		navigate("/");
-		console.log("Login");
-	}
-
 	return (
 		<div className={styles.loginPage}>
 			<div className={styles.login}>
-				<form className={styles.form} onSubmit={handleSubmit}>
+				<form className={styles.form}>
 					<h1>Login </h1>
 
 					<input

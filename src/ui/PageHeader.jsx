@@ -1,5 +1,5 @@
 import Archive from "../features/archive/Archive";
-import CurrentDate from "../utils/CurrentDate";
+import CurrentDate from "./CurrentDate";
 import Filter from "../features/filter/Filter";
 
 import styles from "./PageHeader.module.css";
