@@ -18,6 +18,18 @@
 	--bg-veryLight-gray: rgb(242 242 242);
 }
 
+.error {
+	background-color: var(--light-red);
+	color: var(--color-orange);
+	max-width: fit-content;
+	border-radius: 0.5rem;
+	padding: 0.2rem;
+	-webkit-border-radius: 0.5rem;
+	-moz-border-radius: 0.5rem;
+	-ms-border-radius: 0.5rem;
+	-o-border-radius: 0.5rem;
+}
+
 .openLable {
 	background-color: var(--dark-green);
 	color: var(--light-lim);

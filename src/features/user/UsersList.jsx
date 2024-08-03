@@ -10,20 +10,17 @@ import {
 import UserForm from "./UserForm";
 
 function UsersList() {
-	const { users, isUsersLoading, showUsersForm, handleUserForm, error } =
-		useUsers();
-
 	return (
 		<div className={`container ${styles.users} `}>
-			{isUsersLoading && "Loading..."}
-			{showUsersForm && <UserForm />}
+			{/* {isUsersLoading && "Loading..."}
+			{showUsersForm && <UserForm />} */}
 			<header>
 				<hgroup>
 					<FontAwesomeIcon icon={faClipboardUser} className={styles.icon} />
 					<h2>User details</h2>
 				</hgroup>
 
-				<button className={styles.btnUser} onClick={handleUserForm}>
+				<button className={styles.btnUser}>
 					<FontAwesomeIcon icon={faPen} />
 					<span>Create User</span>
 				</button>

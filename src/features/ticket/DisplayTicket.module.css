@@ -61,11 +61,11 @@ menu .btnTab.active {
 	display: inline-block;
 }
 
-.cols .client {
+.cols .requester {
 	margin-top: -1rem;
 }
 
-.cols .description {
+.cols .summary {
 	margin: 3rem 0;
 }
 

@@ -1,111 +1,108 @@
 import {
 	faCalendarDays,
 	faCheck,
+	faCrown,
 	faHammer,
 	faHand,
 	faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./TicketsList.module.css";
+import { format, formatDistance, formatDistanceToNow } from "date-fns";
 
 import Loader from "../../ui/Loader";
+import { Link } from "react-router-dom";
 
-import { Link, useLoaderData, useNavigation } from "react-router-dom";
-import { getTickets } from "../../services/apiFetchdata";
-import ErrorMessage from "../../ui/Message";
-import { dateDifference } from "../../utils/helper";
-import { useDispatch } from "react-redux";
-import { allTicketsState } from "./ticketSlice";
+// import { dateDifference } from "../../utils/helper";
 
-function TicketsList() {
-	const dispatch = useDispatch();
-	const tickets = useLoaderData();
+/*
+Deadline
+*/
 
-	//Update the redux state by dispacting actoin.
-	dispatch(allTicketsState(tickets));
+function TicketsList({ incidents, isLoading, error }) {
+	if (error) return <div>{error.message}</div>;
 
-	const pageLoadingState = useNavigation();
-	const isLoading = pageLoadingState.state === "loading" ?? "submitting";
-
-	if (!tickets) return <ErrorMessage message="No tickets created yet😢" />;
-
+	if (isLoading) return <Loader />;
 	return (
 		<div className={styles.container}>
-			{isLoading ? (
-				<Loader />
-			) : (
-				<table className={styles["tickets-table"]}>
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Client&#47;Company</th>
-							<th>Subject</th>
-							<th>Status</th>
-							<th>Prority</th>
-							<th>Deadline</th>
-							<th>Assignee</th>
-							<th>Updated</th>
-						</tr>
-					</thead>
-					<tbody>
-						{tickets.map((ticket) => {
-							return (
-								<tr key={ticket.id}>
-									<td data-th="id">
-										<Link to={`/tickets/${ticket.id}`}>&#35;{ticket.id}</Link>
-									</td>
-									<td data-th="Client/Company">
-										<FontAwesomeIcon icon={faUserCircle} />
-										<span>{ticket.client}</span>
-									</td>
-									<td data-th="Subject">{ticket.subject}</td>
-									<td data-th="Status">
-										{ticket.status.toLowerCase().includes("open") && (
-											<FontAwesomeIcon icon={faCalendarDays} />
-										)}
-										{ticket.status.toLowerCase().includes("completed") && (
-											<FontAwesomeIcon icon={faCheck} />
-										)}
-										{ticket.status.toLowerCase().includes("progress") && (
-											<FontAwesomeIcon icon={faHammer} />
-										)}
-										{ticket.status.toLowerCase().includes("hold") && (
-											<FontAwesomeIcon icon={faHand} />
-										)}
+			{}
+			<table className={styles["tickets-table"]}>
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Client&#47;Company</th>
+						<th>Subject</th>
+						<th>Status</th>
+						<th>Prority</th>
+						<th>Deadline</th>
+						<th>Assignee</th>
+						<th>Updated</th>
+					</tr>
+				</thead>
+				<tbody>
+					{incidents?.map((incident) => {
+						return (
+							<tr key={incident.id}>
+								<td data-th="id">
+									<Link to={`${incident.id}`}>&#35;{incident.id}</Link>
+								</td>
+								<td data-th="Client/Company">
+									<FontAwesomeIcon icon={faUserCircle} />
+									<span>{incident.requester}</span>
+								</td>
+								<td data-th="Subject">{incident.subject}</td>
+								<td data-th="Status">
+									{incident.status.toLowerCase().includes("loged") && (
+										<FontAwesomeIcon icon={faCalendarDays} />
+									)}
+									{incident.status.toLowerCase().includes("fulfiled") && (
+										<FontAwesomeIcon icon={faCheck} />
+									)}
+									{incident.status.toLowerCase().includes("progress") && (
+										<FontAwesomeIcon icon={faHammer} />
+									)}
+									{incident.status.toLowerCase().includes("hold") && (
+										<FontAwesomeIcon icon={faHand} />
+									)}
 
-										<span>{ticket.status}</span>
-									</td>
-									<td data-th="Prority">{ticket.prority} </td>
-									<td data-th="Deadline">
-										<span
-											className={`${
-												ticket.deadline <= 1
-													? styles["high"]
-													: ticket.deadline <= 4
-													? styles["normal"]
-													: styles["low"]
-											}`}>
-											{ticket.deadline} hours
-										</span>
-									</td>
-									<td data-th="Assignee">{ticket.assginee?.name}</td>
-									<td data-th="Updated">
-										{dateDifference(ticket.created, ticket.updated)}
-									</td>
-								</tr>
-							);
-						})}
-					</tbody>
-				</table>
-			)}
+									<span>{incident.status}</span>
+								</td>
+								<td data-th="Prority">
+									<span>{incident.priority === 1 && "High"}</span>
+									<span>{incident.priority === 2 && "Meduim"}</span>
+									<span>{incident.priority === 3 && "Normal"}</span>
+									<span>{incident.priority === 4 && "Low"}</span>
+									<span className={styles.high}>
+										{incident.priority === 1 && (
+											<FontAwesomeIcon icon={faCrown} />
+										)}
+									</span>
+								</td>
+								<td data-th="Deadline">
+									<span
+										className={`${
+											incident?.deadline <= 1
+												? styles["high"]
+												: incident?.deadline <= 4
+												? styles["normal"]
+												: styles["low"]
+										}`}>
+										{incident.deadline &&
+											format(incident?.deadline, "MM/dd/yyyy hh:mm")}
+									</span>
+								</td>
+								<td data-th="Assignee">{incident?.engineer}</td>
+								<td data-th="Updated">
+									{incident?.lastUpdate &&
+										formatDistanceToNow(incident.lastUpdate)}
+								</td>
+							</tr>
+						);
+					})}
+				</tbody>
+			</table>
 		</div>
 	);
-}
-
-export async function loader() {
-	const tickets = await getTickets();
-
-	return tickets;
 }
 
 export default TicketsList;

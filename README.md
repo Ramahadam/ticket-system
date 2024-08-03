@@ -88,3 +88,9 @@ Update user.
 User must have a role.
 Admin users have full rights and can view all tickets.
 Standard user can view his/her ticket only.
+
+React icons
+Componnent style
+React hot-toast for notification
+React form
+Supabase for backend
