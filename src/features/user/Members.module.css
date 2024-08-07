@@ -1,0 +1,12 @@
+.members {
+	padding: 0.5rem 1rem;
+}
+
+.members li {
+	font-weight: 400;
+	margin-bottom: 1rem;
+}
+
+.members span {
+	margin-left: 1rem;
+}

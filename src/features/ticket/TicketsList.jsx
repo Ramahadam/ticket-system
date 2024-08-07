@@ -8,16 +8,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./TicketsList.module.css";
-import { format, formatDistance, formatDistanceToNow } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 
 import Loader from "../../ui/Loader";
 import { Link } from "react-router-dom";
-
-// import { dateDifference } from "../../utils/helper";
-
-/*
-Deadline
-*/
 
 function TicketsList({ incidents, isLoading, error }) {
 	if (error) return <div>{error.message}</div>;

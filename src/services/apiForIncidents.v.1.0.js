@@ -35,18 +35,9 @@ export async function deleteIncident(id) {
 }
 
 export async function updateIncident(incident, editId) {
-	//Fetch incident and update the notes before updating column since it will be overwritten
-	const incidentEdit = await getIncident(editId);
-	const fetchedNotes = incidentEdit?.at(0).notes;
-
 	const { data, error } = await supabase
 		.from("incidents")
-		.update({
-			...incident,
-			notes: fetchedNotes
-				? [...fetchedNotes, incident.notes.at(0)]
-				: incident.notes,
-		})
+		.update(incident)
 		.eq("id", editId)
 		.select();
 
@@ -55,6 +46,7 @@ export async function updateIncident(incident, editId) {
 		throw new Error("Could't load incident data");
 	}
 
+	console.log(data);
 	return data;
 }
 

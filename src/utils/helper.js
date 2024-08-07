@@ -24,8 +24,13 @@ export function createNotes(data, uniqID) {
 			noteId: uniqID,
 			noteValue: data.notes,
 			createBy: data.engineer,
+			createdAt: new Date(),
 		},
 	];
 
 	return notes;
+}
+
+export function replaceFileFormats(str) {
+	return str.replace(/\b(.pdf|.jpg|.jpeg)\b/gi, "");
 }

@@ -2,9 +2,6 @@ import { useForm } from "react-hook-form";
 import styles from "./FormCreateUpdate.module.css";
 import { calcualteDeadline, createNotes } from "../utils/helper";
 import { useId as generateUniqID } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateIncident as updateIncidentAPI } from "../services/apiForIncidents";
-import toast from "react-hot-toast";
 import Loader from "./Loader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
@@ -24,7 +21,9 @@ function FormCreateUpdate({ createIncident, ticket = {} }) {
 		formState: { errors },
 		getValues,
 		reset,
-	} = useForm({ defaultValues: isUpdateSession ? editValues : {} });
+	} = useForm({
+		defaultValues: isUpdateSession ? { ...editValues, notes: "" } : {},
+	});
 
 	function handleForm(data) {
 		if (!data) return;
@@ -210,7 +209,7 @@ function FormCreateUpdate({ createIncident, ticket = {} }) {
 				</p>
 				<p>
 					<label htmlFor="notes">Add internal note</label>
-					<textarea id="" {...register("notes")}></textarea>
+					<textarea id="" {...register("notes")} />
 				</p>
 			</div>
 

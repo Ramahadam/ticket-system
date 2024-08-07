@@ -8,71 +8,80 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./Sidebar.module.css";
+import { useIncidents } from "../features/ticket/useIncidents";
+import { Members } from "../features/user/Members";
 
 function Sidebar() {
+	const { isLoading, error, incidents } = useIncidents();
+
 	return (
 		<aside className={styles.sidebar}>
 			<Logo />
 			{/**TODO: Hide tickets and memebers if there is no tickets */}
-			<Tickets />
-			<Members />
+			{!isLoading ? (
+				<>
+					<Tickets incidents={incidents} />
+					<Members />
+				</>
+			) : (
+				""
+			)}
 		</aside>
 	);
 }
 
-function Tickets() {
+function Tickets({ incidents }) {
+	console.log(incidents);
+
+	const loggedIncidents = incidents.filter(
+		(incident) => incident.status === "loged"
+	).length;
+
+	const progressIncidents = incidents.filter(
+		(incident) => incident.status === "progress"
+	).length;
+
+	const holdIncidents = incidents.filter(
+		(incident) => incident.status === "hold"
+	).length;
+
+	const closedIncidents = incidents.filter(
+		(incident) => incident.status === "fulfiled"
+	).length;
+
 	return (
 		<nav className={styles.tickets}>
-			<h2>Support</h2>
+			<h2>Incidents report</h2>
 
 			<ul>
 				<li className="active">
 					<div>
 						<FontAwesomeIcon icon={faEnvelopeOpenText} />
-						<span>Open</span>
+						<span>Logged</span>
 					</div>
-					<span>12</span>
+					<span>{loggedIncidents}</span>
 				</li>
 				<li>
 					<div>
 						<FontAwesomeIcon icon={faClock} />
-						<span>Pending</span>
+						<span>In-progress</span>
 					</div>
-					<span>15</span>
+					<span>{progressIncidents}</span>
+				</li>
+				<li>
+					<div>
+						<FontAwesomeIcon icon={faClock} />
+						<span>On-hold</span>
+					</div>
+					<span>{holdIncidents}</span>
 				</li>
 				<li>
 					<div>
 						<FontAwesomeIcon icon={faBox} />
 
-						<span>Closed</span>
+						<span>Closed </span>
 					</div>
-					<span>11</span>
-				</li>
-			</ul>
-		</nav>
-	);
-}
-
-function Members() {
-	return (
-		<nav className={styles.members}>
-			<h2>Members</h2>
-			<ul>
-				<li>
-					<FontAwesomeIcon icon={faUserCircle} />
-					<span>Mirza Kashi</span>
-				</li>
-				<li>
-					<FontAwesomeIcon icon={faUserCircle} />
-					<span>Khalid Garbas</span>
-				</li>
-				<li>
-					<FontAwesomeIcon icon={faUserCircle} />
-					<span>Gazi Mohamed </span>
-				</li>
-				<li>
-					<FontAwesomeIcon icon={faUserCircle} />
-					<span>Mohamed Adam </span>
+					<span>{closedIncidents}</span>
 				</li>
 			</ul>
 		</nav>
