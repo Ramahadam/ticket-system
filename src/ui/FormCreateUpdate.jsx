@@ -146,28 +146,6 @@ function FormCreateUpdate({ createIncident, ticket = {} }) {
 					</span>
 				</p>
 
-				{/* <p>
-					<label htmlFor="category" className={styles.mandatory}>
-						category
-					</label>
-					<select name="category" id="" onChange={onChangeCategory}>
-						{Object.keys(categories).map((category) => (
-							<option value={category} key={category}>
-								{category}
-							</option>
-						))}
-					</select>
-
-					<label htmlFor="subCategory" className={styles.mandatory}>
-						Sub-category
-					</label>
-					<select name="subCategory" id="">
-						<option value="powerBi">Power Bi</option>
-						<option value="adobePhotosh">Photoshob</option>
-						<option value="adobe">ilustrator</option>
-					</select>
-				</p>
-
 				<p>
 					<label htmlFor="impact" className={styles.mandatory}>
 						Affected users
@@ -184,7 +162,7 @@ function FormCreateUpdate({ createIncident, ticket = {} }) {
 					<span className="error">
 						{errors["impact"]?.message && errors["impact"]?.message}
 					</span>
-				</p> */}
+				</p>
 			</div>
 
 			<div>

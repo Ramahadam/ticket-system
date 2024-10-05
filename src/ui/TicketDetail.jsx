@@ -33,11 +33,11 @@ function TicketDetail({ ticket, isLoadingTicket }) {
 				{isLoadingTicket ? (
 					<Loader />
 				) : (
-					<menu>
+					<div>
 						{activeTab === 0 && <FormCreateUpdate ticket={ticket?.[0]} />}
 						{activeTab === 1 && <TicketAttachments ticket={ticket} />}
 						{activeTab === 2 && <TicketNotes ticket={ticket} />}
-					</menu>
+					</div>
 				)}
 			</div>
 		</div>

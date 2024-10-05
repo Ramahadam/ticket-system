@@ -9,7 +9,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format, formatDistanceToNow } from "date-fns";
 import { Link } from "react-router-dom";
-import styles from "./IncidentRow.module.css";
 import { convertPriorityToString } from "../../utils/helper";
 
 function IncidentRow({ incident }) {
@@ -51,10 +50,10 @@ function IncidentRow({ incident }) {
 				<span>{status}</span>
 			</td>
 			<td data-th="Priority">
-				<span className={`${styles[convertPriorityToString(priority)]}`}>
+				<span className={`${convertPriorityToString(priority)}`}>
 					{convertPriorityToString(priority)}
 				</span>
-				<span className={`${styles[convertPriorityToString(priority)]}`}>
+				<span className={`${convertPriorityToString(priority)}`}>
 					{convertPriorityToString(priority) === "high" && (
 						<FontAwesomeIcon icon={faCrown} />
 					)}
