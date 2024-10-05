@@ -5,9 +5,12 @@ import { useId as generateUniqID } from "react";
 import Loader from "./Loader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
-import useUpdateIncident from "../features/ticket/useUpdateIncident";
+import useUpdateIncident from "../features/incidents/useUpdateIncident";
+import { useNavigate } from "react-router-dom";
 
 function FormCreateUpdate({ createIncident, ticket = {} }) {
+	const navigate = useNavigate();
+
 	const { id: editId, ...editValues } = ticket;
 	const isUpdateSession = Boolean(editId);
 
@@ -142,6 +145,29 @@ function FormCreateUpdate({ createIncident, ticket = {} }) {
 						{errors["status"]?.message && errors["status"]?.message}
 					</span>
 				</p>
+
+				{/* <p>
+					<label htmlFor="category" className={styles.mandatory}>
+						category
+					</label>
+					<select name="category" id="" onChange={onChangeCategory}>
+						{Object.keys(categories).map((category) => (
+							<option value={category} key={category}>
+								{category}
+							</option>
+						))}
+					</select>
+
+					<label htmlFor="subCategory" className={styles.mandatory}>
+						Sub-category
+					</label>
+					<select name="subCategory" id="">
+						<option value="powerBi">Power Bi</option>
+						<option value="adobePhotosh">Photoshob</option>
+						<option value="adobe">ilustrator</option>
+					</select>
+				</p>
+
 				<p>
 					<label htmlFor="impact" className={styles.mandatory}>
 						Affected users
@@ -158,7 +184,7 @@ function FormCreateUpdate({ createIncident, ticket = {} }) {
 					<span className="error">
 						{errors["impact"]?.message && errors["impact"]?.message}
 					</span>
-				</p>
+				</p> */}
 			</div>
 
 			<div>
@@ -232,7 +258,7 @@ function FormCreateUpdate({ createIncident, ticket = {} }) {
 			<footer>
 				<input type="submit" className="btn btn--primary" value="Submit" />
 
-				<a to="/" className="btn btn--rounded">
+				<a onClick={() => navigate(-1)} to="/" className="btn btn--rounded">
 					Cancle
 				</a>
 			</footer>

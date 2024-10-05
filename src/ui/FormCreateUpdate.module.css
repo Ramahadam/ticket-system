@@ -83,3 +83,8 @@ select {
 	margin-right: 2rem !important;
 	color: #fff;
 }
+
+.createUpdate p {
+	display: flex;
+	flex-direction: column;
+}

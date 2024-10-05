@@ -74,6 +74,10 @@ Border Raduis
 7.Authentication.
 
 TODO:
+Add cancle incident, service request and change reqeust feature
+once the ticket is canceled the status will change to cancel and ticket cannot be reopen again.
+
+TODO:
 Working on redux store specifically in ticketsSlice=> BUG resume
 Display all tickets.
 Display one ticket details.
@@ -94,3 +98,47 @@ Componnent style
 React hot-toast for notification
 React form
 Supabase for backend
+
+---
+
+## Features
+
+1.  # Incidents
+2.  # Service requests
+3.  # Change requests
+4.  # Users
+5.  # Settings
+
+## Pages
+
+1.  # Dashboard
+2.  # Incidents
+3.  # Service requests
+4.  # Change requests
+5.  # Settings
+6.  # Users
+7.  # Login
+8.  # Page not found
+
+## Technologies
+
+1.  # React Js
+1.  # CSS modules
+1.  # React Router
+1.  # React Query
+1.  # React Form Hook
+1.  # React Toast notification
+1.  # React date ns
+1.  # Supabase
+
+Incidents operation
+Create
+Update
+Delete
+Filter
+Sort
+
+Create table settings, all the incidents and service request field should be in there
+this will make the modification very easy
+settings
+incidents - service request.

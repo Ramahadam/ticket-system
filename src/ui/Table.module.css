@@ -1,0 +1,59 @@
+/* Table.module.css */
+.table {
+	table-layout: auto;
+	background-color: #fff;
+	width: 100%;
+	font-size: 1.4rem;
+	padding: 1.5rem;
+	font-weight: 400;
+	border-radius: 1.5rem;
+	border-collapse: collapse;
+	-webkit-border-radius: 1.5rem;
+	-moz-border-radius: 1.5rem;
+	-ms-border-radius: 1.5rem;
+	-o-border-radius: 1.5rem;
+}
+
+.table :global(th) {
+	font-weight: 500;
+	text-align: left;
+}
+
+.table :global(thead th) {
+	padding: 1rem;
+	position: relative;
+}
+
+.table :global(thead th div) {
+	display: flex;
+	align-items: center;
+	column-gap: 0.2rem;
+}
+
+.table :global(tr) {
+	border: 1px solid var(--bg-gray);
+}
+
+.table :global(tr td:not(:last-child)),
+.table :global(thead th:not(:last-child)) {
+	padding: 1rem;
+	border-right: 1px solid var(--bg-gray);
+}
+
+.table :global(.normal) {
+	background-color: var(--light-lim);
+	color: var(--dark-green);
+	font-weight: 500;
+}
+
+.table :global(.low) {
+	background-color: var(--bg-light-gray);
+	color: var(--dark-gray);
+	font-weight: 500;
+}
+
+.table :global(.high) {
+	background-color: var(--light-red);
+	color: var(--color-orange);
+	font-weight: 500;
+}
