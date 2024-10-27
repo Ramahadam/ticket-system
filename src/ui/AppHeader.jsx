@@ -1,6 +1,6 @@
-import User from "../features/user/User";
+import User from "../features/authentication/User";
 import styles from "./AppHeader.module.css";
-import Search from "../features/search/Search";
+import Search from "./Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSun, faUserGear } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";

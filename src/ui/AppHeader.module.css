@@ -1,40 +1,40 @@
 .header {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: baseline;
-  justify-content: start;
-  height: fit-content;
-  padding: 1.7rem;
-  border-bottom: 2px solid var(--bg-gray);
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	align-items: baseline;
+	justify-content: start;
+	height: fit-content;
+	padding: 1.7rem;
+	border-bottom: 2px solid var(--bg-gray);
 }
 
 .actions {
-  justify-self: end;
+	justify-self: end;
 
-  display: flex;
-  column-gap: 2rem;
-  font-size: 2rem;
+	display: flex;
+	column-gap: 2rem;
+	font-size: 2rem;
 }
 
 .notification {
-  position: relative;
+	position: relative;
 }
 
 .numMessages {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 10px;
-  width: 15px;
-  height: 15px;
-  background: var(--color-orange);
-  color: white;
-  font-weight: 600;
-  font-size: 1.2rem;
-  text-align: center;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 10px;
+	width: 15px;
+	height: 15px;
+	background: var(--color-orange);
+	color: white;
+	font-weight: 600;
+	font-size: 1.2rem;
+	text-align: center;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
 }
