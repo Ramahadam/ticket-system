@@ -13,39 +13,51 @@ export default function NavigationMenu({ styles }) {
 	return (
 		<nav className={styles.tickets}>
 			<ul>
-				<li className="active">
-					<NavLink to="/">
+				<li>
+					<NavLink
+						className={({ isActive }) => (isActive ? styles.active : "")}
+						to="/dashboard">
 						<FontAwesomeIcon icon={faChartLine} />
 						<span>Dasboard</span>
 					</NavLink>
 				</li>
-				<li className="">
-					<NavLink to="/incidents">
+				<li>
+					<NavLink
+						to="/incidents"
+						className={({ isActive }) => (isActive ? styles.active : "")}>
 						<FontAwesomeIcon icon={faBug} />
 						<span>Incidents</span>
 					</NavLink>
 				</li>
 
 				<li>
-					<NavLink to="/requests">
+					<NavLink
+						to="/requests"
+						className={({ isActive }) => (isActive ? styles.active : "")}>
 						<FontAwesomeIcon icon={faTruckArrowRight} />
 						<span>Service requests</span>
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to="/changes">
+					<NavLink
+						to="/changes"
+						className={({ isActive }) => (isActive ? styles.active : "")}>
 						<FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter} />
 						<span>Change requests</span>
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to="/users">
+					<NavLink
+						to="/users"
+						className={({ isActive }) => (isActive ? styles.active : "")}>
 						<FontAwesomeIcon icon={faUsers} />
 						<span>Users</span>
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to="/settings">
+					<NavLink
+						to="/settings"
+						className={({ isActive }) => (isActive ? styles.active : "")}>
 						<FontAwesomeIcon icon={faGear} />
 						<span>Settings</span>
 					</NavLink>

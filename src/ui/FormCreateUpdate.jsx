@@ -144,6 +144,7 @@ function FormCreateUpdate({
 						{errors["status"]?.message && errors["status"]?.message}
 					</span>
 				</p>
+
 				<p>
 					{tableName !== "requests" && (
 						<>
@@ -238,6 +239,7 @@ function FormCreateUpdate({
 			<footer>
 				<input type="submit" className="btn btn--primary" value="Submit" />
 
+				<a onClick={() => navigate(-1)} to="/" className="btn btn--rounded">
 				<a onClick={() => navigate(-1)} to="/" className="btn btn--rounded">
 					Cancle
 				</a>

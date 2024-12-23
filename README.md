@@ -92,6 +92,10 @@ Add cancle incident, service request and change reqeust feature
 once the ticket is canceled the status will change to cancel and ticket cannot be reopen again.
 
 TODO:
+Add cancle incident, service request and change reqeust feature
+once the ticket is canceled the status will change to cancel and ticket cannot be reopen again.
+
+TODO:
 Working on redux store specifically in ticketsSlice=> BUG resume
 Display all tickets.
 Display one ticket details.
