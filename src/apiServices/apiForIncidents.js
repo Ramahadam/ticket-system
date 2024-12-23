@@ -16,7 +16,7 @@ export async function getIncidents({ filterByStatus, columnName, sortBy }) {
 
 	if (error) {
 		console.error(error.message);
-		throw new Error(`Could\t load incidents data ${error.message}`);
+		throw new Error(`Couldn't load incidents data ${error.message}`);
 	}
 
 	return incidents;
@@ -30,7 +30,7 @@ export async function getIncident(id) {
 
 	if (error) {
 		console.error(error);
-		throw new Error("Could't load incidents data");
+		throw new Error("Couldn't load incident data");
 	}
 
 	return incident;
@@ -41,7 +41,7 @@ export async function deleteIncident(id) {
 
 	if (error) {
 		console.error(error);
-		throw new Error("Could\t load incidents data");
+		throw new Error("Couldn't load incidents data");
 	}
 }
 
@@ -63,7 +63,7 @@ export async function updateIncident(incident, editId) {
 
 	if (error) {
 		console.error(error);
-		throw new Error("Could't load incident data");
+		throw new Error("Couldn't load incident data");
 	}
 
 	return data;
@@ -104,7 +104,7 @@ export async function createIncident(incident) {
 
 	const { data, error } = query;
 
-	if (error) throw new Error("Could not create incident");
+	if (error) throw new Error("Could not create incident due to an error");
 
 	return data[0].id;
 }
