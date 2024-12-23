@@ -1,30 +1,21 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Toaster } from "react-hot-toast";
 
 import AppLayout from "./ui/AppLayout";
 import Dashboard from "../src/pages/Dashboard";
 import PageNotFound from "./pages/PageNotFound";
 import Login from "./pages/Login";
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "react-hot-toast";
 import NewIncident from "./features/incidents/NewIncident";
 import Incidents from "./pages/Incidents";
-import Incident from "./features/incidents/Incident";
-
-import ServiceRequestDetail from "./features/serviceRequests/ServiceRequestDetail";
-import ServiceRequestNew from "./features/serviceRequests/ServiceRequestNew";
-import ServiceRequests from "./pages/ServiceRequests";
-
+import ServiceRequests from "./pages/ServiceReqeusts";
 import ChangeRequests from "./pages/ChangeRequests";
-import ChangeRequestsDetail from "./features/changeRequests/ChangeRequestDetail";
-import ChangeRequestNew from "./features/changeRequests/ChangeRequestNew";
-
 import Users from "./pages/Users";
 import Settings from "./pages/Settings";
+import Incident from "./features/incidents/Incident";
 
 import { FilterProvider } from "./Context/FilterContext";
-import TicketLayout from "./ui/TicketLayout";
 // Create a client
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -44,23 +35,13 @@ function App() {
 						<Route element={<AppLayout />}>
 							<Route index element={<Navigate replace to="dashboard" />} />
 							<Route path="dashboard" element={<Dashboard />} />
-
-							<Route path="incidents" element={<TicketLayout />}>
+							<Route path="incidents">
 								<Route index element={<Incidents />} />
-								<Route path=":id" element={<Incident />} />
-								<Route path="new" element={<NewIncident />} />
+								<Route path="incidents/:id" element={<Incident />} />
+								<Route path="newIncident" element={<NewIncident />} />
 							</Route>
-
-							<Route path="requests" element={<TicketLayout />}>
-								<Route index element={<ServiceRequests />} />
-								<Route path=":id" element={<ServiceRequestDetail />} />
-								<Route path="new" element={<ServiceRequestNew />} />
-							</Route>
-							<Route path="changes" element={<TicketLayout />}>
-								<Route index element={<ChangeRequests />} />
-								<Route path=":id" element={<ChangeRequestsDetail />} />
-								<Route path="new" element={<ChangeRequestNew />} />
-							</Route>
+							<Route path="services" element={<ServiceRequests />} />
+							<Route path="changes" element={<ChangeRequests />} />
 							<Route path="users" element={<Users />} />
 							<Route path="settings" element={<Settings />} />
 						</Route>

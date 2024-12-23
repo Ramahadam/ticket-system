@@ -8,7 +8,6 @@ export function calcualteDeadline(priority) {
 	 *
 	 * const result3 = addDays(new Date(2014, 8, 1), 10);
 	 */
-	console.log(typeof priority);
 
 	const currentDate = new Date();
 

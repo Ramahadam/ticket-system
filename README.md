@@ -1,5 +1,19 @@
 # React + Vite
 
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
@@ -74,6 +88,10 @@ Border Raduis
 7.Authentication.
 
 TODO:
+Add cancle incident, service request and change reqeust feature
+once the ticket is canceled the status will change to cancel and ticket cannot be reopen again.
+
+TODO:
 Working on redux store specifically in ticketsSlice=> BUG resume
 Display all tickets.
 Display one ticket details.
@@ -94,3 +112,42 @@ Componnent style
 React hot-toast for notification
 React form
 Supabase for backend
+
+---
+
+## Features
+
+1.  # Incidents
+2.  # Service requests
+3.  # Change requests
+4.  # Users
+5.  # Settings
+
+## Pages
+
+1.  # Dashboard
+2.  # Incidents
+3.  # Service requests
+4.  # Change requests
+5.  # Settings
+6.  # Users
+7.  # Login
+8.  # Page not found
+
+## Technologies
+
+1.  # React Js
+1.  # CSS modules
+1.  # React Router
+1.  # React Query
+1.  # React Form Hook
+1.  # React Toast notification
+1.  # React date ns
+1.  # Supabase
+
+Incidents operation
+Create
+Update
+Delete
+Filter
+Sort

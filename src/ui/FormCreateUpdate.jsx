@@ -5,15 +5,21 @@ import { useId as generateUniqID } from "react";
 import Loader from "./Loader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
-import useUpdateIncident from "../features/ticket/useUpdateIncident";
+import { useNavigate } from "react-router-dom";
 
-function FormCreateUpdate({ createIncident, ticket = {} }) {
+function FormCreateUpdate({
+	createTicket,
+	updateTicket,
+	isLoading,
+	ticket = {},
+	tableName,
+}) {
+	const navigate = useNavigate();
+
 	const { id: editId, ...editValues } = ticket;
 	const isUpdateSession = Boolean(editId);
 
 	const uniqID = generateUniqID();
-
-	const { updateIncident, isPending } = useUpdateIncident();
 
 	const {
 		register,
@@ -33,9 +39,9 @@ function FormCreateUpdate({ createIncident, ticket = {} }) {
 
 		//Update ticket
 		if (editId) {
+			reset(data);
 			const ticket = { ...data, notes, lastUpdate };
-			console.log(ticket, editId);
-			updateIncident({ ticket, editId });
+			updateTicket({ ticket, editId });
 		}
 
 		//Create ticket
@@ -49,15 +55,11 @@ function FormCreateUpdate({ createIncident, ticket = {} }) {
 				deadline: calcualteDeadline(Number(data.priority)),
 			};
 
-			console.log(ticket);
-			createIncident(ticket);
-
-			reset();
-			// navigate(`/dashboard/${}`)
+			createTicket(ticket);
 		}
 	}
 
-	if (isPending) return <Loader />;
+	if (isLoading) return <Loader />;
 
 	return (
 		<form onSubmit={handleSubmit(handleForm)} className={styles.createUpdate}>
@@ -143,21 +145,25 @@ function FormCreateUpdate({ createIncident, ticket = {} }) {
 					</span>
 				</p>
 				<p>
-					<label htmlFor="impact" className={styles.mandatory}>
-						Affected users
-					</label>
-					<select
-						defaultValue={getValues().impact}
-						{...register("impact", {
-							required: "This feild is required.",
-						})}>
-						<option value="one">1 User</option>
-						<option value="tow">2 users</option>
-						<option value="many">Many users</option>
-					</select>{" "}
-					<span className="error">
-						{errors["impact"]?.message && errors["impact"]?.message}
-					</span>
+					{tableName !== "requests" && (
+						<>
+							<label htmlFor="impact" className={styles.mandatory}>
+								Affected users
+							</label>
+							<select
+								defaultValue={getValues().impact}
+								{...register("impact", {
+									required: "This feild is required.",
+								})}>
+								<option value="one">1 User</option>
+								<option value="tow">2 users</option>
+								<option value="many">Many users</option>
+							</select>
+							<span className="error">
+								{errors["impact"]?.message && errors["impact"]?.message}
+							</span>
+						</>
+					)}
 				</p>
 			</div>
 
@@ -232,7 +238,7 @@ function FormCreateUpdate({ createIncident, ticket = {} }) {
 			<footer>
 				<input type="submit" className="btn btn--primary" value="Submit" />
 
-				<a to="/" className="btn btn--rounded">
+				<a onClick={() => navigate(-1)} to="/" className="btn btn--rounded">
 					Cancle
 				</a>
 			</footer>

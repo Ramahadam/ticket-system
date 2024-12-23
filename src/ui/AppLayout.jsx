@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
 import styles from "./AppLayout.module.css";
-import { Sidebar } from "./Sidebar";
+import Sidebar from "./Sidebar";
 import AppHeader from "./AppHeader";
-import PageHeader from "./PageHeader";
+// import PageHeader from "./PageHeader";
 
 function AppLayout() {
 	return (
@@ -10,7 +10,6 @@ function AppLayout() {
 			<Sidebar />
 			<main>
 				<AppHeader />
-				<PageHeader />
 				<Outlet />
 			</main>
 		</div>
