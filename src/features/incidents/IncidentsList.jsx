@@ -1,7 +1,7 @@
 import Loader from "../../ui/Loader";
 import { useIncidents } from "./useIncidents";
+import Table from "../../ui/Table";
 import ErrorMessage from "../../ui/ErrorMessage";
-import IncidentTable from "./IncidentTable";
 
 function IncidentsList() {
 	const { isLoading, error, incidents } = useIncidents();
@@ -12,7 +12,7 @@ function IncidentsList() {
 
 	return (
 		<div className="container">
-			<IncidentTable incidents={incidents} />
+			<Table data={incidents} />
 		</div>
 	);
 }

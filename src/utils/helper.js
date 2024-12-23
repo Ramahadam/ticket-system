@@ -33,13 +33,3 @@ export function createNotes(data, uniqID) {
 export function replaceFileFormats(str) {
 	return str.replace(/\b(.pdf|.jpg|.jpeg)\b/gi, "");
 }
-
-export function convertPriorityToString(priority) {
-	const priorityMap = {
-		1: "high",
-		3: "medium",
-		4: "low",
-	};
-
-	return priorityMap[priority] || "Unknown";
-}

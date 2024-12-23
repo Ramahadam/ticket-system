@@ -44,24 +44,3 @@ ul {
 	margin-left: 1rem;
 	font-size: 1.8rem;
 }
-
-a.active {
-	/* width: 100%; */
-	background-color: var(--color-accent);
-	color: var(--color-secondary);
-}
-
-li:has(a.active) {
-	background-color: var(--color-accent);
-	color: var(--color-secondary);
-	transform: translateX(1rem);
-	-webkit-transform: translateX(1rem);
-	-moz-transform: translateX(1rem);
-	-ms-transform: translateX(1rem);
-	-o-transform: translateX(1rem);
-	transition: all 300ms ease-in-out;
-	-webkit-transition: all 300ms ease-in-out;
-	-moz-transition: all 300ms ease-in-out;
-	-ms-transition: all 300ms ease-in-out;
-	-o-transition: all 300ms ease-in-out;
-}

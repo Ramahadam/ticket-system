@@ -1,19 +1,5 @@
 # React + Vite
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-
-
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
@@ -86,10 +72,6 @@ Border Raduis
 5.Axios api and fetch.
 6.Lazy loading.
 7.Authentication.
-
-TODO:
-Add cancle incident, service request and change reqeust feature
-once the ticket is canceled the status will change to cancel and ticket cannot be reopen again.
 
 TODO:
 Add cancle incident, service request and change reqeust feature
