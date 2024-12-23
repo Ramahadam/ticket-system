@@ -94,11 +94,6 @@ User must have a role.
 Admin users have full rights and can view all tickets.
 Standard user can view his/her ticket only.
 
-React icons
-Componnent style
-React hot-toast for notification
-React form
-Supabase for backend
 
 ---
 
@@ -132,9 +127,3 @@ Supabase for backend
 1.  # React date ns
 1.  # Supabase
 
-Incidents operation
-Create
-Update
-Delete
-Filter
-Sort
