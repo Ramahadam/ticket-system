@@ -1,30 +1,30 @@
 import { supabase } from "./supabase";
 
-export async function getServiceRequests() {
-	let query = supabase.from("service_requests").select("*");
+export async function getChangeRequests() {
+	let query = supabase.from("change_requests").select("*");
 
-	const { data: serviceRequests, error } = await query;
+	const { data: changeRequests, error } = await query;
 
 	if (error) {
 		console.error(error.message);
-		throw new Error(`Couldn't load service requests data ${error.message}`);
+		throw new Error(`Couldn't load change requests data ${error.message}`);
 	}
 
-	return serviceRequests;
+	return changeRequests;
 }
 
-export async function getServiceRequest(id) {
-	let { data: serviceRequest, error } = await supabase
-		.from("service_requests")
+export async function getChangeRequest(id) {
+	let { data: changeRequest, error } = await supabase
+		.from("change_requests")
 		.select("*")
 		.eq("id", id);
 
 	if (error) {
 		console.error(error);
-		throw new Error("Could't load service requests data");
+		throw new Error("Could't load Change requests data");
 	}
 
-	return serviceRequest;
+	return changeRequest;
 }
 
 // export async function createIncident(incident) {
@@ -77,13 +77,13 @@ export async function getServiceRequest(id) {
 // 	}
 // }
 
-export async function updateServiceReqeust(reqeust, editId) {
-	//Fetch service reqeust and update the notes before updating column since it will be overwritten
-	const serviceReqeustEdit = await getServiceRequest(editId);
-	const fetchedNotes = serviceReqeustEdit?.at(0).notes;
+export async function updateChangeReqeust(reqeust, editId) {
+	//Fetch Change reqeust and update the notes before updating column since it will be overwritten
+	const changeReqeustEdit = await getChangeRequest(editId);
+	const fetchedNotes = changeReqeustEdit?.at(0).notes;
 
 	const { data, error } = await supabase
-		.from("service_requests")
+		.from("change_requests")
 		.update({
 			...reqeust,
 			notes: fetchedNotes
@@ -95,7 +95,7 @@ export async function updateServiceReqeust(reqeust, editId) {
 
 	if (error) {
 		console.error(error);
-		throw new Error("Could't load reqeust data");
+		throw new Error("Could't load change reqeust data");
 	}
 
 	return data;

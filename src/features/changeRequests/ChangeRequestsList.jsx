@@ -1,5 +1,7 @@
 function ChangeRequestsList() {
-	return <div></div>;
+	return <div>
+		List of change requests
+	</div>;
 }
 
 export default ChangeRequestsList;
