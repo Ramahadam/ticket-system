@@ -8,7 +8,6 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 Colors
-
 --color-text: #062b4b;
 --color-primary: #5e5bff;
 --color-secondary: #007ace;
