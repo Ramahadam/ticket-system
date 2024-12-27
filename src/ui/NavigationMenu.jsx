@@ -1,56 +1,70 @@
 import {
-	faBug,
-	faChartLine,
-	faGear,
-	faTruckArrowRight,
-	faUpRightAndDownLeftFromCenter,
-	faUsers,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavLink } from "react-router-dom";
+  faBug,
+  faChartLine,
+  faGear,
+  faTruckArrowRight,
+  faUpRightAndDownLeftFromCenter,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { NavLink } from 'react-router-dom';
 
-export default function NavigationMenu({ styles }) {
-	return (
-		<nav className={styles.tickets}>
-			<ul>
-				<li className="active">
-					<NavLink to="/">
-						<FontAwesomeIcon icon={faChartLine} />
-						<span>Dasboard</span>
-					</NavLink>
-				</li>
-				<li className="">
-					<NavLink to="/incidents">
-						<FontAwesomeIcon icon={faBug} />
-						<span>Incidents</span>
-					</NavLink>
-				</li>
-
-				<li>
-					<NavLink to="/requests">
-						<FontAwesomeIcon icon={faTruckArrowRight} />
-						<span>Service requests</span>
-					</NavLink>
-				</li>
-				<li>
-					<NavLink to="/changes">
-						<FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter} />
-						<span>Change requests</span>
-					</NavLink>
-				</li>
-				<li>
-					<NavLink to="/users">
-						<FontAwesomeIcon icon={faUsers} />
-						<span>Users</span>
-					</NavLink>
-				</li>
-				<li>
-					<NavLink to="/settings">
-						<FontAwesomeIcon icon={faGear} />
-						<span>Settings</span>
-					</NavLink>
-				</li>
-			</ul>
-		</nav>
-	);
+export default function NavigationMenu() {
+  return (
+    <nav className=" mt-10 p-4 bg-white rounded-md shadow-sm">
+      <ul className="list-none flex flex-col gap-6">
+        <li className="font-normal cursor-pointer group relative w-full flex justify-between items-center">
+          <NavLink
+            to="/dashboard"
+            className="text-gray-700 w-full p-4 rounded-md "
+          >
+            <FontAwesomeIcon icon={faChartLine} />
+            <span className="ml-4 text-2xl">Dashboard</span>
+          </NavLink>
+        </li>
+        <li className="font-normal cursor-pointer group relative w-full flex justify-between items-center">
+          <NavLink
+            to="/incidents"
+            className="text-gray-700 w-full p-4 rounded-md "
+          >
+            <FontAwesomeIcon icon={faBug} />
+            <span className="ml-4 text-2xl">Incidents</span>
+          </NavLink>
+        </li>
+        <li className="font-normal cursor-pointer group relative w-full flex justify-between items-center">
+          <NavLink
+            to="/requests"
+            className="text-gray-700 w-full p-4 rounded-md "
+          >
+            <FontAwesomeIcon icon={faTruckArrowRight} />
+            <span className="ml-4 text-2xl">Service requests</span>
+          </NavLink>
+        </li>
+        <li className="font-normal cursor-pointer group relative w-full flex justify-between items-center">
+          <NavLink
+            to="/changes"
+            className="text-gray-700 w-full p-4 rounded-md "
+          >
+            <FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter} />
+            <span className="ml-4 text-2xl">Change requests</span>
+          </NavLink>
+        </li>
+        <li className="font-normal cursor-pointer group relative w-full flex justify-between items-center">
+          <NavLink to="/users" className="text-gray-700 w-full p-4 rounded-md ">
+            <FontAwesomeIcon icon={faUsers} />
+            <span className="ml-4 text-2xl">Users</span>
+          </NavLink>
+        </li>
+        <li className="font-normal cursor-pointer group relative w-full flex justify-between items-center">
+          <NavLink
+            to="/settings"
+            className="text-gray-700 w-full p-4 rounded-md "
+          >
+            <FontAwesomeIcon icon={faGear} />
+            <span className="ml-4 text-2xl">Settings</span>
+          </NavLink>
+        </li>
+      </ul>
+    </nav>
+  );
 }

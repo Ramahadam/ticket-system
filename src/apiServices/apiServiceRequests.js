@@ -1,30 +1,30 @@
-import { supabase, supabaseUrl } from "./supabase";
+import { supabase, supabaseUrl } from './supabase';
 
 export async function getServiceRequests() {
-	let query = supabase.from("requests").select("*");
+  let query = supabase.from('requests').select('*');
 
-	const { data: serviceRequests, error } = await query;
+  const { data: serviceRequests, error } = await query;
 
-	if (error) {
-		console.error(error.message);
-		throw new Error(`Couldn't load service requests data ${error.message}`);
-	}
+  if (error) {
+    console.error(error.message);
+    throw new Error(`Couldn't load service requests data ${error.message}`);
+  }
 
-	return serviceRequests;
+  return serviceRequests;
 }
 
 export async function getServiceRequest(id) {
-	let { data: serviceRequest, error } = await supabase
-		.from("requests")
-		.select("*")
-		.eq("id", id);
+  let { data: serviceRequest, error } = await supabase
+    .from('requests')
+    .select('*')
+    .eq('id', id);
 
-	if (error) {
-		console.error(error);
-		throw new Error("Could't load service request data");
-	}
+  if (error) {
+    console.error(error);
+    throw new Error("Could't load service request data");
+  }
 
-	return serviceRequest;
+  return serviceRequest;
 }
 
 // export async function createIncident(incident) {
@@ -78,25 +78,25 @@ export async function getServiceRequest(id) {
 // }
 
 export async function updateServiceReqeust(reqeust, editId) {
-	//Fetch service reqeust and update the notes before updating column since it will be overwritten
-	const serviceReqeustEdit = await getServiceRequest(editId);
-	const fetchedNotes = serviceReqeustEdit?.at(0).notes;
+  //Fetch service reqeust and update the notes before updating column since it will be overwritten
+  const serviceReqeustEdit = await getServiceRequest(editId);
+  const fetchedNotes = serviceReqeustEdit?.at(0).notes;
 
-	const { data, error } = await supabase
-		.from("requests")
-		.update({
-			...reqeust,
-			notes: fetchedNotes
-				? [...fetchedNotes, reqeust.notes.at(0)]
-				: reqeust.notes,
-		})
-		.eq("id", editId)
-		.select();
+  const { data, error } = await supabase
+    .from('requests')
+    .update({
+      ...reqeust,
+      notes: fetchedNotes
+        ? [...fetchedNotes, reqeust.notes.at(0)]
+        : reqeust.notes,
+    })
+    .eq('id', editId)
+    .select();
 
-	if (error) {
-		console.error(error);
-		throw new Error("Could't load reqeust data");
-	}
+  if (error) {
+    console.error(error);
+    throw new Error("Could't load reqeust data");
+  }
 
-	return data;
+  return data;
 }

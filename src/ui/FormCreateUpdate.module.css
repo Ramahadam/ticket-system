@@ -1,90 +1,90 @@
 form.createUpdate {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .createUpdate h2 {
-	display: inline-block;
-	margin-left: 1rem;
+  display: inline-block;
+  margin-left: 1rem;
 }
 
 .createUpdate .icon {
-	font-size: 2rem;
+  font-size: 2rem;
 }
 
 .createUpdate input,
 .createUpdate textarea,
 select {
-	font-size: 1.6rem;
-	font-family: "Fredoka", sans-serif;
-	color: inherit;
-	max-width: 30rem;
-	height: 5rem;
-	outline: none;
-	padding: 1.5rem;
-	border: 1px solid var(--bg-gray);
-	border-radius: 5px;
+  font-size: 1.6rem;
+  font-family: 'Fredoka', sans-serif;
+  color: inherit;
+  max-width: 30rem;
+  height: 5rem;
+  outline: none;
+  padding: 1.5rem;
+  border: 1px solid var(--bg-gray);
+  border-radius: 5px;
 }
 
 .createUpdate p {
-	margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 .createUpdate textarea {
-	min-height: 18rem;
+  min-height: 18rem;
 }
 
 .createUpdate::placeholder {
-	color: var(--light-gray);
+  color: var(--light-gray);
 }
 
 .mandatory::before {
-	content: "*";
-	color: red;
-	font-size: 2rem;
-	display: inline-block;
+  content: '*';
+  color: red;
+  font-size: 2rem;
+  display: inline-block;
 }
 
 .createUpdate .file {
-	width: 60rem;
-	justify-self: center;
-	grid-column: 1 / span 2;
-	border: 1px dashed var(--bg-gray);
-	padding: 1.5rem;
-	border-radius: 20rem;
-	-webkit-border-radius: 20rem;
-	-moz-border-radius: 20rem;
-	-ms-border-radius: 20rem;
-	-o-border-radius: 20rem;
-	text-align: center;
+  width: 60rem;
+  justify-self: center;
+  grid-column: 1 / span 2;
+  border: 1px dashed var(--bg-gray);
+  padding: 1.5rem;
+  border-radius: 20rem;
+  -webkit-border-radius: 20rem;
+  -moz-border-radius: 20rem;
+  -ms-border-radius: 20rem;
+  -o-border-radius: 20rem;
+  text-align: center;
 }
 
 .fileWrapper label span {
-	color: var(--color-primary);
-	cursor: pointer;
+  color: var(--color-primary);
+  cursor: pointer;
 }
 
-.createUpdate [type="file"] {
-	background-color: red;
-	/* visibility: hidden; */
-	display: none;
+.createUpdate [type='file'] {
+  background-color: red;
+  /* visibility: hidden; */
+  display: none;
 }
 
 .fileWrapper {
-	top: 0;
-	z-index: 999;
+  top: 0;
+  z-index: 999;
 }
 
 .createUpdate footer {
-	text-align: center;
-	grid-column: 1 / span 2;
-	margin-top: 2rem;
+  text-align: center;
+  grid-column: 1 / span 2;
+  margin-top: 2rem;
 }
 .createUpdate footer input {
-	margin-right: 2rem !important;
-	color: #fff;
+  margin-right: 2rem !important;
+  color: #fff;
 }
 
 .createUpdate p {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }

@@ -1,25 +1,25 @@
 .notes {
-	margin-top: 2rem;
-	display: flex;
-	flex-direction: column;
-	gap: 2rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .note:nth-child(even) {
-	transform: translateX(4rem);
+  transform: translateX(4rem);
 }
 
 .note {
-	width: 50rem;
-	border: 1px solid rgb(240, 240, 240);
-	padding: 1rem 2rem;
-	border-radius: 2rem;
-	-webkit-border-radius: 2rem;
-	-moz-border-radius: 2rem;
-	-ms-border-radius: 2rem;
-	-o-border-radius: 2rem;
+  width: 50rem;
+  border: 1px solid rgb(240, 240, 240);
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  -webkit-border-radius: 2rem;
+  -moz-border-radius: 2rem;
+  -ms-border-radius: 2rem;
+  -o-border-radius: 2rem;
 }
 
 .noteDate {
-	color: var(--light-gray);
+  color: var(--light-gray);
 }

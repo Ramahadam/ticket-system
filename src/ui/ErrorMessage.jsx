@@ -1,5 +1,9 @@
 function ErrorMessage({ error }) {
-	return <div>{error.message}</div>;
+  return (
+    <div className="bg-light-red text-color-orange max-w-fit rounded-md p-1">
+      {error.message}
+    </div>
+  );
 }
 
 export default ErrorMessage;

@@ -1,4 +1,5 @@
 # React + Vite
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 To start run the below:
 npm run dev
@@ -90,7 +91,6 @@ User must have a role.
 Admin users have full rights and can view all tickets.
 Standard user can view his/her ticket only.
 
-
 ---
 
 ## Features
@@ -122,4 +122,3 @@ Standard user can view his/her ticket only.
 1.  # React Toast notification
 1.  # React date ns
 1.  # Supabase
-

@@ -1,0 +1,82 @@
+/* filepath: /c:/Users/deem_admin/Desktop/Ticketing tool/ticket-system-v4/src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Fredoka', sans-serif;
+  }
+
+  *::before,
+  *::after {
+    @apply box-border;
+  }
+
+  html {
+    @apply text-color-text font-light text-xs; /* 10px */
+  }
+
+  body {
+    @apply text-base bg-bg-gray; /* 16px */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply m-0 p-0;
+  }
+
+  h1 {
+    @apply text-2xl font-medium; /* 24px */
+  }
+
+  h2 {
+    @apply text-xl font-medium; /* 20px */
+  }
+
+  h3 {
+    @apply text-lg font-medium; /* 18px */
+  }
+
+  h4 {
+    @apply text-base font-medium; /* 16px */
+  }
+
+  p {
+    @apply leading-6;
+  }
+
+  .active {
+    @apply bg-color-mediumslateblue shadow-md;
+  }
+
+  li.active,
+  a.active {
+    @apply text-slate-100;
+  }
+
+  .container {
+    @apply max-w-[105rem] mt-[6.4rem] mx-auto;
+  }
+
+  .btn {
+    @apply text-base font-semibold cursor-pointer outline-none border-none p-6 rounded-md transition-all duration-300;
+  }
+
+  .btn--primary {
+    @apply bg-color-primary text-white;
+  }
+
+  .btn--rounded {
+    @apply border border-color-primary text-color-primary bg-white;
+  }
+
+  .btn--primary:hover {
+    @apply shadow-md;
+  }
+}

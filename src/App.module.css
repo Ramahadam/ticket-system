@@ -1,22 +1,22 @@
 .app {
-	background-color: var(--bg-light-gray);
-	/**TODO: remove height **/
-	height: 100vh;
-	max-width: 144rem;
-	margin: 0 auto;
-	display: grid;
-	grid-template-columns: 24rem 1fr;
+  background-color: var(--bg-light-gray);
+  /**TODO: remove height **/
+  height: 100vh;
+  max-width: 144rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 24rem 1fr;
 }
 
 .app h1 {
-	font-weight: 400;
+  font-weight: 400;
 }
 
 .app p {
-	color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 .container {
-	max-width: 105rem;
-	margin: 6.4rem auto 0 auto;
+  max-width: 105rem;
+  margin: 6.4rem auto 0 auto;
 }
