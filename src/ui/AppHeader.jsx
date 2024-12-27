@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 function AppHeader() {
   return (
-    <header className="grid grid-cols-3 items-baseline justify-start h-fit p-7 border-b-2 border-bg-gray">
+    <header className="grid grid-cols-3 items-baseline justify-start h-fit p-7 mb-10 border-b-2 border-indigo-50">
       <User />
       <Search />
       <Actions />
@@ -16,19 +16,22 @@ function AppHeader() {
 
 function Actions() {
   return (
-    <div className="justify-self-end flex gap-8 text-2xl">
-      <Link to="users" className="text-xl">
+    <div className="flex justify-end gap-5 items-center">
+      <Link to="users" className="text-2xl">
         <FontAwesomeIcon icon={faUserGear} />
       </Link>
-      <span className="relative">
-        <FontAwesomeIcon icon={faBell} className="text-xl" />
-        <span className="absolute top-0 left-2.5 w-4 h-4 bg-color-orange text-white font-semibold text-xs text-center rounded-full">
-          1
+      <Link className="text-2xl">
+        <span className="relative">
+          <FontAwesomeIcon icon={faBell} />
+          <span className="absolute top-0 left-2.5 w-4 h-4 bg-color-orange text-white font-semibold text-xs text-center rounded-full">
+            1
+          </span>
         </span>
-      </span>
-      <span className="text-xl">
+      </Link>
+
+      <Link className="text-2xl">
         <FontAwesomeIcon icon={faSun} />
-      </span>
+      </Link>
     </div>
   );
 }
