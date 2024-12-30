@@ -7,7 +7,6 @@ function Table({ data }) {
     <table className="table-auto">
       <TableHead />
       <TableBody data={data} />
-      {/* <TableBody data={data} styles={styles} /> */}
     </table>
   );
 }

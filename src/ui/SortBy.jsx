@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-// import styles from './SortBy.module.css';
+import styles from './SortBy.module.css';
 
 function SortBy({ options }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,7 +13,11 @@ function SortBy({ options }) {
   }
 
   return (
-    <select value={sortBy} onChange={handelChange}>
+    <select
+      value={sortBy}
+      onChange={handelChange}
+      className="border border-gray-300 rounded-lg py-4 px-2"
+    >
       {options.map((option) => (
         <option value={option.value} key={option.value}>
           {option.label}

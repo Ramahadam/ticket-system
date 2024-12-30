@@ -60,7 +60,7 @@ function Operations({ ticketType }) {
 
         <SortBy options={sortOptions} />
 
-        <Button type="btnPrimary">
+        <Button className="btn btn--primary text-xl">
           <Link to="new">
             <FontAwesomeIcon icon={faPlus} className="icon" />
             <span>New</span>

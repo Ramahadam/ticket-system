@@ -12,8 +12,10 @@ function CurrentDate() {
   date = date.toLocaleDateString('en-US', options);
   return (
     <div className="flex flex-col gap-3.5">
-      <span className="font-semibold">Date</span>
-      <span className="font-normal text-sm">Today is, {date}</span>
+      <span className="font-normal">Date</span>
+      <span className="font-normal text-md text-slate-500">
+        Today is, {date}
+      </span>
     </div>
   );
 }

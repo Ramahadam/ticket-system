@@ -21,6 +21,15 @@ export default {
         'bg-light-gray': '#f2f2f2',
         'bg-veryLight-gray': 'rgb(242, 242, 242)',
       },
+      fontFamily: {
+        sans: ['Fredoka', 'sans-serif'],
+        serif: ['Merriweather', 'serif'],
+        sans2: ['Poppins', 'sans-serif'],
+      },
+      fontSize: {
+        '2xs': '.625rem',
+        '3xs': '.5rem',
+      },
     },
   },
   plugins: [],

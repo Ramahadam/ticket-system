@@ -22,68 +22,68 @@ import { Link } from 'react-router-dom';
 // import { format, formatDistanceToNow } from 'date-fns';
 // import { Link } from 'react-router-dom';
 
-function TableBody({ data }) {
+function TableBody({ incidents }) {
   return (
     <tbody>
-      {data?.map((ticket) => {
+      {incidents?.map((incident) => {
         return (
-          <tr key={ticket.id} className="border border-bg-gray">
+          <tr key={incident.id} className="border border-bg-gray">
             <td data-th="id" className="p-4 border-r border-bg-gray">
-              <Link to={`${ticket.id}`}>&#35;{ticket.id}</Link>
+              <Link to={`${incident.id}`}>&#35;{incident.id}</Link>
             </td>
             <td
               data-th="Client/Company"
               className="p-4 border-r border-bg-gray"
             >
               <FontAwesomeIcon icon={faUserCircle} />
-              <span className="ml-2">{ticket.requester}</span>
+              <span className="ml-2">{incident.requester}</span>
             </td>
             <td data-th="Subject" className="p-4 border-r border-bg-gray">
-              {ticket.subject}
+              {incident.subject}
             </td>
             <td data-th="Status" className="p-4 border-r border-bg-gray">
-              {ticket.status.toLowerCase().includes('loged') && (
+              {incident.status.toLowerCase().includes('loged') && (
                 <FontAwesomeIcon icon={faCalendarDays} />
               )}
-              {ticket.status.toLowerCase().includes('fulfiled') && (
+              {incident.status.toLowerCase().includes('fulfiled') && (
                 <FontAwesomeIcon icon={faCheck} />
               )}
-              {ticket.status.toLowerCase().includes('progress') && (
+              {incident.status.toLowerCase().includes('progress') && (
                 <FontAwesomeIcon icon={faHammer} />
               )}
-              {ticket.status.toLowerCase().includes('hold') && (
+              {incident.status.toLowerCase().includes('hold') && (
                 <FontAwesomeIcon icon={faHand} />
               )}
-              <span className="ml-2">{ticket.status}</span>
+              <span className="ml-2">{incident.status}</span>
             </td>
             <td data-th="Priority" className="p-4 border-r border-bg-gray">
-              <span>{ticket.priority === 1 && 'High'}</span>
-              <span>{ticket.priority === 2 && 'Medium'}</span>
-              <span>{ticket.priority === 3 && 'Normal'}</span>
-              <span>{ticket.priority === 4 && 'Low'}</span>
+              <span>{incident.priority === 1 && 'High'}</span>
+              <span>{incident.priority === 2 && 'Medium'}</span>
+              <span>{incident.priority === 3 && 'Normal'}</span>
+              <span>{incident.priority === 4 && 'Low'}</span>
               <span className="text-orange-500">
-                {ticket.priority === 1 && <FontAwesomeIcon icon={faCrown} />}
+                {incident.priority === 1 && <FontAwesomeIcon icon={faCrown} />}
               </span>
             </td>
             <td data-th="Deadline" className="p-4 border-r border-bg-gray">
               <span
                 className={`${
-                  ticket?.deadline <= 1
+                  incident?.deadline <= 1
                     ? 'bg-light-red text-color-orange font-medium'
-                    : ticket?.deadline <= 4
+                    : incident?.deadline <= 4
                       ? 'bg-light-lim text-dark-green font-medium'
                       : 'bg-bg-light-gray text-dark-gray font-medium'
                 }`}
               >
-                {ticket.deadline &&
-                  format(ticket?.deadline, 'MM/dd/yyyy hh:mm')}
+                {incident.deadline &&
+                  format(incident?.deadline, 'MM/dd/yyyy hh:mm')}
               </span>
             </td>
             <td data-th="Assignee" className="p-4 border-r border-bg-gray">
-              {ticket?.engineer}
+              {incident?.engineer}
             </td>
             <td data-th="Updated" className="p-4">
-              {ticket?.lastUpdate && formatDistanceToNow(ticket.lastUpdate)}
+              {incident?.lastUpdate && formatDistanceToNow(incident.lastUpdate)}
             </td>
           </tr>
         );

@@ -21,7 +21,7 @@
   }
 
   body {
-    @apply text-base bg-bg-gray; /* 16px */
+    @apply text-xl bg-bg-gray; /* 16px */
   }
 
   h1,

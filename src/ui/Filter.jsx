@@ -1,4 +1,4 @@
-// import styles from './Filter.module.css';
+import styles from './Filter.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose, faFilter } from '@fortawesome/free-solid-svg-icons';
 import Button from './Button';
@@ -57,14 +57,18 @@ function Filter({
   };
 
   return (
-    <div className="relative text-sm font-normal" ref={menuFilterRef}>
-      <Button type={btnType} onClick={() => setShowFilterMenu(!showFilterMenu)}>
+    <div className="relative text-xl font-normal" ref={menuFilterRef}>
+      <Button
+        type={btnType}
+        className="border border-gray-200"
+        onClick={() => setShowFilterMenu(!showFilterMenu)}
+      >
         <FontAwesomeIcon icon={faFilter} className="text-dark-gray" />
         <span>Filter</span>
       </Button>
 
       {showFilterMenu && (
-        <form className="absolute z-[999] top-[70%] left-0 flex flex-col gap-4 bg-white w-[20rem] p-4 rounded-2xl shadow-md">
+        <form className="absolute z-[999] top-[70%] left-0 flex flex-col gap-4 bg-white w-[20rem] p-4 rounded-2xl  shadow-md ">
           <header className="font-medium flex justify-between items-center w-full border-b border-gray-200">
             <span>Filters</span>
             <Button onClick={() => setShowFilterMenu(false)}>

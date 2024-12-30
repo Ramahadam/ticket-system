@@ -1,8 +1,23 @@
 import Loader from '../../ui/Loader';
 import { useIncidents } from './useIncidents';
-import Table from '../../ui/Table';
 import ErrorMessage from '../../ui/ErrorMessage';
+import Table from './Table';
 
+/**
+ * Component to display a list of incidents.
+ *
+ * This component fetches incidents data using the `useIncidents` hook and displays
+ * a loading indicator, an error message, or the incidents list based on the state
+ * of the data fetching.
+ *
+ * @component
+ * @example
+ * return (
+ *   <IncidentsList />
+ * )
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 function IncidentsList() {
   const { isLoading, error, incidents } = useIncidents();
 
@@ -10,11 +25,7 @@ function IncidentsList() {
 
   if (isLoading) return <Loader />;
 
-  return (
-    <div className="container">
-      <Table data={incidents} />
-    </div>
-  );
+  return <Table incidents={incidents} />;
 }
 
 export default IncidentsList;
