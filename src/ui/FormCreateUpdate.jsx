@@ -3,9 +3,12 @@ import { useForm } from 'react-hook-form';
 import { calcualteDeadline, createNotes } from '../utils/helper';
 import { useId as generateUniqID } from 'react';
 import Loader from './Loader';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons';
+
 import { useNavigate } from 'react-router-dom';
+import Input from './Input';
+import Textarea from './Textarea';
+import Select from './Select';
+import FileUpload from './FileUpload';
 
 function FormCreateUpdate({
   createTicket,
@@ -55,6 +58,8 @@ function FormCreateUpdate({
         deadline: calcualteDeadline(Number(data.priority)),
       };
 
+      // console.log(ticket);
+
       createTicket(ticket);
     }
   }
@@ -64,115 +69,91 @@ function FormCreateUpdate({
   return (
     <form
       onSubmit={handleSubmit(handleForm)}
-      className="grid grid-cols-2 gap-4"
+      className="grid grid-cols-2 gap-8 "
     >
       <div className="flex flex-col gap-4">
-        <p>
-          <label htmlFor="subject" className="mandatory">
+        <label className="block">
+          <span className="after:content-['*'] after:ml-0.5 after:text-red-500  text-lg ">
             Subject
-          </label>
-          <input
+          </span>
+
+          <Input
             type="text"
-            {...register('subject', {
-              required: 'This field is required.',
-              minLength: {
-                value: 5,
-                message: 'Minimum 5 characters :(',
-              },
-            })}
+            name="subject"
             placeholder="short description of the issue"
-            className="text-lg font-fredoka text-inherit max-w-[30rem] h-[5rem] outline-none p-6 border border-bg-gray rounded-md"
+            register={register}
           />
           <span className="text-red-500">
             {errors['subject']?.message && errors['subject']?.message}
           </span>
-        </p>
+        </label>
 
         <p>
-          <label htmlFor="summary" className="mandatory">
-            Summary
+          <label className="block">
+            <span className="after:content-['*'] after:ml-0.5 after:text-red-500  text-lg block ">
+              Summary
+            </span>
+
+            <Textarea
+              name="summary"
+              register={register}
+              cols="30"
+              rows="10"
+              placeholder="Problem summary"
+            />
+            <span className="text-red-500">
+              {errors['summary']?.message && errors['summary']?.message}
+            </span>
           </label>
-          <textarea
-            {...register('summary', {
-              required: 'This field is required.',
-              minLength: {
-                value: 5,
-                message: 'Minimum 5 characters :(',
-              },
-            })}
-            cols="30"
-            rows="10"
-            placeholder="Problem summary"
-            className="text-lg font-fredoka text-inherit max-w-[30rem] h-[18rem] outline-none p-6 border border-bg-gray rounded-md"
-          ></textarea>
-          <span className="text-red-500">
-            {errors['summary']?.message && errors['summary']?.message}
-          </span>
         </p>
       </div>
 
       <div className="flex flex-col gap-4">
         <p>
-          <label htmlFor="priority" className="mandatory">
-            Priority
-          </label>
-          <select
-            defaultValue={getValues().priority}
+          <Select
             name="priority"
-            {...register('priority', {
-              required: 'This field is required.',
-            })}
-            className="text-lg font-fredoka text-inherit max-w-[30rem] h-[5rem] outline-none p-6 border border-bg-gray rounded-md"
-          >
-            <option value={3}>Normal</option>
-            <option value={1}>High</option>
-            <option value={4}>Low</option>
-            <option value={2}>Medium</option>
-          </select>
-          <span className="text-red-500">
-            {errors['priority']?.message && errors['priority']?.message}
-          </span>
-        </p>
-        <p>
-          <label htmlFor="status" className="mandatory">
-            Status
-          </label>
-          <select
+            options={[
+              { value: 3, label: 'Normal' },
+              { value: 1, label: 'High' },
+              { value: 4, label: 'Low' },
+              { value: 2, label: 'Medium' },
+            ]}
+            register={register}
+            isRequired={true}
+            defaultValue={getValues().priority}
+            errors={errors}
+          />
+
+          <Select
+            name="status"
+            options={[
+              { value: 'loged', label: 'Loged' },
+              { value: 'fulfiled', label: 'Fulfiled' },
+              { value: 'progress', label: 'Progress' },
+              { value: 'hold', label: 'On hold' },
+            ]}
+            register={register}
+            isRequired={true}
             defaultValue={getValues().status}
-            {...register('status', {
-              required: 'This field is required.',
-            })}
-            className="text-lg font-fredoka text-inherit max-w-[30rem] h-[5rem] outline-none p-6 border border-bg-gray rounded-md"
-          >
-            <option value="loged">Loged</option>
-            <option value="fulfiled">Fulfiled</option>
-            <option value="progress">Progress</option>
-            <option value="hold">On hold</option>
-          </select>
-          <span className="text-red-500">
-            {errors['status']?.message && errors['status']?.message}
-          </span>
+            errors={errors}
+          />
         </p>
+
         <p>
           {tableName !== 'requests' && (
             <>
-              <label htmlFor="impact" className="mandatory">
-                Affected users
-              </label>
-              <select
+              <Select
+                name="impact"
+                options={[
+                  { value: 'one', label: '1 User' },
+                  { value: 'two', label: '2 users' },
+                  { value: 'many', label: 'Many users' },
+                ]}
+                register={register}
+                isRequired={true}
                 defaultValue={getValues().impact}
-                {...register('impact', {
-                  required: 'This field is required.',
-                })}
-                className="text-lg font-fredoka text-inherit max-w-[30rem] h-[5rem] outline-none p-6 border border-bg-gray rounded-md"
-              >
-                <option value="one">1 User</option>
-                <option value="tow">2 users</option>
-                <option value="many">Many users</option>
-              </select>
-              <span className="text-red-500">
-                {errors['impact']?.message && errors['impact']?.message}
-              </span>
+                errors={errors}
+              />
             </>
           )}
         </p>
@@ -180,80 +161,82 @@ function FormCreateUpdate({
 
       <div className="flex flex-col gap-4">
         <p>
-          <label htmlFor="requester" className="mandatory">
-            Requester
+          <label className="block">
+            <span className="after:content-['*'] after:ml-0.5 after:text-red-500  text-lg ">
+              Requester
+            </span>
+            <Input
+              name="requester"
+              type="text"
+              placeholder="Entity"
+              register={register}
+            />
+
+            <span className="text-red-500">
+              {errors['requester']?.message && errors['requester']?.message}
+            </span>
           </label>
-          <input
-            type="text"
-            placeholder="Entity"
-            {...register('requester', {
-              required: 'This field is required.',
-              minLength: {
-                value: 5,
-                message: 'Minimum 5 characters :(',
-              },
-            })}
-            className="text-lg font-fredoka text-inherit max-w-[30rem] h-[5rem] outline-none p-6 border border-bg-gray rounded-md"
-          />
-          <span className="text-red-500">
-            {errors['requester']?.message && errors['requester']?.message}
-          </span>
         </p>
         <p>
-          <label htmlFor="solution">Solution</label>
-          <textarea
-            {...register('solution')}
-            className="text-lg font-fredoka text-inherit max-w-[30rem] h-[18rem] outline-none p-6 border border-bg-gray rounded-md"
-          ></textarea>
+          <label className="block">
+            <span className="after:content-['*'] after:ml-0.5 after:text-red-500  text-lg block ">
+              Solution
+            </span>
+
+            <Textarea
+              name="solution"
+              register={register}
+              cols="30"
+              rows="10"
+              placeholder="Problem summary"
+              isRequired={false}
+            />
+            <span className="text-red-500">
+              {errors['summary']?.message && errors['summary']?.message}
+            </span>
+          </label>
         </p>
       </div>
 
       <div className="flex flex-col gap-4">
         <p>
-          <label htmlFor="engineer" className="mandatory">
-            Assign to
-          </label>
-          <select
+          <Select
+            name="engineer"
+            options={[
+              { value: 'john', label: 'John' },
+              { value: 'peter', label: 'Peter' },
+              { value: 'adam', label: 'Adam' },
+            ]}
+            register={register}
+            isRequired={true}
             defaultValue={getValues().engineer}
-            {...register('engineer', {
-              required: 'This field is required.',
-            })}
-            className="text-lg font-fredoka text-inherit max-w-[30rem] h-[5rem] outline-none p-6 border border-bg-gray rounded-md"
-          >
-            <option value="john">John</option>
-            <option value="peter">Peter</option>
-            <option value="adam">Adam</option>
-          </select>
-          <span className="text-red-500">
-            {errors['engineer']?.message && errors['engineer']?.message}
-          </span>
+            errors={errors}
+          />
         </p>
         <p>
-          <label htmlFor="notes">Add internal note</label>
-          <textarea
-            {...register('notes')}
-            className="text-lg font-fredoka text-inherit max-w-[30rem] h-[18rem] outline-none p-6 border border-bg-gray rounded-md"
-          ></textarea>
+          <label className="block">
+            <span className="  text-lg block ">Add internal note</span>
+            <Textarea
+              name="notes"
+              register={register}
+              cols="10"
+              rows="10"
+              placeholder="Problem summary"
+              isRequired={false}
+            />
+            <span className="text-red-500">
+              {errors['summary']?.message && errors['summary']?.message}
+            </span>
+          </label>
         </p>
       </div>
 
-      <div className="w-[60rem] justify-self-center col-span-2 border border-dashed border-bg-gray p-6 rounded-full text-center">
-        <div className="relative z-[999]">
-          <FontAwesomeIcon icon={faFolderOpen} />
-          <label htmlFor="fileInput">
-            <span className="text-primary cursor-pointer">Browse Files </span>or
-            Drag files here &#91; Max size: 10 MB. &#93;
-          </label>
-          <input
-            type="file"
-            {...register('file')}
-            placeholder="Browse Files"
-            accept="image/*,.pdf"
-            id="fileInput"
-            className="hidden"
-          />
-        </div>
-      </div>
+      <FileUpload
+        name="file"
+        register={register}
+        accept="image/*,.pdf"
+        errors={errors}
+      />
       <footer className="text-center col-span-2 mt-8">
         <input
           type="submit"
