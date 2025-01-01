@@ -1,8 +1,0 @@
-.cards {
-  display: flex;
-  /* justify-content: space-between; */
-  align-items: center;
-  column-gap: 2rem;
-
-  margin-bottom: 5rem;
-}

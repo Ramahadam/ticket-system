@@ -1,9 +1,3 @@
-// import styles from './TicketDetail.module.css';
-// import FormCreateUpdate from './FormCreateUpdate';
-// import TicketAttachments from './TicketAttachments';
-// import TicketNotes from './TicketNotes';
-// import Loader from './Loader';
-
 import FormCreateUpdate from './FormCreateUpdate';
 import TicketAttachments from './TicketAttachments';
 import TicketNotes from './TicketNotes';

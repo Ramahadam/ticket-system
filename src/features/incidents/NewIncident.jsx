@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styles from './NewIncident.module.css';
+// import styles from './NewIncident.module.css';
 
 import { faBug } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,9 +15,17 @@ function NewIncident() {
       {isCreating ? (
         <Loader />
       ) : (
-        <div className={styles.wrapper}>
+        <div
+          className=" bg-white
+                    w-full
+                    text-base
+                    p-6
+                    font-normal
+                    rounded-2xl
+                    border-collapse"
+        >
           <header>
-            <FontAwesomeIcon icon={faBug} className={styles.icon} />
+            <FontAwesomeIcon icon={faBug} />
             <h2>Create new incident</h2>
           </header>
 

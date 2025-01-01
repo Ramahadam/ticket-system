@@ -1,5 +1,4 @@
 import { useSearchParams } from 'react-router-dom';
-import styles from './SortBy.module.css';
 
 function SortBy({ options }) {
   const [searchParams, setSearchParams] = useSearchParams();

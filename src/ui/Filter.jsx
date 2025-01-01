@@ -1,4 +1,4 @@
-import styles from './Filter.module.css';
+// import styles from './Filter.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose, faFilter } from '@fortawesome/free-solid-svg-icons';
 import Button from './Button';
