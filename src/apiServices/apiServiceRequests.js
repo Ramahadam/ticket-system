@@ -1,7 +1,7 @@
-import { supabase, supabaseUrl } from './supabase';
+import { supabase } from './supabase';
 
 export async function getServiceRequests() {
-  let query = supabase.from('requests').select('*');
+  let query = supabase.from('service_requests').select('*');
 
   const { data: serviceRequests, error } = await query;
 
@@ -15,7 +15,7 @@ export async function getServiceRequests() {
 
 export async function getServiceRequest(id) {
   let { data: serviceRequest, error } = await supabase
-    .from('requests')
+    .from('service_requests')
     .select('*')
     .eq('id', id);
 
@@ -83,7 +83,7 @@ export async function updateServiceReqeust(reqeust, editId) {
   const fetchedNotes = serviceReqeustEdit?.at(0).notes;
 
   const { data, error } = await supabase
-    .from('requests')
+    .from('service_requests')
     .update({
       ...reqeust,
       notes: fetchedNotes

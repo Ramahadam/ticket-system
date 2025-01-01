@@ -11,7 +11,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function NavigationMenu() {
   return (
-    <nav className=" mt-10 p-4 bg-white rounded-md shadow-sm">
+    <nav className="navbar-custom mt-10 p-4 bg-white rounded-md shadow-sm">
       <ul className="list-none flex flex-col gap-6">
         <li className="font-normal cursor-pointer group relative w-full flex justify-between items-center">
           <NavLink

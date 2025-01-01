@@ -51,12 +51,12 @@
     @apply leading-6;
   }
 
-  .active {
+  .navbar-custom a.active {
     @apply bg-color-mediumslateblue shadow-md;
   }
 
-  li.active,
-  a.active {
+  .navbar-custom li.active,
+  .navbar-custom a.active {
     @apply text-slate-100;
   }
 
