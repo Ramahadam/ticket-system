@@ -77,10 +77,6 @@ once the ticket is canceled the status will change to cancel and ticket cannot b
 
 TODO:
 Working on redux store specifically in ticketsSlice=> BUG resume
-Display all tickets.
-Display one ticket details.
-Create ticket.
-update ticket.
 
 TODO:
 Feature: Create users (Admin users are memebers) standard user won't be displayed in memebers group sidebar.
