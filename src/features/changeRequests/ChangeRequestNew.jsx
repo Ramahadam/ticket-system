@@ -1,5 +1,5 @@
 function ChangeRequestNew() {
-  return <div></div>;
+  return <div>Create new change request</div>;
 }
 
 export default ChangeRequestNew;

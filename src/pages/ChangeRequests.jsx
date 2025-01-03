@@ -1,5 +1,7 @@
+import ChangeRequestsList from '../features/changeRequests/ChangeRequestsList';
+
 function ChangeRequests() {
-  return <div>Change requests</div>;
+  return <ChangeRequestsList />;
 }
 
 export default ChangeRequests;

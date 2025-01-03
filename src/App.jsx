@@ -17,7 +17,7 @@ import ServiceRequestNew from './features/serviceRequests/ServiceRequestNew';
 import ServiceRequests from './pages/ServiceRequests';
 
 import ChangeRequests from './pages/ChangeRequests';
-import ChangeRequestsDetail from './features/changeRequests/ChangeRequestDetail';
+import ChangeRequest from './features/changeRequests/ChangeRequest';
 import ChangeRequestNew from './features/changeRequests/ChangeRequestNew';
 
 import Users from './pages/Users';
@@ -58,7 +58,7 @@ function App() {
               </Route>
               <Route path="changes" element={<TicketLayout />}>
                 <Route index element={<ChangeRequests />} />
-                <Route path=":id" element={<ChangeRequestsDetail />} />
+                <Route path=":id" element={<ChangeRequest />} />
                 <Route path="new" element={<ChangeRequestNew />} />
               </Route>
               <Route path="users" element={<Users />} />

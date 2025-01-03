@@ -10,18 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { format, formatDistanceToNow } from 'date-fns';
 import { Link } from 'react-router-dom';
 
-// import {
-//   faCalendarDays,
-//   faCheck,
-//   faCrown,
-//   faHammer,
-//   faHand,
-//   faUserCircle,
-// } from '@fortawesome/free-solid-svg-icons';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { format, formatDistanceToNow } from 'date-fns';
-// import { Link } from 'react-router-dom';
-
 function TableBody({ incidents }) {
   return (
     <tbody>
