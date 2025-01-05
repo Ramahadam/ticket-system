@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { downloadFile } from '../apiServices/apiForStorage';
 import { faFile } from '@fortawesome/free-solid-svg-icons';
+import Message from './Message';
 
 export default function TicketAttachments({ ticket }) {
   const { file } = ticket.at(0);
@@ -11,6 +12,8 @@ export default function TicketAttachments({ ticket }) {
 
     downloadFile(fileName);
   }
+
+  if (!file) return <Message message="No attachement yet!!!" />;
 
   return (
     <a href={`${file}`} onClick={handelDownload}>

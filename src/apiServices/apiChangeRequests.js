@@ -1,29 +1,90 @@
-import { supabase } from './supabase';
+import { supabase, supabaseUrl } from './supabase';
 
-export const fetchChangeRequests = async () => {
-  const { data, error } = await supabase.from('change_requests').select('*');
+export const fetchChangeRequests = async ({
+  filterByStatus,
+  sortBy,
+  columnName,
+}) => {
+  let query = supabase.from('change_requests').select('*');
+
+  //Filter
+  if (filterByStatus?.length > 0) query = query.in(columnName, filterByStatus);
+
+  //Sort
+  if (sortBy)
+    query = query.order(sortBy.field, {
+      ascending: sortBy.direction === 'asc',
+    });
+
+  const { data, error } = await query;
 
   if (error) {
-    console.error('Error fetching change requests:', error);
-    return null;
+    console.error(error.message);
+    throw new Error(`Couldn't load service requests data ${error.message}`);
   }
 
   return data;
+  // const { data, error } = await supabase.from('change_requests').select('*');
+  // if (error) {
+  //   console.error('Error fetching change requests:', error);
+  //   return null;
+  // }
+  // return data;
 };
 
 export const createChangeRequest = async (changeRequest) => {
-  console.log(changeRequest);
-  const { data, error } = await supabase
-    .from('change_requests')
-    .insert([changeRequest])
-    .select('id');
+  ///
+  const fileName = `${Math.random()}-${changeRequest?.file?.name}`.replaceAll(
+    '/',
+    ''
+  );
 
-  if (error) {
-    console.error('Error creating change request:', error);
-    return null;
+  const filePath = `/${fileName}`;
+  const fileURL = `${supabaseUrl}/storage/v1/object/public/files/${filePath}`;
+  console.log(fileURL);
+
+  let query = supabase.from('change_requests');
+
+  if (!changeRequest.file) {
+    query = await query.insert([changeRequest]).select('id');
   }
 
+  if (changeRequest.file) {
+    query = await query
+      .insert([{ ...changeRequest, file: fileURL }])
+      .select('id');
+    // 2. Upload the file
+    const { error: storageError } = await supabase.storage
+      .from('files')
+      .upload(filePath, changeRequest.file);
+
+    // 3. Delete the change Request if there was an error uploading the file
+    if (storageError) {
+      await query.delete().eq('id', data[0].id);
+      console.error(storageError);
+      throw new Error(
+        'File could not be uploaded and change Request could not be created'
+      );
+    }
+  }
+
+  const { data, error } = query;
+
+  if (error) throw new Error('Could not create change Request due to an error');
+
   return data[0].id;
+
+  // const { data, error } = await supabase
+  //   .from('change_requests')
+  //   .insert([changeRequest])
+  //   .select('id');
+
+  // if (error) {
+  //   console.error('Error creating change request:', error);
+  //   return null;
+  // }
+
+  // return data[0].id;
 };
 
 export const updateChangeRequest = async (changeRequest, editId) => {

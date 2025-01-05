@@ -4,7 +4,7 @@ import TicketNotes from './TicketNotes';
 import Loader from './Loader';
 
 function TicketDetail({
-  activeTab,
+  activeTab,  
   setActiveTab,
   isLoading,
   ticket,

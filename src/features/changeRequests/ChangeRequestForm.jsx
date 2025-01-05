@@ -29,7 +29,6 @@ function ChangeRequestForm({
     handleSubmit,
     formState: { errors },
     getValues,
-    reset,
   } = useForm({
     defaultValues: isUpdateSession ? { ...editValues, notes: '' } : {},
   });

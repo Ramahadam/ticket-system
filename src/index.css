@@ -61,7 +61,7 @@
   }
 
   .container {
-    @apply max-w-[105rem] mt-[6.4rem] mx-auto;
+    @apply max-w-[105rem]  mx-auto;
   }
 
   .btn {

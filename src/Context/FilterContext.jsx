@@ -16,7 +16,7 @@ function useFilterValues() {
   const context = useContext(FilterContext);
 
   if (context === undefined)
-    throw new Error('Dark mode is used outside the provider');
+    throw new Error('filter is used outside of the context');
 
   return context;
 }

@@ -11,7 +11,8 @@ function ServiceRequestList() {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="container">
+    <div className="container overflow-scroll">
+      <h2 className="text-xl font-bold mb-4">Service requests List</h2>
       <Table data={serviceRequests} />
     </div>
   );
