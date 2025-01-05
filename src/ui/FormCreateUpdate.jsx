@@ -234,7 +234,7 @@ function FormCreateUpdate({
       <FileUpload
         name="file"
         register={register}
-        accept="image/*,.pdf"
+        acceptFileType="image/*,.pdf"
         errors={errors}
       />
       <footer className="text-center col-span-2 mt-8">

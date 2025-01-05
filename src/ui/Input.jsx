@@ -16,6 +16,7 @@ function Input({ type, name, placeholder, register }) {
 
   return (
     <input
+      id={name}
       type={type}
       name={name}
       className={className}

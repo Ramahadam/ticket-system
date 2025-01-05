@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCalendarDays,
   faCheck,
+  faCircle,
   faCrown,
   faHammer,
   faHand,
@@ -68,27 +69,44 @@ function ChangeRequestsList() {
                   {changeRequest.category}
                 </td>
                 <td data-th="Status" className="p-4 border-r border-bg-gray">
-                  {changeRequest.status.toLowerCase().includes('loged') && (
+                  {changeRequest.status.toLowerCase().includes('requested') && (
                     <FontAwesomeIcon icon={faCalendarDays} />
                   )}
-                  {changeRequest.status.toLowerCase().includes('fulfiled') && (
+                  {changeRequest.status.toLowerCase().includes('approved') && (
                     <FontAwesomeIcon icon={faCheck} />
                   )}
-                  {changeRequest.status.toLowerCase().includes('progress') && (
+                  {changeRequest.status
+                    .toLowerCase()
+                    .includes('pending approval') && (
                     <FontAwesomeIcon icon={faHammer} />
                   )}
-                  {changeRequest.status.toLowerCase().includes('hold') && (
-                    <FontAwesomeIcon icon={faHand} />
+                  {changeRequest.status.toLowerCase().includes('canceled') && (
+                    <FontAwesomeIcon
+                      icon={faHand}
+                      className="text-color-orange"
+                    />
+                  )}
+                  {changeRequest.status
+                    .toLowerCase()
+                    .includes('implemented') && (
+                    <FontAwesomeIcon
+                      icon={faCircle}
+                      className="text-dark-green"
+                    />
                   )}
                   <span className="ml-2">{changeRequest.status}</span>
                 </td>
                 <td data-th="Priority" className="p-4 border-r border-bg-gray">
-                  <span>{changeRequest.priority === 1 && 'Major'}</span>
-                  <span>{changeRequest.priority === 2 && 'Significant'}</span>
-                  <span>{changeRequest.priority === 3 && 'Standard'}</span>
-                  <span>{changeRequest.priority === 4 && 'Normal'}</span>
+                  <span>{changeRequest.classification === 1 && 'Major'}</span>
+                  <span>
+                    {changeRequest.classification === 2 && 'Significant'}
+                  </span>
+                  <span>
+                    {changeRequest.classification === 3 && 'Standard'}
+                  </span>
+                  <span>{changeRequest.classification === 4 && 'Normal'}</span>
                   <span className="text-orange-500">
-                    {changeRequest.priority === 1 && (
+                    {changeRequest.classification === 1 && (
                       <FontAwesomeIcon icon={faCrown} />
                     )}
                   </span>

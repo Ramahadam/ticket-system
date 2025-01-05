@@ -1,4 +1,4 @@
-function FileUpload({ name, register, accept, errors }) {
+function FileUpload({ name, register, acceptFileType, errors }) {
   return (
     <div className="w-[30rem] justify-self-center col-span-2 border border-dashed border-bg-gray p-2 rounded-full text-center">
       <label className="block">
@@ -6,7 +6,7 @@ function FileUpload({ name, register, accept, errors }) {
         <input
           type="file"
           {...register(name)}
-          accept={accept}
+          accept={acceptFileType}
           className="
             block
             w-full

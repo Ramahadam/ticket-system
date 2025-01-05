@@ -8,6 +8,7 @@ function Textarea({ name, cols, rows, placeholder, register, isRequired }) {
           message: 'Minimum 5 characters :(',
         },
       })}
+      id={name}
       cols={cols}
       rows={rows}
       placeholder={placeholder}
