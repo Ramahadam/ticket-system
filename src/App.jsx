@@ -56,7 +56,7 @@ function App() {
                 <Route path=":id" element={<ServiceRequestDetail />} />
                 <Route path="new" element={<ServiceRequestNew />} />
               </Route>
-              <Route path="changes" element={<TicketLayout />}>
+              <Route path="change" element={<TicketLayout />}>
                 <Route index element={<ChangeRequests />} />
                 <Route path=":id" element={<ChangeRequest />} />
                 <Route path="new" element={<ChangeRequestNew />} />

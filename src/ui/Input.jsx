@@ -1,4 +1,4 @@
-function Input({ type, name, placeholder, register }) {
+function Input({ type, name, placeholder, register, defaultValue }) {
   const className =
     type === 'text' &&
     `text-lg
@@ -19,6 +19,7 @@ function Input({ type, name, placeholder, register }) {
       id={name}
       type={type}
       name={name}
+      defaultValue={defaultValue}
       className={className}
       placeholder={placeholder}
       {...register(name, {

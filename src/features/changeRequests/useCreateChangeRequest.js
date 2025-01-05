@@ -11,6 +11,7 @@ export function useCreateChangeRequest() {
     mutationFn: createChangeRequestAPI,
     mutationKey: ['changeRequests'],
     onSuccess: (id) => {
+      console.log(id);
       toast.success('Ticket has been created successfuly');
       queryClient.invalidateQueries({ queryKey: ['changeRequests'] });
       navigate(`/change/${id}`);

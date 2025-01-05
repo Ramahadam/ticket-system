@@ -42,7 +42,7 @@ export default function NavigationMenu() {
         </li>
         <li className="font-normal cursor-pointer group relative w-full flex justify-between items-center">
           <NavLink
-            to="/changes"
+            to="/change"
             className="text-gray-700 w-full p-4 rounded-md "
           >
             <FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter} />

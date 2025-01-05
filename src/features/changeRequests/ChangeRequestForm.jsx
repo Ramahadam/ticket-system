@@ -7,16 +7,64 @@ import FileUpload from '../../ui/FileUpload';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
+import { useId as generateUniqID } from 'react';
+import { calcualteDeadline, createNotes } from '../../utils/helper';
+import { useNavigate } from 'react-router-dom';
 
-function ChangeRequestForm({ createChangeRequest }) {
+function ChangeRequestForm({
+  createChangeRequest,
+  currentChangeRequest,
+  updateChangeRequest,
+}) {
+  const navigate = useNavigate();
+
+  const { id: editId, ...editValues } = currentChangeRequest?.at(0) || {};
+
+  const isUpdateSession = Boolean(editId);
+
+  const uniqID = generateUniqID();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+    getValues,
+    reset,
+  } = useForm({
+    defaultValues: isUpdateSession ? { ...editValues, notes: '' } : {},
+  });
 
   function handleForm(data) {
-    console.log(data);
+    if (!data) return;
+    const notes = createNotes(data, uniqID);
+    console.log(editId);
+
+    if (editId) {
+      const ticket = {
+        ...data,
+        file: data?.file && data?.file[0],
+        notes,
+        classification: Number(data.classification),
+        last_updated: new Date(),
+        deadline: calcualteDeadline(Number(data.classification)),
+      };
+      console.log(ticket);
+      updateChangeRequest({ ticket, editId });
+      navigate(-1);
+    }
+
+    if (!editId) {
+      const ticket = {
+        ...data,
+        file: data.file[0],
+        notes,
+        classification: Number(data.classification),
+        last_updated: new Date(),
+        deadline: calcualteDeadline(Number(data.classification)),
+      };
+
+      createChangeRequest(ticket);
+    }
   }
 
   return (
@@ -90,16 +138,16 @@ function ChangeRequestForm({ createChangeRequest }) {
         </div>
 
         <div className="form-group">
-          <Lable htmlFor="analyst" labelText="Analyst" />
+          <Lable htmlFor="owner" labelText="Owner" />
           <Input
             type="text"
-            name="analyst"
+            name="owner"
             placeholder="Update analyst"
             register={register}
             errors={errors}
           />
           <span className="text-red-500">
-            {errors['analyst']?.message && errors['analyst']?.message}
+            {errors['owner']?.message && errors['onwer']?.message}
           </span>
         </div>
 
@@ -107,11 +155,9 @@ function ChangeRequestForm({ createChangeRequest }) {
           <Select
             name="classification"
             options={[
-              { value: 'standard', label: 'Requested' },
-              { value: 'pending approval', label: 'Pending approval' },
-              { value: 'approved', label: 'Approved' },
-              { value: 'canceled', label: 'Canceled' },
-              { value: 'implemented', label: 'Implemented' },
+              { value: '1', label: 'Major' },
+              { value: '2', label: 'Significant' },
+              { value: '3', label: 'Standard' },
             ]}
             register={register}
             isRequired={true}
@@ -143,22 +189,23 @@ function ChangeRequestForm({ createChangeRequest }) {
 
         <div className="form-group">
           <Lable
-            htmlFor="rollbackPlan"
+            htmlFor="rollback_plan"
             labelText="Rollback Plan"
             className="after:content-['*'] after:ml-0.5 after:text-red-500  text-lg block "
           />
 
           <Textarea
-            name="rollbackPlan"
+            name="rollback_plan"
             register={register}
             cols="30"
             rows="10"
-            placeholder="rollbackPlan"
+            placeholder="rollback Plan"
             isRequired={true}
             errors={errors}
           />
           <span className="text-red-500">
-            {errors['rollbackPlan']?.message && errors['rollbackPlan']?.message}
+            {errors['rollback_plan']?.message &&
+              errors['rollback_plan']?.message}
           </span>
         </div>
 
