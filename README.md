@@ -1,6 +1,6 @@
 # Service Desk Management System
 
-A modern service desk management system built with React and Vite, designed for efficient ticket management and user administration.
+A modern service desk management system built with React.js, Tailwind CSS, and Supabase, designed for efficient ticket management and user administration.
 
 ## 📋 Quick Start
 
