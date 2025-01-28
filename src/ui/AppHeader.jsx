@@ -3,6 +3,7 @@ import Search from './Search';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faSun, faUserGear } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import Logout from '../features/authentication/Logout';
 
 function AppHeader() {
   return (
@@ -32,6 +33,7 @@ function Actions() {
       <Link className="text-2xl">
         <FontAwesomeIcon icon={faSun} />
       </Link>
+      <Logout />
     </div>
   );
 }

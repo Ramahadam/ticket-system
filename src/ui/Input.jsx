@@ -1,7 +1,11 @@
-function Input({ type, name, placeholder, register, defaultValue }) {
-  const className =
-    type === 'text' &&
-    `text-lg
+function Input({
+  type,
+  name,
+  placeholder = '',
+  register = () => {},
+  defaultValue = '',
+}) {
+  const className = `text-lg
       font-fredoka text-inherit
       pl-4
       h-14

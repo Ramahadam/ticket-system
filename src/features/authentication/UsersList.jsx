@@ -1,26 +1,24 @@
-// import { useUsers } from '../../context/UsersContext';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '../../ui/Button';
-import {
-  faAddressBook,
-  faEdit,
-  faTrash,
-  faUserEdit,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { useUsers } from './useUsers';
+import UserForm from './UserForm';
+// const user = {
+//   id: 1,
+//   userName: 'johnDoe',
+//   firstname: 'DOe',
+//   email: 'johnede@john.com',
+//   role: 'user',
+//   isActive: true,
+// };
 
-const user = {
-  id: 1,
-  userName: 'johnDoe',
-  firstname: 'DOe',
-  email: 'johnede@john.com',
-  role: 'user',
-  isActive: true,
-};
+//https://www.udemy.com/course/the-ultimate-react-course/learn/lecture/38038166#announcements
 
 function UsersList() {
-  // const { user } = useUsers();
-  // console.log(user);
+  const { users, isLoading, error } = useUsers();
+  console.log(users);
+
+  if (isLoading) return <div>Loading users...</div>;
 
   return (
     <div className="mt-8">
@@ -40,54 +38,59 @@ function UsersList() {
           </tr>
         </thead>
         <tbody>
-          <tr className="border border-bg-gray">
-            <td data-th="id" className="p-4 border-r border-bg-gray">
-              {user.id}
-            </td>
-            <td data-th="id" className="p-4 border-r border-bg-gray">
-              {user.userName}
-            </td>
-            <td data-th="id" className="p-4 border-r border-bg-gray">
-              {user.firstname}
-            </td>
-            <td data-th="id" className="p-4 border-r border-bg-gray">
-              {user.email}
-            </td>
-            <td data-th="id" className="p-4 border-r border-bg-gray">
-              {user.role}
-            </td>
-            <td data-th="id" className="p-4 border-r border-bg-gray">
-              {user.isActive ? (
-                <span className="text-dark-green font-medium">Active</span>
-              ) : (
-                <span className="text-color-orange font-medium">Inactive</span>
-              )}
-            </td>
-            <td data-th="id" className="p-4 border-r border-bg-gray">
-              <p className="flex items-center  ">
-                <Button>
-                  <FontAwesomeIcon
-                    icon={faEdit}
-                    className="text-color-secondary"
-                  />
-                </Button>
-                <span>Update user</span>
-              </p>
-            </td>
-            <td data-th="id" className="p-4  border-r border-bg-gray">
-              <p className="flex items-center  ">
-                <Button>
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    className="text-color-orange"
-                  />
-                </Button>
-                <span>Delete user</span>
-              </p>
-            </td>
-          </tr>
+          {users.map((user) => (
+            <tr className="border border-bg-gray" key={user.id}>
+              <td data-th="id" className="p-4 border-r border-bg-gray">
+                {user.id}
+              </td>
+              <td data-th="id" className="p-4 border-r border-bg-gray">
+                {user.user_name}
+              </td>
+              <td data-th="id" className="p-4 border-r border-bg-gray">
+                {user.first_name}
+              </td>
+              <td data-th="id" className="p-4 border-r border-bg-gray">
+                {user.email}
+              </td>
+              <td data-th="id" className="p-4 border-r border-bg-gray">
+                {user.role}
+              </td>
+              <td data-th="id" className="p-4 border-r border-bg-gray">
+                {user.isActive ? (
+                  <span className="text-dark-green font-medium">Active</span>
+                ) : (
+                  <span className="text-color-orange font-medium">
+                    Inactive
+                  </span>
+                )}
+              </td>
+              <td data-th="id" className="p-4 border-r border-bg-gray">
+                <p className="flex items-center  ">
+                  <Button>
+                    <FontAwesomeIcon
+                      icon={faEdit}
+                      className="text-color-secondary"
+                    />
+                  </Button>
+                  <span>Update user</span>
+                </p>
+              </td>
+              <td data-th="id" className="p-4  border-r border-bg-gray">
+                <p className="flex items-center  ">
+                  <Button>
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      className="text-color-orange"
+                    />
+                  </Button>
+                  <span>Delete user</span>
+                </p>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
+      <UserForm />
     </div>
   );
 }

@@ -1,6 +1,14 @@
-function Select({ name, options, register, isRequired, defaultValue, errors }) {
+function Select({
+  name,
+  options,
+  register = () => {},
+  isRequired,
+  defaultValue,
+  errors,
+  className,
+}) {
   return (
-    <label className="block">
+    <label className={`block ${className}`}>
       <span className="after:content-['*'] after:ml-0.5 after:text-red-500 text-lg block">
         {name.charAt(0).toUpperCase() + name.slice(1)}
       </span>
@@ -28,6 +36,9 @@ function Select({ name, options, register, isRequired, defaultValue, errors }) {
             focus:ring-1
           "
       >
+        <option value="" disabled selected>
+          Select an {name}
+        </option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
@@ -35,7 +46,7 @@ function Select({ name, options, register, isRequired, defaultValue, errors }) {
         ))}
       </select>
       <span className="text-red-500">
-        {errors[name]?.message && errors[name]?.message}
+        {/* {errors[name]?.message && errors[name]?.message} */}
       </span>
     </label>
   );
