@@ -31,13 +31,8 @@ A modern service desk management system built with React.js, Tailwind CSS, and S
 
 - Frontend: React.js, Vite, React Query
 - Backend: Supabase
-- Testing: Jest, React Testing Library
 - CI/CD: GitHub Actions
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
-## 👥 Support
-
-For support, please check our [Support Guide](./docs/SUPPORT.md) or open an issue.
