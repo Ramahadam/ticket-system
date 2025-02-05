@@ -4,8 +4,6 @@ import { useLogin } from './useLogin';
 import { useForm } from 'react-hook-form';
 
 function LoginForm() {
-  // const [email, setEmail] = useState('test@test.com');
-  // const [password, setPassword] = useState('12345');
   const { login, isLoading } = useLogin();
 
   const {
@@ -29,6 +27,7 @@ function LoginForm() {
           <h1 className="mb-14 text-3xl">Login to your account</h1>
 
           <Input
+            defaultValue="test@test.com"
             register={register('email', {
               required: 'Email is required',
               pattern: {
@@ -42,6 +41,7 @@ function LoginForm() {
           />
 
           <Input
+            defaultValue="12345"
             register={register('password', {
               required: 'Password is required',
               minLength: {

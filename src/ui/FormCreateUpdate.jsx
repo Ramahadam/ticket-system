@@ -1,4 +1,3 @@
-// import styles from './FormCreateUpdate.module.css';
 import { useForm } from 'react-hook-form';
 import { calcualteDeadline, createNotes } from '../utils/helper';
 import { useId as generateUniqID } from 'react';
@@ -81,11 +80,15 @@ function FormCreateUpdate({
             type="text"
             name="subject"
             placeholder="short description of the issue"
-            register={register}
+            register={register('subject', {
+              required: 'subject field is required',
+              minLength: {
+                value: 5,
+                message: 'subject must be at least 5 characters',
+              },
+            })}
+            error={errors?.subject?.message}
           />
-          <span className="text-red-500">
-            {errors['subject']?.message && errors['subject']?.message}
-          </span>
         </label>
 
         <p>
@@ -95,15 +98,19 @@ function FormCreateUpdate({
             </span>
 
             <Textarea
+              register={register('summary', {
+                required: 'This field is required.',
+                minLength: {
+                  value: 5,
+                  message: 'Minimum 5 characters :(',
+                },
+              })}
               name="summary"
-              register={register}
               cols="30"
               rows="10"
               placeholder="Problem summary"
+              error={errors?.summary?.message}
             />
-            <span className="text-red-500">
-              {errors['summary']?.message && errors['summary']?.message}
-            </span>
           </label>
         </p>
       </div>
@@ -111,31 +118,33 @@ function FormCreateUpdate({
       <div className="flex flex-col gap-4">
         <p>
           <Select
-            name="priority"
             options={[
               { value: 3, label: 'Normal' },
               { value: 1, label: 'High' },
               { value: 4, label: 'Low' },
               { value: 2, label: 'Medium' },
             ]}
-            register={register}
-            isRequired={true}
+            name="priority"
             defaultValue={getValues().priority}
-            errors={errors}
+            register={register('priority', {
+              required: 'priority is required',
+            })}
+            error={errors?.priority?.message}
           />
 
           <Select
-            name="status"
             options={[
               { value: 'loged', label: 'Loged' },
               { value: 'fulfiled', label: 'Fulfiled' },
               { value: 'progress', label: 'Progress' },
               { value: 'hold', label: 'On hold' },
             ]}
-            register={register}
-            isRequired={true}
+            name="status"
+            register={register('status', {
+              required: 'status is required',
+            })}
+            error={errors?.status?.message}
             defaultValue={getValues().status}
-            errors={errors}
           />
         </p>
 
@@ -143,16 +152,17 @@ function FormCreateUpdate({
           {tableName !== 'requests' && (
             <>
               <Select
-                name="impact"
                 options={[
                   { value: 'one', label: '1 User' },
                   { value: 'two', label: '2 users' },
                   { value: 'many', label: 'Many users' },
                 ]}
-                register={register}
-                isRequired={true}
+                name="impact"
+                register={register('impact', {
+                  required: 'impact is required',
+                })}
+                error={errors?.impact?.message}
                 defaultValue={getValues().impact}
-                errors={errors}
               />
             </>
           )}
@@ -166,15 +176,18 @@ function FormCreateUpdate({
               Requester
             </span>
             <Input
-              name="requester"
               type="text"
-              placeholder="Entity"
-              register={register}
+              name="requester"
+              placeholder="Ticket requester"
+              register={register('requester', {
+                required: 'requester field is required',
+                minLength: {
+                  value: 5,
+                  message: 'requester must be at least 5 characters',
+                },
+              })}
+              error={errors?.requester?.message}
             />
-
-            <span className="text-red-500">
-              {errors['requester']?.message && errors['requester']?.message}
-            </span>
           </label>
         </p>
         <p>
@@ -185,15 +198,12 @@ function FormCreateUpdate({
 
             <Textarea
               name="solution"
-              register={register}
               cols="30"
               rows="10"
               placeholder="Problem summary"
               isRequired={false}
+              error={errors?.solution?.message}
             />
-            <span className="text-red-500">
-              {errors['summary']?.message && errors['summary']?.message}
-            </span>
           </label>
         </p>
       </div>
@@ -201,16 +211,18 @@ function FormCreateUpdate({
       <div className="flex flex-col gap-4">
         <p>
           <Select
-            name="engineer"
             options={[
               { value: 'john', label: 'John' },
               { value: 'peter', label: 'Peter' },
               { value: 'adam', label: 'Adam' },
             ]}
-            register={register}
             isRequired={true}
+            name="engineer"
+            register={register('engineer', {
+              required: 'engineer is required',
+            })}
+            error={errors?.engineer?.message}
             defaultValue={getValues().engineer}
-            errors={errors}
           />
         </p>
         <p>
@@ -218,15 +230,11 @@ function FormCreateUpdate({
             <span className="  text-lg block ">Add internal note</span>
             <Textarea
               name="notes"
-              register={register}
               cols="10"
               rows="10"
               placeholder="Problem summary"
               isRequired={false}
             />
-            <span className="text-red-500">
-              {errors['summary']?.message && errors['summary']?.message}
-            </span>
           </label>
         </p>
       </div>

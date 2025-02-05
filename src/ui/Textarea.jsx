@@ -1,19 +1,16 @@
-function Textarea({ name, cols, rows, placeholder, register, isRequired }) {
+import ErrorMessage from './ErrorMessage';
+
+function Textarea({ name, cols, rows, placeholder, register, error = '' }) {
   return (
-    <textarea
-      {...register(name, {
-        required: isRequired ? 'This field is required.' : false,
-        minLength: {
-          value: 5,
-          message: 'Minimum 5 characters :(',
-        },
-      })}
-      id={name}
-      cols={cols}
-      rows={rows}
-      placeholder={placeholder}
-      className="
-          w-full
+    <>
+      <textarea
+        {...register}
+        id={name}
+        cols={cols}
+        rows={rows}
+        placeholder={placeholder}
+        className="
+      w-full
           text-lg
           font-fredoka
           text-inherit
@@ -23,8 +20,10 @@ function Textarea({ name, cols, rows, placeholder, register, isRequired }) {
           border
           border-bg-gray
           rounded-md
-        "
-    ></textarea>
+          "
+      ></textarea>
+      <ErrorMessage error={error} />
+    </>
   );
 }
 
