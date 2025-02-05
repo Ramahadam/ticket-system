@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '../ui/Button';
 import { faAddressBook, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import UsersList from '../features/authentication/UsersList';
-
+import UserForm from '../features/authentication/UserForm';
 function Users() {
   return (
     <div className="max-w-[100rem]">
@@ -31,6 +31,7 @@ function Users() {
         </div>
 
         <UsersList />
+        <UserForm />
       </div>
     </div>
   );

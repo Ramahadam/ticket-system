@@ -1,8 +1,9 @@
 function ErrorMessage({ error }) {
+  console.log(error);
   return (
-    <div className="bg-light-red text-color-orange max-w-fit rounded-md p-1">
-      {error.message}
-    </div>
+    <span className="bg-light-red text-color-orange max-w-fit rounded-md m-2">
+      {error}
+    </span>
   );
 }
 

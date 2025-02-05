@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '../../ui/Button';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useUsers } from './useUsers';
-import UserForm from './UserForm';
+
 // const user = {
 //   id: 1,
 //   userName: 'johnDoe',
@@ -15,10 +15,11 @@ import UserForm from './UserForm';
 //https://www.udemy.com/course/the-ultimate-react-course/learn/lecture/38038166#announcements
 
 function UsersList() {
-  const { users, isLoading, error } = useUsers();
-  console.log(users);
+  const users = [];
+  // // const { users, isLoading, error } = useUsers();
+  // // console.log(users);
 
-  if (isLoading) return <div>Loading users...</div>;
+  // if (isLoading) return <div>Loading users...</div>;
 
   return (
     <div className="mt-8">
@@ -38,7 +39,7 @@ function UsersList() {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {users?.map((user) => (
             <tr className="border border-bg-gray" key={user.id}>
               <td data-th="id" className="p-4 border-r border-bg-gray">
                 {user.id}
@@ -90,7 +91,6 @@ function UsersList() {
           ))}
         </tbody>
       </table>
-      <UserForm />
     </div>
   );
 }

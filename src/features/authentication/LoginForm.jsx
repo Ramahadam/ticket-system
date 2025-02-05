@@ -1,24 +1,21 @@
-import { useState } from 'react';
 import Logo from '../../ui/Logo';
+import Input from '../../ui/Input';
 import { useLogin } from './useLogin';
+import { useForm } from 'react-hook-form';
+
 function LoginForm() {
-  const [email, setEmail] = useState('test@test.com');
-  const [password, setPassword] = useState('12345');
+  // const [email, setEmail] = useState('test@test.com');
+  // const [password, setPassword] = useState('12345');
   const { login, isLoading } = useLogin();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-    if (!email || !password) return;
-    login(
-      { email, password },
-      {
-        onSettled: () => {
-          setEmail('');
-          setPassword('');
-        },
-      }
-    );
+  const onSubmit = (data) => {
+    login(data);
   };
 
   return (
@@ -26,29 +23,35 @@ function LoginForm() {
       <Logo className=" h-20 w-56 mb-8" />
       <div className="flex flex-col items-center w-[48rem] bg-white mx-auto rounded-lg">
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           className="w-[35rem] p-10 text-center flex flex-col"
         >
           <h1 className="mb-14 text-3xl">Login to your account</h1>
 
-          <input
-            type="text"
-            name="username"
-            id="username"
-            disabled={isLoading}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="text-lg font-fredoka text-inherit h-[5rem] outline-none p-6 border border-bg-gray rounded-md mb-8"
+          <Input
+            register={register('email', {
+              required: 'Email is required',
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: 'Please enter a valid email',
+              },
+            })}
+            type="email"
+            placeholder="Email"
+            error={errors?.email?.message}
           />
 
-          <input
+          <Input
+            register={register('password', {
+              required: 'Password is required',
+              minLength: {
+                value: 5,
+                message: 'Password must be at least 5 characters',
+              },
+            })}
             type="password"
-            name="password"
-            id="password"
-            value={password}
-            disabled={isLoading}
-            onChange={(e) => setPassword(e.target.value)}
-            className="text-lg font-fredoka text-inherit h-[5rem] outline-none p-6 border border-bg-gray rounded-md mb-8"
+            placeholder="Password"
+            error={errors?.password?.message}
           />
 
           <input

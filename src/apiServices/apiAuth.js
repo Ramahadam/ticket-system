@@ -1,10 +1,7 @@
 import { supabase } from './supabase';
 
-export async function login({ email, password }) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+export async function login(loginDetails) {
+  const { data, error } = await supabase.auth.signInWithPassword(loginDetails);
 
   if (error) throw new Error('Wrong username or password');
 
