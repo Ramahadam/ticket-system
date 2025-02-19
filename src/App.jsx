@@ -25,7 +25,7 @@ import Settings from './pages/Settings';
 
 import { FilterProvider } from './Context/FilterContext';
 import TicketLayout from './ui/TicketLayout';
-import ProtectedRoute from './ui/ProtectedRoute';
+// import ProtectedRoute from './ui/ProtectedRoute';
 // Create a client
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,13 +42,14 @@ function App() {
       <FilterProvider>
         <BrowserRouter>
           <Routes>
-            <Route
+            {/*TODO: I disable protected route becuase I am working on profile table <Route
               element={
                 <ProtectedRoute>
                   <AppLayout />
                 </ProtectedRoute>
               }
-            >
+            > */}
+            <Route element={<AppLayout />}>
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
 

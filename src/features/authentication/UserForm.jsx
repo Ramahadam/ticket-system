@@ -17,15 +17,7 @@ function UserForm() {
   const password = watch('password');
 
   async function onSubmit(data) {
-    // Replace this with your apiAuth.js createUser function
-    // await createUser({
-    //   email: data.email,
-    //   password: data.password,
-    //   firstname: data.firstname,
-    //   lastname: data.lastname,
-    //   role: data.role,
-    // });
-    // Handle successful creation
+    console.log(data);
   }
 
   return (
@@ -63,6 +55,27 @@ function UserForm() {
             error={errors?.lastname?.message}
           />
         </div>
+        <div className="flex gap-4">
+          <Input
+            name="mobile"
+            register={register('mobile', {
+              required: 'Mobile number is required',
+            })}
+            type="number"
+            placeholder="+097165353"
+            error={errors?.mobile?.message}
+          />{' '}
+          <Input
+            register={register('file')}
+            type="file"
+            placeholder="upload file"
+            error={errors?.file?.message}
+            className="border-none flex items-center justify-center bg-white border shadow-sm
+                      focus:outline-none 
+                      focus:border-none
+                      focus:ring-0 "
+          />
+        </div>
         <div className="flex items-center gap-4">
           <Input
             register={register('email', {
@@ -79,8 +92,8 @@ function UserForm() {
 
           <Select
             options={[
-              { value: 'admin', label: 'Admin' },
-              { value: 'standard', label: 'Standard' },
+              { value: 'standard', label: 'standard' },
+              { value: 'analyst', label: 'analyst' },
             ]}
             isRequired={true}
             name="role"
@@ -107,7 +120,7 @@ function UserForm() {
             register={register('confirmPassword', {
               required: 'Please confirm your password',
               validate: (value) =>
-                value === password || 'Passwords do not match',
+                value === password || 'Passwords does not match',
             })}
             type="password"
             placeholder="Confirm password"

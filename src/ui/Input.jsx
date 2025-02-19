@@ -7,8 +7,9 @@ function Input({
   register,
   defaultValue = '',
   error,
+  className,
 }) {
-  const className = `text-lg
+  const classNameInput = `text-lg
       font-fredoka text-inherit
       pl-4
       h-14
@@ -20,7 +21,7 @@ function Input({
       focus:border-sky-500
       focus:ring-sky-500 
       w-full rounded-md 
-      focus:ring-1`;
+      focus:ring-1  ${className}`;
 
   return (
     <div className="w-full">
@@ -29,7 +30,7 @@ function Input({
         type={type}
         name={name}
         defaultValue={defaultValue}
-        className={className}
+        className={classNameInput}
         placeholder={placeholder}
         {...register}
       />
