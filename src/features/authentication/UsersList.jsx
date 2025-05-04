@@ -15,9 +15,8 @@ import { useUsers } from './useUsers';
 //https://www.udemy.com/course/the-ultimate-react-course/learn/lecture/38038166#announcements
 
 function UsersList() {
-  const users = [];
-  // // const { users, isLoading, error } = useUsers();
-  // // console.log(users);
+  const { users, isLoading, error } = useUsers();
+  console.log(users);
 
   // if (isLoading) return <div>Loading users...</div>;
 
@@ -27,8 +26,8 @@ function UsersList() {
         <thead className="bg-bg-light-gray">
           <tr>
             <td className="p-4 rounded-tl-md">Id</td>
-            <td className="p-4">username</td>
             <td className="p-4">Firstname</td>
+            <td className="p-4">Lastname</td>
             <td className="p-4">email</td>
             <td className="p-4">Role</td>
             <td className="p-4">
@@ -42,19 +41,19 @@ function UsersList() {
           {users?.map((user) => (
             <tr className="border border-bg-gray" key={user.id}>
               <td data-th="id" className="p-4 border-r border-bg-gray">
-                {user.id}
+                {user?.id.split('-').slice(0, 1)}
               </td>
               <td data-th="id" className="p-4 border-r border-bg-gray">
-                {user.user_name}
+                {user.firstname}
               </td>
               <td data-th="id" className="p-4 border-r border-bg-gray">
-                {user.first_name}
+                {user.lastname}
               </td>
               <td data-th="id" className="p-4 border-r border-bg-gray">
                 {user.email}
               </td>
               <td data-th="id" className="p-4 border-r border-bg-gray">
-                {user.role}
+                {user.userrole}
               </td>
               <td data-th="id" className="p-4 border-r border-bg-gray">
                 {user.isActive ? (

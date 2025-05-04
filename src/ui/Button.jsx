@@ -1,6 +1,7 @@
-function Button({ children, onClick = () => '', isDisabled, className }) {
+function Button({ children, onClick = () => {}, isDisabled, className }) {
   const handleClick = (e) => {
     e.preventDefault();
+    console.log('clicked');
     onClick();
   };
 

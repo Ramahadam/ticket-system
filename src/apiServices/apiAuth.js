@@ -29,3 +29,24 @@ export async function logout() {
   const { error } = await supabase.auth.signOut();
   if (error) throw new Error(error.message);
 }
+
+export async function createUserApi(user) {
+  const { data: authUser, error } = await supabase.auth.admin.createUser(user);
+
+  if (error) throw new Error('Oops! couldn\t create new user');
+
+  return authUser;
+}
+
+export async function createUserProfile(userProfile) {
+  console.log('userProfile 🧑‍🦲', userProfile);
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .insert([userProfile])
+    .select('id');
+
+  if (error) throw new Error('Oops! couldn\t create the user profile');
+
+  return data;
+}
