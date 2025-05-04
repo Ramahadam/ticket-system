@@ -16,7 +16,6 @@ import { useUsers } from './useUsers';
 
 function UsersList() {
   const { users, isLoading, error } = useUsers();
-  console.log(users);
 
   // if (isLoading) return <div>Loading users...</div>;
 

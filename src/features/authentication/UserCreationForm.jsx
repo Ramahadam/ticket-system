@@ -6,7 +6,6 @@ import Input from '../../ui/Input';
 import Select from '../../ui/Select';
 import FileInputButton from '../../ui/FileInputButton';
 import { createUserApi, createUserProfile } from '../../apiServices/apiAuth';
-import { useState } from 'react';
 
 function UserCreationForm({ showUserForm, setShowForm }) {
   const {
@@ -21,29 +20,24 @@ function UserCreationForm({ showUserForm, setShowForm }) {
   const password = watch('password');
 
   async function onSubmit(data) {
-    const formData = data;
-    console.log(data);
-    if (!formData) return;
+    if (!data) return;
 
-    const newUserCred = {
+    const newUserCredentials = {
       email: getValues('email'),
       password: getValues('password'),
       email_confirm: true,
     };
 
     try {
-      //create the user in authentication table
-      const { user } = await createUserApi(newUserCred);
+      const { user } = await createUserApi(newUserCredentials);
 
-      //Removing confirm password from form data.
-      const { confirmPassword, ...userProfileDetails } = formData;
-      console.log(userProfileDetails);
+      // eslint-disable-next-line no-unused-vars
+      const { confirmPassword, ...userProfileDetails } = data;
+      const isActive = data.isActive?.toLowerCase() === 'true';
 
-      //create the user in profile table
-      await createUserProfile({
-        id: user.id,
-        ...userProfileDetails,
-      });
+      const userProfile = { id: user.id, ...userProfileDetails, isActive };
+
+      await createUserProfile(userProfile);
     } catch (err) {
       console.log(`Error while creating the user ${err}`);
     }
@@ -114,6 +108,20 @@ function UserCreationForm({ showUserForm, setShowForm }) {
               error={errors?.email?.message}
             />
 
+            <Select
+              options={[
+                { value: true, label: 'active' },
+                { value: false, label: 'inactive' },
+              ]}
+              isRequired={true}
+              name="isActive"
+              errors={errors}
+              register={register('isActive', {
+                required: 'Account status is required',
+              })}
+              error={errors?.isActive?.message}
+              classNameLable="hidden  h-4 w-4"
+            />
             <Select
               options={[
                 { value: 'standard', label: 'standard' },
