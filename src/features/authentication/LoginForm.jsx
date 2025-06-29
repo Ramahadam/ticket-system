@@ -27,7 +27,7 @@ function LoginForm() {
           <h1 className="mb-14 text-3xl">Login to your account</h1>
 
           <Input
-            defaultValue="ramy.adam33@gmail.com"
+            defaultValue="adam@itms.com"
             register={register('email', {
               required: 'Email is required',
               pattern: {
