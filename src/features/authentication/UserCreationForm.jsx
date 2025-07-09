@@ -5,7 +5,8 @@ import { useForm } from 'react-hook-form';
 import Input from '../../ui/Input';
 import Select from '../../ui/Select';
 import FileInputButton from '../../ui/FileInputButton';
-import { createUserApi, createUserProfile } from '../../apiServices/apiAuth';
+import { createUserApi } from '../../apiServices/apiUsers';
+import { useCreateUser } from './useCreateUser';
 
 function UserCreationForm({ showUserForm, setShowForm }) {
   const {
@@ -15,6 +16,8 @@ function UserCreationForm({ showUserForm, setShowForm }) {
     getValues,
     watch,
   } = useForm();
+
+  const { createUserProfile } = useCreateUser();
 
   // Watch password field for confirmation matching
   const password = watch('password');

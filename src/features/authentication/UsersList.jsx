@@ -2,7 +2,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '../../ui/Button';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useUsers } from './useUsers';
-
+import { useDeleteUser } from './useDeleteUser';
+import Loader from '../../ui/Loader';
+import Message from '../../ui/Message';
 // const user = {
 //   id: 1,
 //   userName: 'johnDoe',
@@ -15,9 +17,19 @@ import { useUsers } from './useUsers';
 //https://www.udemy.com/course/the-ultimate-react-course/learn/lecture/38038166#announcements
 
 function UsersList() {
-  const { users, isLoading, error } = useUsers();
+  const { users, isLoading: isLoadingUsers, error } = useUsers();
 
-  // if (isLoading) return <div>Loading users...</div>;
+  const { deleteUser } = useDeleteUser();
+
+  function handleDleteUser(user) {
+    const confirmDelete = confirm('Are you sure you want to deleteß');
+
+    if (confirmDelete) deleteUser(user?.id);
+  }
+
+  if (error) return <Message message={error.message} />;
+
+  if (isLoadingUsers) return <Loader />;
 
   return (
     <div className="mt-8">
@@ -76,13 +88,14 @@ function UsersList() {
               </td>
               <td data-th="id" className="p-4  border-r border-bg-gray">
                 <p className="flex items-center  ">
-                  <Button>
+                  <Button onClick={() => handleDleteUser(user)}>
                     <FontAwesomeIcon
                       icon={faTrash}
                       className="text-color-orange"
                     />
+
+                    <span>Delete user</span>
                   </Button>
-                  <span>Delete user</span>
                 </p>
               </td>
             </tr>

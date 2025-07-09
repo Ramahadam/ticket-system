@@ -1,5 +1,24 @@
 import { supabase, supabaseUrl } from './supabase';
 
+export async function createUserApi(user) {
+  console.log(user);
+  const { data: authUser, error } = await supabase.auth.admin.createUser(user);
+
+  if (error) throw new Error(`Oops! couldn\t create new user ${error.message}`);
+
+  return authUser;
+}
+
+export async function createUserProfile(userProfile) {
+  const { data, error } = await supabase.from('profiles').insert([userProfile]);
+
+  if (error) throw new Error('Oops! couldn\t create the user profile');
+
+  return data;
+}
+
+// Fetch all users from supabase profiles table
+
 export async function getUsers() {
   const { data: users, error } = await supabase.from('profiles').select('*');
 
@@ -10,6 +29,24 @@ export async function getUsers() {
 
   return users;
 }
+
+// Delete User from supabase profiles table
+
+export async function deleteUser(id) {
+  const { error } = await supabase.from('profiles').delete().eq('id', id);
+
+  if (error) {
+    console.error(error.message);
+    throw new Error(`Couldn't load users data ${error.message}`);
+  }
+
+  return null;
+}
+
+// Update User from supabse profiles table
+export async function updateUser(id) {}
+
+// Deactivate User from supabse profiles table
 
 /***
  * 
