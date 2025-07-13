@@ -2,10 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '../ui/Button';
 import { faAddressBook, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import UsersList from '../features/authentication/UsersList';
-import UserCreationForm from '../features/authentication/UserCreationForm';
-import { useState } from 'react';
+import UserCreation from '../features/authentication/UserCreation';
+import { useUserContext } from '../Context/UserContext';
+
 function Users() {
-  const [showForm, setShowForm] = useState(false);
+  const { setShowForm } = useUserContext();
 
   return (
     <div className="max-w-[100rem]">
@@ -33,7 +34,7 @@ function Users() {
         </div>
 
         <UsersList />
-        <UserCreationForm showUserForm={showForm} setShowForm={setShowForm} />
+        <UserCreation />
       </div>
     </div>
   );

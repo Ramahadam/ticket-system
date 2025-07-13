@@ -1,4 +1,15 @@
+import { create_file_name_for_upload } from '../utils/helper';
 import { supabase, supabaseUrl } from './supabase';
+
+async function uploadFile(bucket, filePath, file) {
+  const { error: storageError } = await supabase.storage
+    .from(bucket)
+    .upload(filePath, file);
+
+  return { storageError };
+}
+
+//////////// CREATE UESR IN AUTHENTICATION TABLE ///////
 
 export async function createUserApi(user) {
   console.log(user);
@@ -9,16 +20,49 @@ export async function createUserApi(user) {
   return authUser;
 }
 
-export async function createUserProfile(userProfile) {
-  const { data, error } = await supabase.from('profiles').insert([userProfile]);
+////////////// CREATE USER PROFILE.  ////////////////ß
 
-  if (error) throw new Error('Oops! couldn\t create the user profile');
+export async function createUserProfile(userProfile) {
+  const { fileURL, filePath } = create_file_name_for_upload(
+    userProfile,
+    supabaseUrl
+  );
+
+  let query = supabase.from('profiles');
+
+  if (!userProfile.file) {
+    query = await query.insert([userProfile]).select('id');
+  }
+
+  if (userProfile.file) {
+    // create the user along with URL for the photo
+    query = await query.insert([{ ...userProfile, file: fileURL }]);
+
+    // 2. Upload the photo to the files sotrage
+    const { storageError } = await uploadFile(
+      'files',
+      filePath,
+      userProfile.file
+    );
+
+    // 3. Delete the user if there was an error uploading the file
+    if (storageError) {
+      await deleteUser(query.data.id);
+      await query.delete().eq('id', query.data.id);
+      throw new Error(
+        'File could not be uploaded and user could not be created'
+      );
+    }
+  }
+
+  const { data, error } = query;
+
+  if (error) throw new Error('Could not create incident due to an error');
 
   return data;
 }
 
-// Fetch all users from supabase profiles table
-
+// FETCH ALL USERS FROM PROFILE TABLE
 export async function getUsers() {
   const { data: users, error } = await supabase.from('profiles').select('*');
 
@@ -30,24 +74,63 @@ export async function getUsers() {
   return users;
 }
 
-// Delete User from supabase profiles table
+// DELETE USER FROM PROFILES TABLE
 
 export async function deleteUser(id) {
-  const { error } = await supabase.from('profiles').delete().eq('id', id);
+  const { errorDeleteUser } = await supabase.auth.admin.deleteUser(id);
+  const { errorDeleteProfile } = await supabase
+    .from('profiles')
+    .delete()
+    .eq('id', id);
+
+  const error = errorDeleteProfile || errorDeleteUser;
 
   if (error) {
     console.error(error.message);
-    throw new Error(`Couldn't load users data ${error.message}`);
+    throw new Error(`Couldn't delete user  ${error.message}`);
   }
 
   return null;
 }
 
-// Update User from supabse profiles table
-export async function updateUser(id) {}
+// Update user
+export async function updateUser(updatedProfile, id) {
+  // Update user profile in profile table
+  const { data, error } = await supabase
+    .from('profiles')
+    .update({ ...updatedProfile })
+    .eq('id', id)
+    .select();
 
-// Deactivate User from supabse profiles table
+  if (error) {
+    console.error(error.message);
+    throw new Error(`Couldn't update the user Error ${error.message}`);
+  }
 
+  return data;
+}
+
+export async function resetUserPassword(id, newPassword) {
+  const { error } = await supabase.auth.admin.updateUserById(id, {
+    password: newPassword,
+  });
+
+  if (error) {
+    console.error(error.message);
+    throw new Error(`Couldn't reset user password ${error.message}`);
+  }
+
+  return null;
+}
+
+// export async function resetUserPassword(email, newPassword) {
+//   const { data, error } = await supabase.auth.admin.updateUserById(userId, {
+//     password: newPassword,
+//   });
+// }
+
+// DEACTIVATE USER
+export async function deactivateUser(id) {}
 /***
  * 
  * 

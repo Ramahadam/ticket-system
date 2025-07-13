@@ -8,6 +8,7 @@ function Input({
   defaultValue = '',
   error,
   className,
+  disabled = false,
 }) {
   const classNameInput = `text-lg
       font-fredoka text-inherit
@@ -21,11 +22,12 @@ function Input({
       focus:border-sky-500
       focus:ring-sky-500 
       w-full rounded-md 
-      focus:ring-1  ${className}`;
+      focus:ring-1  ${className} ${disabled && 'text-slate-400'}`;
 
   return (
     <div className="w-full">
       <input
+        disabled={disabled}
         id={name}
         type={type}
         name={name}

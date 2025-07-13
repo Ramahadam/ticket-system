@@ -33,3 +33,12 @@ export function createNotes(data, uniqID) {
 export function replaceFileFormats(str) {
   return str.replace(/\b(.pdf|.jpg|.jpeg)\b/gi, '');
 }
+
+export function create_file_name_for_upload(data, supabaseUrl) {
+  const fileName = `${Math.random()}-${data?.file?.name}`.replaceAll('/', '');
+
+  const filePath = `/${fileName}`;
+  const fileURL = `${supabaseUrl}/storage/v1/object/public/files/${filePath}`;
+
+  return { fileURL, filePath };
+}

@@ -5,18 +5,10 @@ import { useUsers } from './useUsers';
 import { useDeleteUser } from './useDeleteUser';
 import Loader from '../../ui/Loader';
 import Message from '../../ui/Message';
-// const user = {
-//   id: 1,
-//   userName: 'johnDoe',
-//   firstname: 'DOe',
-//   email: 'johnede@john.com',
-//   role: 'user',
-//   isActive: true,
-// };
-
-//https://www.udemy.com/course/the-ultimate-react-course/learn/lecture/38038166#announcements
+import { useUserContext } from '../../Context/UserContext';
 
 function UsersList() {
+  const { setShowForm, setEditUser } = useUserContext();
   const { users, isLoading: isLoadingUsers, error } = useUsers();
 
   const { deleteUser } = useDeleteUser();
@@ -25,6 +17,13 @@ function UsersList() {
     const confirmDelete = confirm('Are you sure you want to deleteß');
 
     if (confirmDelete) deleteUser(user?.id);
+  }
+
+  function handleUpdateUser(id) {
+    const user = users.filter((user) => user.id === id).at(0);
+
+    setEditUser(user);
+    setShowForm((show) => !show);
   }
 
   if (error) return <Message message={error.message} />;
@@ -36,7 +35,7 @@ function UsersList() {
       <table className="table-auto bg-white w-full">
         <thead className="bg-bg-light-gray">
           <tr>
-            <td className="p-4 rounded-tl-md">Id</td>
+            <td className="p-4 ">Photo</td>
             <td className="p-4">Firstname</td>
             <td className="p-4">Lastname</td>
             <td className="p-4">email</td>
@@ -51,9 +50,14 @@ function UsersList() {
         <tbody>
           {users?.map((user) => (
             <tr className="border border-bg-gray" key={user.id}>
-              <td data-th="id" className="p-4 border-r border-bg-gray">
-                {user?.id.split('-').slice(0, 1)}
+              <td data-th="id" className="p-4 border-r border-bg-gray  ">
+                <img
+                  src={`${user.file}`}
+                  alt="user profile photo"
+                  className="rounded-full w-[50px]  "
+                />
               </td>
+
               <td data-th="id" className="p-4 border-r border-bg-gray">
                 {user.firstname}
               </td>
@@ -77,7 +81,7 @@ function UsersList() {
               </td>
               <td data-th="id" className="p-4 border-r border-bg-gray">
                 <p className="flex items-center  ">
-                  <Button>
+                  <Button onClick={() => handleUpdateUser(user.id)}>
                     <FontAwesomeIcon
                       icon={faEdit}
                       className="text-color-secondary"

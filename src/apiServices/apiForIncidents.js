@@ -77,7 +77,6 @@ export async function createIncident(incident) {
 
   const filePath = `/${fileName}`;
   const fileURL = `${supabaseUrl}/storage/v1/object/public/files/${filePath}`;
-  console.log(fileURL);
 
   let query = supabase.from('incidents');
 

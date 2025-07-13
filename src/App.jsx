@@ -26,6 +26,7 @@ import Settings from './pages/Settings';
 import { FilterProvider } from './Context/FilterContext';
 import TicketLayout from './ui/TicketLayout';
 import ProtectedRoute from './ui/ProtectedRoute';
+import { UserProvider } from './Context/UserContext';
 // Create a client
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -68,7 +69,15 @@ function App() {
                 <Route path=":id" element={<ChangeRequest />} />
                 <Route path="new" element={<ChangeRequestNew />} />
               </Route>
-              <Route path="users" element={<Users />} />
+
+              <Route
+                path="users"
+                element={
+                  <UserProvider>
+                    <Users />
+                  </UserProvider>
+                }
+              />
               <Route path="settings" element={<Settings />} />
             </Route>
             <Route path="login" element={<Login />} />
