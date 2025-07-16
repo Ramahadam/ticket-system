@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 
 import { createUserApi, resetUserPassword } from '../../apiServices/apiUsers';
-// import { useUpdateUser } from './useUpdateUser';
+import { useUpdateUser } from './useUpdateUser';
 import { useCreateUser } from './useCreateUser';
 import { FormUser } from '../../ui/FormUser';
 import { useEffect, useState } from 'react';
@@ -9,26 +9,29 @@ import { useUserContext } from '../../Context/UserContext';
 
 function UserCreation() {
   const {
+    editUser,
     isUpdateSession,
-    editId,
     filteredDefaultValues,
     showForm,
     setShowForm,
+    resetPassword,
   } = useUserContext();
 
-  const [resetPassword, setResetPassword] = useState(true);
-
-  const { reset, getValues, watch, ...otherForProp } = useForm({
+  const { reset, getValues, watch, ...otherFormProp } = useForm({
     defaultValues: isUpdateSession ? { ...filteredDefaultValues } : {},
   });
 
   useEffect(() => {
-    reset(filteredDefaultValues); // Populate the form with default values
-  }, [filteredDefaultValues]);
+    if (isUpdateSession) {
+      reset(filteredDefaultValues);
+    } else {
+      reset({});
+    }
+  }, [isUpdateSession, reset, filteredDefaultValues]);
 
   const { createUserProfile } = useCreateUser();
 
-  // const { updateUserProfile, isUpdating } = useUpdateUser();
+  const { updateUserProfile, isUpdating } = useUpdateUser();
 
   // Watch password field for confirmation matching
   const password = watch('password');
@@ -70,8 +73,7 @@ function UserCreation() {
     if (isUpdateSession) {
       // if password reset reqeust
       if (resetPassword) {
-        console.log(editId, data.password);
-        await resetUserPassword(editId, data.password);
+        await resetUserPassword(editUser.id, data.password);
       }
       //TODO
       console.log(data);
@@ -82,13 +84,11 @@ function UserCreation() {
   return (
     showForm && (
       <FormUser
-        setShowForm={setShowForm}
+        reset={reset}
+        formKey={isUpdateSession ? 'edit' : 'create'}
         onSubmit={onSubmit}
         matchedPassword={password}
-        reactForm={otherForProp}
-        defaultValues={filteredDefaultValues}
-        setResetPassword={setResetPassword}
-        resetPassword={resetPassword}
+        reactForm={otherFormProp}
       />
     )
   );

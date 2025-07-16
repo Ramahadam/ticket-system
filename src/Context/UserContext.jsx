@@ -1,14 +1,14 @@
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const UserContext = createContext();
 
 function UserProvider({ children }) {
   const [showForm, setShowForm] = useState(false);
   const [editUser, setEditUser] = useState(null);
+  // To conditionally show password reset input and also update password based on reset password state
+  const [resetPassword, setResetPassword] = useState(true);
 
-  console.log(editUser);
-
-  const isUpdateSession = Boolean(editUser?.id);
+  let isUpdateSession = Boolean(editUser?.id);
 
   const excludedDefaultValues = [
     'confirmPassword',
@@ -19,15 +19,27 @@ function UserProvider({ children }) {
     'updated_at',
   ];
 
-  const filteredDefaultValues = useMemo(() => {
-    if (!isUpdateSession) return {};
+  // Exlude some valuse from the form defaultvalues
+  //   let filteredDefaultValues = useMemo(() => {
+  //     if (!isUpdateSession) return {};
 
-    return Object.fromEntries(
-      Object.entries(editUser).filter(
-        ([key]) => !excludedDefaultValues.includes(key)
+  //     return Object.fromEntries(
+  //       Object.entries(editUser).filter(
+  //         ([key]) => !excludedDefaultValues.includes(key)
+  //       )
+  //     );
+  //   }, [isUpdateSession, editUser]);
+  let filteredDefaultValues = isUpdateSession
+    ? Object.fromEntries(
+        Object.entries(editUser).filter(
+          ([key]) => !excludedDefaultValues.includes(key)
+        )
       )
-    );
-  }, [isUpdateSession, editUser]);
+    : {};
+
+  // Reset the defaultvalues if the form is closed
+
+  // Context values
 
   const values = {
     showForm,
@@ -36,6 +48,8 @@ function UserProvider({ children }) {
     setEditUser,
     isUpdateSession,
     filteredDefaultValues,
+    resetPassword,
+    setResetPassword,
   };
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;

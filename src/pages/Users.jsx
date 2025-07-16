@@ -6,7 +6,7 @@ import UserCreation from '../features/authentication/UserCreation';
 import { useUserContext } from '../Context/UserContext';
 
 function Users() {
-  const { setShowForm } = useUserContext();
+  const { setShowForm, setEditUser } = useUserContext();
 
   return (
     <div className="max-w-[100rem]">
@@ -23,7 +23,10 @@ function Users() {
           </div>
 
           <Button
-            onClick={() => setShowForm((show) => !show)}
+            onClick={() => {
+              setEditUser(null);
+              setShowForm(true);
+            }}
             className=" text-color-primary outline-dashed outline-1 outline-offset-1"
           >
             <span>

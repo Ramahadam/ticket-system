@@ -7,12 +7,11 @@ import FileInputButton from './FileInputButton';
 import { useUserContext } from '../Context/UserContext';
 
 export function FormUser({
+  reset,
   reactForm,
   onSubmit,
-  setShowForm,
   matchedPassword,
-  setResetPassword,
-  resetPassword,
+  formKey,
 }) {
   const {
     register,
@@ -20,16 +19,30 @@ export function FormUser({
     formState: { errors },
   } = reactForm;
 
-  const { editId } = useUserContext();
+  const {
+    isUpdateSession,
+    setShowForm,
+    setResetPassword,
+    resetPassword,
+    setEditUser,
+  } = useUserContext();
 
   return (
     <form
+      key={formKey}
       onSubmit={handleSubmit(onSubmit)}
       className="mt-16 shadow-2xl p-4 rounded-md max-w-[80%] min-h-[30rem]"
     >
       <header className="flex justify-between items-center">
-        <h2>Create user</h2>
-        <button type="button" onClick={() => setShowForm((show) => !show)}>
+        <h2>{isUpdateSession ? 'Update User' : 'Create User'}</h2>
+        <button
+          type="button"
+          onClick={() => {
+            setEditUser(() => null);
+            reset({}); // reset the form
+            setShowForm(() => false);
+          }}
+        >
           <FontAwesomeIcon
             icon={faTimes}
             className="text-color-orange h-6 w-6 border border-color-orange rounded-sm p-1"
@@ -68,7 +81,7 @@ export function FormUser({
             placeholder="+097165353"
             error={errors?.mobile?.message}
             defaultValue="345678909876543"
-          />{' '}
+          />
           <FileInputButton
             register={register('file')}
             lableText="Choose profile photo"
@@ -83,7 +96,7 @@ export function FormUser({
                 message: 'Please enter a valid email',
               },
             })}
-            disabled={Boolean(editId)}
+            disabled={Boolean(isUpdateSession)}
             type="email"
             placeholder="Email"
             error={errors?.email?.message}
@@ -118,7 +131,7 @@ export function FormUser({
             defaultValue="standard"
           />
         </div>
-        {editId && (
+        {isUpdateSession && (
           <fieldset>
             <legend> Do you want to reset the password?</legend>
 
@@ -134,7 +147,7 @@ export function FormUser({
           </fieldset>
         )}
 
-        {resetPassword && (
+        {(!isUpdateSession || resetPassword) && (
           <div className="flex gap-4">
             <Input
               register={register('password', {
@@ -165,7 +178,7 @@ export function FormUser({
       </div>
 
       <button type="submit" className="btn btn--primary mt-4">
-        {editId ? 'Update' : 'Create'}
+        {isUpdateSession ? 'Update' : 'Create'}
       </button>
     </form>
   );
