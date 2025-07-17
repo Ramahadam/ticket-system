@@ -71,13 +71,14 @@ function UserCreation() {
 
     // Update existing user
     if (isUpdateSession) {
+      const id = editUser?.id;
       // if password reset reqeust
       if (resetPassword) {
-        await resetUserPassword(editUser.id, data.password);
+        await resetUserPassword(id, data.password);
+        console.log('Reseting the password....');
       }
-      //TODO
-      console.log(data);
-      // await updateUserProfile(editId, data);
+      // TODO : implement file update functionality in apiAuth.js
+      await updateUserProfile({ id, data });
     }
   }
 

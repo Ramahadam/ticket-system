@@ -5,8 +5,8 @@ export function useUpdateUser() {
   const queryClient = useQueryClient();
 
   const { mutate: updateUserProfile, isPending: isUpdating } = useMutation({
+    mutationFn: (updatedUser) => updateUserProfileAPI(updatedUser),
     mutationKey: ['users'],
-    mutationFn: ({ updatedUser, id }) => updateUserProfileAPI(updatedUser, id),
     onSuccess: () => {
       queryClient.invalidateQueries({ mutationKey: ['users'] });
     },

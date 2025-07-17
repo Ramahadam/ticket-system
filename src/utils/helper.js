@@ -1,3 +1,4 @@
+import { supabaseUrl } from '../apiServices/supabase';
 import { addDays, addHours } from 'date-fns';
 
 export function calcualteDeadline(priority) {
@@ -34,7 +35,7 @@ export function replaceFileFormats(str) {
   return str.replace(/\b(.pdf|.jpg|.jpeg)\b/gi, '');
 }
 
-export function create_file_name_for_upload(data, supabaseUrl) {
+export function create_file_name_for_upload(data) {
   const fileName = `${Math.random()}-${data?.file?.name}`.replaceAll('/', '');
 
   const filePath = `/${fileName}`;
@@ -42,3 +43,20 @@ export function create_file_name_for_upload(data, supabaseUrl) {
 
   return { fileURL, filePath };
 }
+
+//TODO refactor the upload file functinality to oustource function
+// export async function uploadFileToSupase(query, userProfile) {
+//   const { fileURL, filePath } = create_file_name_for_upload(userProfile);
+
+//   // create the user along with URL for the photo
+//   query = await query.insert([{ ...userProfile, file: fileURL }]);
+
+//   // 2. Upload the photo to the files sotrage
+//   const { storageError } = await uploadFile(
+//     'files',
+//     filePath,
+//     userProfile.file
+//   );
+
+//   return { storageError, query };
+// }

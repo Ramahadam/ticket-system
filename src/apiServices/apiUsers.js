@@ -1,5 +1,5 @@
 import { create_file_name_for_upload } from '../utils/helper';
-import { supabase, supabaseUrl } from './supabase';
+import { supabase } from './supabase';
 
 async function uploadFile(bucket, filePath, file) {
   const { error: storageError } = await supabase.storage
@@ -23,16 +23,13 @@ export async function createUserApi(user) {
 ////////////// CREATE USER PROFILE.  ////////////////ß
 
 export async function createUserProfile(userProfile) {
-  const { fileURL, filePath } = create_file_name_for_upload(
-    userProfile,
-    supabaseUrl
-  );
-
   let query = supabase.from('profiles');
 
   if (!userProfile.file) {
     query = await query.insert([userProfile]).select('id');
   }
+
+  const { fileURL, filePath } = create_file_name_for_upload(userProfile);
 
   if (userProfile.file) {
     // create the user along with URL for the photo
@@ -57,7 +54,7 @@ export async function createUserProfile(userProfile) {
 
   const { data, error } = query;
 
-  if (error) throw new Error('Could not create incident due to an error');
+  if (error) throw new Error('Could not create user due to an error');
 
   return data;
 }
@@ -94,11 +91,16 @@ export async function deleteUser(id) {
 }
 
 // Update user
-export async function updateUser(updatedProfile, id) {
+export async function updateUser({ id, data: updatedUser }) {
   // Update user profile in profile table
+
+  // TODO : implement file update functionality
+
+  console.log('______User details to be updated_____');
+
   const { data, error } = await supabase
     .from('profiles')
-    .update({ ...updatedProfile })
+    .update({ ...updatedUser })
     .eq('id', id)
     .select();
 
@@ -169,18 +171,4 @@ Admin Panel should expose separate sections:
 Authentication: For managing email, password, and login details (auth.users).
 User Details: For managing additional information like name, address, profile picture, etc. (profiles).
 This combined approach ensures both tables are kept in sync properly, while still enabling admins to manage the full user lifecycle.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- */
+ ******/
