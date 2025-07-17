@@ -91,7 +91,10 @@ export async function deleteUser(id) {
 }
 
 // Update user
-export async function updateUser({ id, data: updatedUser }) {
+export async function updateUser({
+  id,
+  data: { confirmPassword, ...updatedUser },
+}) {
   // Update user profile in profile table
 
   // TODO : implement file update functionality
