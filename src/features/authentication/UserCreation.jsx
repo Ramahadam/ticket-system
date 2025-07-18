@@ -77,7 +77,7 @@ function UserCreation() {
         await resetUserPassword(id, data.password);
         console.log('Reseting the password....');
       }
-      // TODO : implement file update functionality in apiAuth.js
+      // TODO : implement file update functionality
       await updateUserProfile({ id, data });
     }
   }

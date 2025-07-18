@@ -31,7 +31,7 @@ export function FormUser({
     <form
       key={formKey}
       onSubmit={handleSubmit(onSubmit)}
-      className="mt-16 shadow-2xl p-4 rounded-md max-w-[80%] min-h-[30rem]"
+      className="mt-16 shadow-2xl p-4 rounded-md max-w-[80%] min-h-[30rem] "
     >
       <header className="flex justify-between items-center">
         <h2>{isUpdateSession ? 'Update User' : 'Create User'}</h2>

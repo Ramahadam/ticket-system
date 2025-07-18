@@ -12,7 +12,6 @@ async function uploadFile(bucket, filePath, file) {
 //////////// CREATE UESR IN AUTHENTICATION TABLE ///////
 
 export async function createUserApi(user) {
-  console.log(user);
   const { data: authUser, error } = await supabase.auth.admin.createUser(user);
 
   if (error) throw new Error(`Oops! couldn\t create new user ${error.message}`);
@@ -22,25 +21,21 @@ export async function createUserApi(user) {
 
 ////////////// CREATE USER PROFILE.  ////////////////ß
 
-export async function createUserProfile(userProfile) {
+export async function createUserProfile(data) {
   let query = supabase.from('profiles');
+  const { file, ...rest } = data;
+  const hasFile = Boolean(file);
+  const userData = { ...rest };
 
-  if (!userProfile.file) {
-    query = await query.insert([userProfile]).select('id');
-  }
+  if (hasFile) {
+    // Build the file name
 
-  const { fileURL, filePath } = create_file_name_for_upload(userProfile);
+    const { fileURL, filePath } = create_file_name_for_upload(file.name);
 
-  if (userProfile.file) {
-    // create the user along with URL for the photo
-    query = await query.insert([{ ...userProfile, file: fileURL }]);
+    userData.file = fileURL;
 
     // 2. Upload the photo to the files sotrage
-    const { storageError } = await uploadFile(
-      'files',
-      filePath,
-      userProfile.file
-    );
+    const { storageError } = await uploadFile('files', filePath, file);
 
     // 3. Delete the user if there was an error uploading the file
     if (storageError) {
@@ -52,11 +47,13 @@ export async function createUserProfile(userProfile) {
     }
   }
 
-  const { data, error } = query;
+  query = await query.insert([userData]).select('id');
+
+  const { data: createdUser, error } = query;
 
   if (error) throw new Error('Could not create user due to an error');
 
-  return data;
+  return createdUser;
 }
 
 // FETCH ALL USERS FROM PROFILE TABLE
@@ -91,28 +88,46 @@ export async function deleteUser(id) {
 }
 
 // Update user
-export async function updateUser({
-  id,
-  data: { confirmPassword, ...updatedUser },
-}) {
-  // Update user profile in profile table
+export async function updateUser({ id, data }) {
+  const { confirmPassword, file, ...rest } = data;
 
-  // TODO : implement file update functionality
+  const hasFile = Boolean(file[0]);
+  const userData = { ...rest };
 
-  console.log('______User details to be updated_____');
+  if (hasFile) {
+    const fileObject = file[0];
+    const { fileURL, filePath } = create_file_name_for_upload(
+      fileObject.name,
+      Boolean(id)
+    );
 
-  const { data, error } = await supabase
+    userData.file = fileURL;
+
+    // Upload the file first
+    const { error: storageError } = await uploadFile(
+      'files',
+      filePath,
+      fileObject
+    );
+    if (storageError) {
+      throw new Error(`File upload failed: ${storageError.message}`);
+    }
+  }
+
+  // Update the user data in Supabase
+
+  const { data: updated, error } = await supabase
     .from('profiles')
-    .update({ ...updatedUser })
+    .update(userData)
     .eq('id', id)
     .select();
 
   if (error) {
     console.error(error.message);
-    throw new Error(`Couldn't update the user Error ${error.message}`);
+    throw new Error(`Couldn't update user: ${error.message}`);
   }
 
-  return data;
+  return updated;
 }
 
 export async function resetUserPassword(id, newPassword) {

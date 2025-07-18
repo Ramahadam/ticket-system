@@ -1,5 +1,6 @@
 import { supabaseUrl } from '../apiServices/supabase';
 import { addDays, addHours } from 'date-fns';
+import { useUserContext } from '../Context/UserContext';
 
 export function calcualteDeadline(priority) {
   /***
@@ -35,10 +36,10 @@ export function replaceFileFormats(str) {
   return str.replace(/\b(.pdf|.jpg|.jpeg)\b/gi, '');
 }
 
-export function create_file_name_for_upload(data) {
-  const fileName = `${Math.random()}-${data?.file?.name}`.replaceAll('/', '');
+export function create_file_name_for_upload(name, isUpdateSession = false) {
+  const fileName = `${Math.random()}-${name}`.replaceAll('/', '');
 
-  const filePath = `/${fileName}`;
+  const filePath = isUpdateSession ? `${fileName}` : `/${fileName}`;
   const fileURL = `${supabaseUrl}/storage/v1/object/public/files/${filePath}`;
 
   return { fileURL, filePath };
