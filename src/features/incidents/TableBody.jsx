@@ -33,7 +33,7 @@ function TableBody({ incidents }) {
               {incident.status.toLowerCase().includes('loged') && (
                 <FontAwesomeIcon icon={faCalendarDays} />
               )}
-              {incident.status.toLowerCase().includes('fulfiled') && (
+              {incident.status.toLowerCase().includes('fulfilled') && (
                 <FontAwesomeIcon icon={faCheck} />
               )}
               {incident.status.toLowerCase().includes('progress') && (

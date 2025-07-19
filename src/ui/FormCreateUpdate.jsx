@@ -138,6 +138,7 @@ function FormCreateUpdate({
               { value: 'fulfiled', label: 'Fulfiled' },
               { value: 'progress', label: 'Progress' },
               { value: 'hold', label: 'On hold' },
+              { value: 'canceled', label: 'canceled' },
             ]}
             name="status"
             register={register('status', {

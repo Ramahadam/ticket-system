@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 function Cards({ tickets }) {
-  const open = tickets.filter((incident) => incident.status === 'loged').length;
+  const open = tickets.filter((ticket) => ticket.status === 'loged').length;
 
   const pending = tickets.filter(
     (incident) => incident.status === 'progress'

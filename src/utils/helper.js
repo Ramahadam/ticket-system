@@ -59,3 +59,27 @@ export function buildUserProfile(id, data) {
 
   return userProfile;
 }
+
+export function getTicketStatusCounts(tickets) {
+  const logged = tickets.filter((ticket) => ticket.status === 'loged').length;
+
+  const progress = tickets.filter(
+    (incident) => incident.status === 'progress'
+  ).length;
+
+  const fulfilled = tickets.filter(
+    (incident) => incident.status === 'fulfilled'
+  ).length;
+  const hold = tickets.filter((incident) => incident.status === 'hold').length;
+  const canceled = tickets.filter(
+    (incident) => incident.status === 'canceled'
+  ).length;
+
+  return [
+    { name: 'fulfilled', total: fulfilled },
+    { name: 'in progress', total: progress },
+    { name: 'logged', total: logged },
+    { name: 'on hold', total: hold },
+    { name: 'canceled', total: canceled },
+  ];
+}

@@ -33,7 +33,7 @@ function TableBody({ data }) {
               {ticket.status.toLowerCase().includes('loged') && (
                 <FontAwesomeIcon icon={faCalendarDays} />
               )}
-              {ticket.status.toLowerCase().includes('fulfiled') && (
+              {ticket.status.toLowerCase().includes('fulfilled') && (
                 <FontAwesomeIcon icon={faCheck} />
               )}
               {ticket.status.toLowerCase().includes('progress') && (
