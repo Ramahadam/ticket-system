@@ -45,19 +45,17 @@ export function create_file_name_for_upload(name, isUpdateSession = false) {
   return { fileURL, filePath };
 }
 
-//TODO refactor the upload file functinality to oustource function
-// export async function uploadFileToSupase(query, userProfile) {
-//   const { fileURL, filePath } = create_file_name_for_upload(userProfile);
+export function buildUserProfile(id, data) {
+  if (!id && !data) return;
+  const { confirmPassword, ...userProfileDetails } = data;
+  const isActive = data.isActive?.toLowerCase() === 'true';
 
-//   // create the user along with URL for the photo
-//   query = await query.insert([{ ...userProfile, file: fileURL }]);
+  const userProfile = {
+    id: id,
+    ...userProfileDetails,
+    isActive,
+    file: data.file[0],
+  };
 
-//   // 2. Upload the photo to the files sotrage
-//   const { storageError } = await uploadFile(
-//     'files',
-//     filePath,
-//     userProfile.file
-//   );
-
-//   return { storageError, query };
-// }
+  return userProfile;
+}

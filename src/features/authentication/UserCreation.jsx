@@ -6,6 +6,7 @@ import { useCreateUser } from './useCreateUser';
 import { FormUser } from '../../ui/FormUser';
 import { useEffect, useState } from 'react';
 import { useUserContext } from '../../Context/UserContext';
+import { buildUserProfile } from '../../utils/helper';
 
 function UserCreation() {
   const {
@@ -46,16 +47,8 @@ function UserCreation() {
 
       const { user } = await createUserApi(newUserCredentials);
 
-      // eslint-disable-next-line no-unused-vars
-      const { confirmPassword, ...userProfileDetails } = data;
-      const isActive = data.isActive?.toLowerCase() === 'true';
+      const userProfile = buildUserProfile(user?.id, data);
 
-      const userProfile = {
-        id: user.id,
-        ...userProfileDetails,
-        isActive,
-        file: data.file[0],
-      };
       await createUserProfile(userProfile);
     } catch (err) {
       console.log(`Error while creating the user ${err}`);
