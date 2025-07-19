@@ -1,6 +1,6 @@
 import { supabaseUrl } from '../apiServices/supabase';
-import { addDays, addHours } from 'date-fns';
-import { useUserContext } from '../Context/UserContext';
+import { addDays, addHours, format } from 'date-fns';
+import * as XLSX from 'xlsx';
 
 export function calcualteDeadline(priority) {
   /***
@@ -63,7 +63,6 @@ export function buildUserProfile(id, data) {
 export function getTicketStatusCounts(tickets) {
   let data;
   const isChangeRequest = tickets[0]?.hasOwnProperty('owner');
-  console.log(isChangeRequest);
 
   if (!isChangeRequest) {
     const logged = tickets.filter((ticket) => ticket.status === 'loged').length;
@@ -109,4 +108,12 @@ export function getTicketStatusCounts(tickets) {
   }
 
   return data;
+}
+
+export function exportToExcel(data, filename = 'Export.xlsx') {
+  filename = `${filename}-${format(new Date(Date.now()), 'dd-MM-HH-mm-ss')}.xlsx`;
+  const worksheet = XLSX.utils.json_to_sheet(data);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+  XLSX.writeFile(workbook, filename);
 }

@@ -1,4 +1,5 @@
 import Loader from '../../ui/Loader';
+
 import { useIncidents } from './useIncidents';
 import ErrorMessage from '../../ui/ErrorMessage';
 import Table from './Table';
@@ -25,7 +26,11 @@ function IncidentsList() {
 
   if (isLoading) return <Loader />;
 
-  return <Table incidents={incidents} />;
+  return (
+    <>
+      <Table incidents={incidents} />
+    </>
+  );
 }
 
 export default IncidentsList;
