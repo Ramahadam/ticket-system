@@ -61,25 +61,52 @@ export function buildUserProfile(id, data) {
 }
 
 export function getTicketStatusCounts(tickets) {
-  const logged = tickets.filter((ticket) => ticket.status === 'loged').length;
+  let data;
+  const isChangeRequest = tickets[0]?.hasOwnProperty('owner');
+  console.log(isChangeRequest);
 
-  const progress = tickets.filter(
-    (incident) => incident.status === 'progress'
-  ).length;
+  if (!isChangeRequest) {
+    const logged = tickets.filter((ticket) => ticket.status === 'loged').length;
 
-  const fulfilled = tickets.filter(
-    (incident) => incident.status === 'fulfilled'
-  ).length;
-  const hold = tickets.filter((incident) => incident.status === 'hold').length;
-  const canceled = tickets.filter(
-    (incident) => incident.status === 'canceled'
-  ).length;
+    const progress = tickets.filter(
+      (incident) => incident.status === 'progress'
+    ).length;
 
-  return [
-    { name: 'fulfilled', total: fulfilled },
-    { name: 'in progress', total: progress },
-    { name: 'logged', total: logged },
-    { name: 'on hold', total: hold },
-    { name: 'canceled', total: canceled },
-  ];
+    const fulfilled = tickets.filter(
+      (incident) => incident.status === 'fulfilled'
+    ).length;
+
+    const hold = tickets.filter(
+      (incident) => incident.status === 'hold'
+    ).length;
+    const canceled = tickets.filter(
+      (incident) => incident.status === 'canceled'
+    ).length;
+
+    data = [
+      { name: 'fulfilled', total: fulfilled },
+      { name: 'in progress', total: progress },
+      { name: 'logged', total: logged },
+      { name: 'on hold', total: hold },
+      { name: 'canceled', total: canceled },
+    ];
+  } else {
+    const requested = tickets.filter(
+      (ticket) => ticket.status === 'requested'
+    ).length;
+    const approved = tickets.filter(
+      (ticket) => ticket.status === 'approved'
+    ).length;
+    const canceled = tickets.filter(
+      (ticket) => ticket.status === 'canceled'
+    ).length;
+
+    data = data = [
+      { name: 'requested', total: requested },
+      { name: 'approved', total: approved },
+      { name: 'canceled', total: canceled },
+    ];
+  }
+
+  return data;
 }

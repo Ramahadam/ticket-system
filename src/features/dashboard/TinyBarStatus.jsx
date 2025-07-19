@@ -8,9 +8,10 @@ import {
   Tooltip,
 } from 'recharts';
 
-export default function TinyBarStatus({ data }) {
+export default function TinyBarStatus({ data, lable }) {
   return (
     <div style={{ width: '40rem', height: 200 }}>
+      <h2 className="my-5">Status for &nbsp;{lable}</h2>
       <ResponsiveContainer>
         <BarChart
           data={data}
@@ -26,9 +27,9 @@ export default function TinyBarStatus({ data }) {
             scale="point"
             padding={{ left: 30, right: 20 }}
           />
-          <YAxis />
+          <YAxis tickFormatter={(val) => Math.round(val)} />
           <Tooltip />
-          <CartesianGrid strokeDasharray="3" />
+          <CartesianGrid strokeDasharray="3 3" />
           <Bar dataKey="total" fill="#8884d8" background={{ fill: '#eee' }} />
         </BarChart>
       </ResponsiveContainer>

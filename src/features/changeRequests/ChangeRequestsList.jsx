@@ -20,7 +20,7 @@ function ChangeRequestsList() {
   if (error) return <ErrorMessage error={error} />;
 
   if (isLoading) return <Loader />;
-          
+
   return (
     <div className="container overflow-scroll">
       <h2 className="text-xl font-bold mb-4">Change requests List</h2>
@@ -80,7 +80,7 @@ function ChangeRequestsList() {
                     .includes('pending approval') && (
                     <FontAwesomeIcon icon={faHammer} />
                   )}
-                  {changeRequest.status.toLowerCase().includes('cancelled') && (
+                  {changeRequest.status.toLowerCase().includes('canceled') && (
                     <FontAwesomeIcon
                       icon={faHand}
                       className="text-color-orange"
