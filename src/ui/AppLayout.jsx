@@ -5,7 +5,7 @@ import AppHeader from './AppHeader';
 
 function AppLayout() {
   return (
-    <div className="bg-[#FAF8FF] min-h-screen max-w-[1440px] mx-auto grid grid-cols-[24rem_1fr] relative">
+    <div className="bg-[#FAF8FF] min-h-screen  mx-auto grid grid-cols-[24rem_1fr] relative">
       <Sidebar />
       <main>
         <AppHeader />

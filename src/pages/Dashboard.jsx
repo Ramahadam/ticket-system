@@ -23,7 +23,7 @@ function Dashboard() {
   return (
     <div>
       <h1>Dashboard</h1>
-      <div className="grid grid-cols-2 gap-y-32 text-center">
+      <div className="grid grid-cols-3 gap-y-32 text-center">
         <TinyBarStatus data={incidentsStatus} lable="incidents" />
 
         <TinyBarStatus data={serviceRequestsStatus} lable="Service Requests" />
