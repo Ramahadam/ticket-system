@@ -150,7 +150,7 @@ export async function resetUserPassword(id, newPassword) {
 // }
 
 // DEACTIVATE USER
-export async function deactivateUser(id) {}
+
 /***
  * 
  * 

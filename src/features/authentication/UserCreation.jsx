@@ -21,6 +21,9 @@ function UserCreation() {
     defaultValues: isUpdateSession ? { ...filteredDefaultValues } : {},
   });
 
+  // Watch password field for confirmation matching
+  const password = watch('password');
+
   useEffect(() => {
     if (isUpdateSession) {
       reset(filteredDefaultValues);
@@ -31,57 +34,57 @@ function UserCreation() {
 
   const { createUserProfile } = useCreateUser();
 
-  const { updateUserProfile, isUpdating } = useUpdateUser();
+  const { updateUserProfile } = useUpdateUser();
 
-  // Watch password field for confirmation matching
-  const password = watch('password');
+  async function handleCreateUser(data) {
+    try {
+      const newUserCredentials = {
+        email: getValues('email'),
+        password: getValues('password'),
+        email_confirm: true,
+      };
+
+      const { user } = await createUserApi(newUserCredentials);
+
+      // eslint-disable-next-line no-unused-vars
+      const { confirmPassword, ...userProfileDetails } = data;
+      const isActive = data.isActive?.toLowerCase() === 'true';
+
+      const userProfile = {
+        id: user.id,
+        ...userProfileDetails,
+        isActive,
+        file: data.file[0],
+      };
+      await createUserProfile(userProfile);
+    } catch (err) {
+      console.log(`Error while creating the user ${err}`);
+    }
+  }
+
+  async function handleUpdateUser(data) {
+    const id = editUser?.id;
+
+    if (!id) return;
+    // if password reset reqeust
+    if (resetPassword && data.password) {
+      await resetUserPassword(id, data.password);
+    }
+    // Update user details
+    await updateUserProfile({ id, data });
+  }
 
   async function onSubmit(data) {
     if (!data) return;
 
-    // Create new user session
-
     if (!isUpdateSession) {
-      try {
-        const newUserCredentials = {
-          email: getValues('email'),
-          password: getValues('password'),
-          email_confirm: true,
-        };
-
-        const { user } = await createUserApi(newUserCredentials);
-
-        // eslint-disable-next-line no-unused-vars
-        const { confirmPassword, ...userProfileDetails } = data;
-        const isActive = data.isActive?.toLowerCase() === 'true';
-
-        const userProfile = {
-          id: user.id,
-          ...userProfileDetails,
-          isActive,
-          file: data.file[0],
-        };
-        await createUserProfile(userProfile);
-      } catch (err) {
-        console.log(`Error while creating the user ${err}`);
-      } finally {
-        setShowForm((prev) => !prev);
-      }
+      await handleCreateUser(data);
+    } else {
+      await handleUpdateUser(data);
     }
 
-    // Update existing user
-    if (isUpdateSession) {
-      const id = editUser?.id;
-      // if password reset reqeust
-      if (resetPassword) {
-        await resetUserPassword(id, data.password);
-        console.log('Reseting the password....');
-      }
-      // TODO : implement file update functionality
-      await updateUserProfile({ id, data });
-    }
+    setShowForm((prev) => !prev);
   }
-
   return (
     showForm && (
       <FormUser
