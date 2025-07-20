@@ -13,6 +13,7 @@ import {
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { format, formatDistanceToNow } from 'date-fns';
+import ExcelExportButton from '../../ui/ExcelExportButton';
 
 function ChangeRequestsList() {
   const { changeRequests, error, isLoading } = useChangeRequests();
@@ -22,9 +23,12 @@ function ChangeRequestsList() {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="container overflow-scroll">
-      <h2 className="text-xl font-bold mb-4">Change requests List</h2>
-      <table className="table-auto bg-white ">
+    <div className="container overflow-scroll ">
+      <div className="flex items-center justify-between ">
+        <h2 className="text-xl font-bold mb-4">Service requests List</h2>
+        <ExcelExportButton data={changeRequests} fileName="Change requests" />
+      </div>
+      <table className="table-auto bg-white w-full">
         <thead className="bg-bg-light-gray">
           <tr>
             <td className="p-4 rounded-tl-md">Id</td>

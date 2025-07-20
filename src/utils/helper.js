@@ -61,7 +61,10 @@ export function buildUserProfile(id, data) {
 }
 
 export function getTicketStatusCounts(tickets) {
+  if (!tickets) return undefined;
+
   let data;
+
   const isChangeRequest = tickets[0]?.hasOwnProperty('owner');
 
   if (!isChangeRequest) {

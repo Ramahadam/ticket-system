@@ -4,7 +4,7 @@ import TableHead from './TableHead';
 
 function Table({ data }) {
   return (
-    <table className="table-auto bg-white ">
+    <table className="table-auto bg-white w-full">
       <TableHead />
       <TableBody data={data} />
     </table>
