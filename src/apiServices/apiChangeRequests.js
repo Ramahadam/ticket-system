@@ -1,11 +1,13 @@
+import { PAGE_SIZE } from '../utils/constant';
 import { supabase, supabaseUrl } from './supabase';
 
 export const fetchChangeRequests = async ({
   filterByStatus,
   sortBy,
   columnName,
+  page,
 }) => {
-  let query = supabase.from('change_requests').select('*');
+  let query = supabase.from('change_requests').select('*', { count: 'exact' });
 
   //Filter
   if (filterByStatus?.length > 0) query = query.in(columnName, filterByStatus);
@@ -16,20 +18,21 @@ export const fetchChangeRequests = async ({
       ascending: sortBy.direction === 'asc',
     });
 
-  const { data, error } = await query;
+  //Pagination
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE;
+    query = query.range(from, to);
+  }
+
+  const { data, error, count } = await query;
 
   if (error) {
     console.error(error.message);
     throw new Error(`Couldn't load service requests data ${error.message}`);
   }
 
-  return data;
-  // const { data, error } = await supabase.from('change_requests').select('*');
-  // if (error) {
-  //   console.error('Error fetching change requests:', error);
-  //   return null;
-  // }
-  // return data;
+  return { data, count };
 };
 
 export const createChangeRequest = async (changeRequest) => {

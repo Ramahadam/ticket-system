@@ -13,19 +13,23 @@ function useChangeRequests() {
   const [field, direction] = sortByRow.split('-');
   const sortBy = { field, direction };
 
+  //Pagination
+  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
+
   const {
-    data: changeRequests,
+    data: { data: changeRequests, count } = {},
     error,
     isLoading,
   } = useQuery({
     // queryKey: ['changeRequests'],
     // queryFn: fetchChangeRequests,
 
-    queryKey: ['changeRequests', filterByStatus, sortBy],
-    queryFn: () => fetchChangeRequests({ filterByStatus, sortBy, columnName }),
+    queryKey: ['changeRequests', filterByStatus, sortBy, page],
+    queryFn: () =>
+      fetchChangeRequests({ filterByStatus, sortBy, columnName, page }),
   });
 
-  return { changeRequests, error, isLoading };
+  return { changeRequests, error, isLoading, count };
 }
 
 export default useChangeRequests;

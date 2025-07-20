@@ -9,7 +9,7 @@ function Button({ children, onClick = () => {}, isDisabled, className }) {
 
   return (
     <button
-      className={`flex items-center gap-1 font-medium   rounded-lg p-4 cursor-pointer ${disabledClasses} ${className}`}
+      className={`flex items-center gap-1 font-medium   rounded-lg p-4 cursor-pointer  ${className} ${disabledClasses}`}
       onClick={handleClick}
       disabled={isDisabled}
     >

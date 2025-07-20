@@ -14,9 +14,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { format, formatDistanceToNow } from 'date-fns';
 import ExcelExportButton from '../../ui/ExcelExportButton';
+import { TableFooter } from '../../ui/TableFooter';
+import Pagination from '../../ui/Pagination';
 
 function ChangeRequestsList() {
-  const { changeRequests, error, isLoading } = useChangeRequests();
+  const { changeRequests, error, isLoading, count } = useChangeRequests();
 
   if (error) return <ErrorMessage error={error} />;
 
@@ -140,6 +142,9 @@ function ChangeRequestsList() {
             );
           })}
         </tbody>
+        <TableFooter>
+          <Pagination count={count} />
+        </TableFooter>
       </table>
     </div>
   );

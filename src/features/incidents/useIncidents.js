@@ -13,21 +13,24 @@ export function useIncidents() {
   const [field, direction] = sortByRow.split('-');
   const sortBy = { field, direction };
 
+  // Pagination
+  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
+
   const queryClient = useQueryClient();
 
   const {
     isLoading,
-    data: incidents,
+    data: { data: incidents, count } = {},
     error,
   } = useQuery({
-    queryKey: ['incidents', filterByStatus, sortBy],
-    queryFn: () => getIncidents({ filterByStatus, sortBy, columnName }),
+    queryKey: ['incidents', filterByStatus, sortBy, page],
+    queryFn: () => getIncidents({ filterByStatus, sortBy, columnName, page }),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['incidents', filterByStatus, sortBy],
+        queryKey: ['incidents', filterByStatus, sortBy, page],
       });
     },
   });
 
-  return { isLoading, incidents, error };
+  return { isLoading, incidents, error, count };
 }

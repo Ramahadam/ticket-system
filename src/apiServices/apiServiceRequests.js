@@ -1,11 +1,13 @@
+import { PAGE_SIZE } from '../utils/constant';
 import { supabase } from './supabase';
 
 export async function getServiceRequests({
   filterByStatus,
   sortBy,
   columnName,
+  page,
 }) {
-  let query = supabase.from('service_requests').select('*');
+  let query = supabase.from('service_requests').select('*', { count: 'exact' });
 
   //Filter
   if (filterByStatus?.length > 0) query = query.in(columnName, filterByStatus);
@@ -16,14 +18,21 @@ export async function getServiceRequests({
       ascending: sortBy.direction === 'asc',
     });
 
-  const { data: serviceRequests, error } = await query;
+  //Pagination
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE;
+    query = query.range(from, to);
+  }
+
+  const { data, count, error } = await query;
 
   if (error) {
     console.error(error.message);
     throw new Error(`Couldn't load service requests data ${error.message}`);
   }
 
-  return serviceRequests;
+  return { data, count };
 }
 
 export async function getServiceRequest(id) {

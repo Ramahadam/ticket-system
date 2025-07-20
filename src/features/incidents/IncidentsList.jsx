@@ -20,7 +20,7 @@ import Table from './Table';
  * @returns {JSX.Element} The rendered component.
  */
 function IncidentsList() {
-  const { isLoading, error, incidents } = useIncidents();
+  const { isLoading, error, incidents, count } = useIncidents();
 
   if (error) return <ErrorMessage error={error} />;
 
@@ -28,7 +28,7 @@ function IncidentsList() {
 
   return (
     <>
-      <Table incidents={incidents} />
+      <Table incidents={incidents} count={count} />
     </>
   );
 }

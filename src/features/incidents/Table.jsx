@@ -1,8 +1,10 @@
 import TableHead from './TableHead';
 import TableBody from './TableBody';
 import ExcelExportButton from '../../ui/ExcelExportButton';
+import Pagination from '../../ui/Pagination';
+import { TableFooter } from '../../ui/TableFooter';
 
-function Table({ incidents }) {
+function Table({ incidents, count }) {
   return (
     <div className="container mx-auto p-8">
       <div className="flex items-center justify-between ">
@@ -12,6 +14,9 @@ function Table({ incidents }) {
       <table className="table-auto bg-white w-full">
         <TableHead />
         <TableBody incidents={incidents} />
+        <TableFooter>
+          <Pagination count={count} />
+        </TableFooter>
       </table>
     </div>
   );

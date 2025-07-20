@@ -1,7 +1,13 @@
+import { PAGE_SIZE } from '../utils/constant';
 import { supabase, supabaseUrl } from './supabase';
 
-export async function getIncidents({ filterByStatus, columnName, sortBy }) {
-  let query = supabase.from('incidents').select('*');
+export async function getIncidents({
+  filterByStatus,
+  columnName,
+  sortBy,
+  page,
+}) {
+  let query = supabase.from('incidents').select('*', { count: 'exact' });
 
   //Filter
   if (filterByStatus?.length > 0) query = query.in(columnName, filterByStatus);
@@ -12,14 +18,21 @@ export async function getIncidents({ filterByStatus, columnName, sortBy }) {
       ascending: sortBy.direction === 'asc',
     });
 
-  const { data: incidents, error } = await query;
+  //Pagination
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
+
+  const { data, error, count } = await query;
 
   if (error) {
     console.error(error.message);
     throw new Error(`Couldn't load incidents data ${error.message}`);
   }
 
-  return incidents;
+  return { data, count };
 }
 
 export async function getIncident(id) {
