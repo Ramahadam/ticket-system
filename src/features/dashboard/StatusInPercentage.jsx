@@ -47,7 +47,7 @@ export default function StatusInPercentage({ data, label }) {
             fill="#8884d8"
             dataKey="total"
           >
-            {data.map((entry, index) => (
+            {data?.map((entry, index) => (
               <Cell
                 key={`cell-${entry.name}`}
                 fill={COLORS[index % COLORS.length]}

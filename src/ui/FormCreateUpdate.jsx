@@ -135,7 +135,7 @@ function FormCreateUpdate({
           <Select
             options={[
               { value: 'loged', label: 'Loged' },
-              { value: 'fulfiled', label: 'Fulfiled' },
+              { value: 'fulfilled', label: 'fulfilled' },
               { value: 'progress', label: 'Progress' },
               { value: 'hold', label: 'On hold' },
               { value: 'canceled', label: 'canceled' },

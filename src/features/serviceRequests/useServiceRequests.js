@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { getServiceRequests } from '../../apiServices/apiServiceRequests';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 function useServiceRequests() {
+  const location = useLocation();
+
   // Filter
   const columnName = 'status';
   const [searchParams] = useSearchParams();
@@ -14,7 +16,10 @@ function useServiceRequests() {
   const sortBy = { field, direction };
 
   // Pagination
-  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
+  let page = null;
+  // if the page is dashboard get all data else use pagination
+  if (location.pathname !== '/dashboard')
+    page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
 
   const {
     isLoading,

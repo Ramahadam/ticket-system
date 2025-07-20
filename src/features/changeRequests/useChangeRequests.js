@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchChangeRequests } from '../../apiServices/apiChangeRequests';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 function useChangeRequests() {
+  const location = useLocation();
   // Filter
   const columnName = 'status';
   const [searchParams] = useSearchParams();
@@ -13,17 +14,17 @@ function useChangeRequests() {
   const [field, direction] = sortByRow.split('-');
   const sortBy = { field, direction };
 
-  //Pagination
-  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
+  // Pagination
+  let page = null;
+  // if the page is dashboard get all data else use pagination
+  if (location.pathname !== '/dashboard')
+    page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
 
   const {
     data: { data: changeRequests, count } = {},
     error,
     isLoading,
   } = useQuery({
-    // queryKey: ['changeRequests'],
-    // queryFn: fetchChangeRequests,
-
     queryKey: ['changeRequests', filterByStatus, sortBy, page],
     queryFn: () =>
       fetchChangeRequests({ filterByStatus, sortBy, columnName, page }),

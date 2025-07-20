@@ -1,8 +1,9 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getIncidents } from '../../apiServices/apiForIncidents';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 export function useIncidents() {
+  const location = useLocation();
   // Filter
   const columnName = 'status';
   const [searchParams] = useSearchParams();
@@ -14,7 +15,10 @@ export function useIncidents() {
   const sortBy = { field, direction };
 
   // Pagination
-  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
+  let page = null;
+  // if the page is dashboard get all data else use pagination
+  if (location.pathname !== '/dashboard')
+    page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
 
   const queryClient = useQueryClient();
 
