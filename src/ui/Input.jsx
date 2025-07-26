@@ -25,7 +25,7 @@ function Input({
       focus:ring-1  ${className} ${disabled && 'text-slate-400'}`;
 
   return (
-    <div className="w-full">
+    <span className="w-full">
       <input
         disabled={disabled}
         id={name}
@@ -38,7 +38,7 @@ function Input({
       />
 
       {error && <ErrorMessage error={error} />}
-    </div>
+    </span>
   );
 }
 

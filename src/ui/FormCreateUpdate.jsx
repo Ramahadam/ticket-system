@@ -150,7 +150,7 @@ function FormCreateUpdate({
         </p>
 
         <p>
-          {tableName !== 'requests' && (
+          {tableName !== 'serviceRequest' && (
             <>
               <Select
                 options={[

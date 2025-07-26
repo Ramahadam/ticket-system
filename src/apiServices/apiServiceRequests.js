@@ -1,5 +1,5 @@
 import { PAGE_SIZE } from '../utils/constant';
-import { supabase } from './supabase';
+import { supabase, supabaseUrl } from './supabase';
 
 export async function getServiceRequests({
   filterByStatus,
@@ -71,4 +71,46 @@ export async function updateServiceReqeust(reqeust, editId) {
   }
 
   return data;
+}
+
+export async function createServiceRequest(servicRequest) {
+  const fileName = `${Math.random()}-${servicRequest?.file?.name}`.replaceAll(
+    '/',
+    ''
+  );
+
+  const filePath = `/${fileName}`;
+  const fileURL = `${supabaseUrl}/storage/v1/object/public/files/${filePath}`;
+
+  let query = supabase.from('service_requests');
+
+  if (!servicRequest.file) {
+    console.log(servicRequest);
+    query = await query.insert([servicRequest]).select('id');
+  }
+
+  if (servicRequest.file) {
+    query = await query
+      .insert([{ ...servicRequest, file: fileURL }])
+      .select('id');
+    // 2. Upload the file
+    const { error: storageError } = await supabase.storage
+      .from('files')
+      .upload(filePath, servicRequest.file);
+
+    // 3. Delete the servicRequest if there was an error uploading the file
+    if (storageError) {
+      await query.delete().eq('id', data[0].id);
+      console.error(storageError);
+      throw new Error(
+        'File could not be uploaded and service request could not be created'
+      );
+    }
+  }
+
+  const { data, error } = query;
+
+  if (error) throw new Error('Could not create servicRequest due to an error');
+
+  return data[0].id;
 }
