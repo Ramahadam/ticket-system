@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getIncidents } from '../../apiServices/apiForIncidents';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import { PAGE_SIZE } from '../../utils/constant';
 
 export function useIncidents() {
   const location = useLocation();
@@ -35,6 +36,24 @@ export function useIncidents() {
       });
     },
   });
+
+  // Prefetching the next page for better UX
+
+  const pageCount = Math.ceil(count / PAGE_SIZE);
+
+  if (page < pageCount)
+    queryClient.prefetchQuery({
+      queryKey: ['incidents', filterByStatus, sortBy, page + 1],
+      queryFn: () =>
+        getIncidents({ filterByStatus, sortBy, columnName, page: page + 1 }),
+    });
+
+  if (page > 1)
+    queryClient.prefetchQuery({
+      queryKey: ['incidents', filterByStatus, sortBy, page - 1],
+      queryFn: () =>
+        getIncidents({ filterByStatus, sortBy, columnName, page: page - 1 }),
+    });
 
   return { isLoading, incidents, error, count };
 }
