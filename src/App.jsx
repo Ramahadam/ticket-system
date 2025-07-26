@@ -52,13 +52,11 @@ function App() {
             >
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
-
               <Route path="incidents" element={<TicketLayout />}>
                 <Route index element={<Incidents />} />
                 <Route path=":id" element={<Incident />} />
                 <Route path="new" element={<NewIncident />} />
               </Route>
-
               <Route path="requests" element={<TicketLayout />}>
                 <Route index element={<ServiceRequests />} />
                 <Route path=":id" element={<ServiceRequestDetail />} />
@@ -69,7 +67,6 @@ function App() {
                 <Route path=":id" element={<ChangeRequest />} />
                 <Route path="new" element={<ChangeRequestNew />} />
               </Route>
-
               <Route
                 path="users"
                 element={
@@ -78,7 +75,7 @@ function App() {
                   </UserProvider>
                 }
               />
-              <Route path="settings" element={<Settings />} />
+              <Route path="settings" element={<Settings />} />{' '}
             </Route>
             <Route path="login" element={<Login />} />
             <Route path="*" element={<PageNotFound />} />

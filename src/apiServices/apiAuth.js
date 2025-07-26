@@ -5,7 +5,7 @@ export async function login(loginDetails) {
 
   if (error) throw new Error('Wrong username or password');
 
-  console.log(data);
+  return data;
 }
 
 // get current logged in user details this is required for the protected route
