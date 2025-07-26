@@ -7,18 +7,15 @@ export function useLogin() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const {
-    mutate: login,
-    isPending: isLoading,
-    isSuccess,
-  } = useMutation({
+  const { mutate: login, isPending: isLoading } = useMutation({
     mutationFn: ({ email, password }) => loginApi({ email, password }),
-    mutationKey: ['user'],
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['user'],
+
+    onSuccess: (user) => {
+      console.log(user);
+      queryClient.setQueryData({
+        queryKey: ['user', user],
       });
-      navigate('/dashboard');
+      navigate('/dashboard', { replace: true });
     },
     onError: (err) => {
       console.log('Error', err);
@@ -26,5 +23,5 @@ export function useLogin() {
     },
   });
 
-  return { login, isLoading, isSuccess };
+  return { login, isLoading };
 }
