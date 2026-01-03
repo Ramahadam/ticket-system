@@ -9,7 +9,8 @@ function Users() {
   const { setShowForm, setEditUser } = useUserContext();
 
   return (
-    <div className="max-w-[100rem]">
+    // <div className="max-w-[100rem]">
+    <div className="container mx-auto p-8">
       <div className="bg-white p-8">
         <div className="flex justify-between">
           <div
