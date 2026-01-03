@@ -7,17 +7,19 @@ function Input({
   register,
   defaultValue = '',
   error,
+  label,
   className,
   disabled = false,
 }) {
-  const classNameInput = `text-lg
+  const classNameInput = `text-[1.4rem]
       font-fredoka text-inherit
       pl-4
-      h-14
+      h-16
       block
       bg-white border shadow-sm
       border-slate-300 
       placeholder-slate-400
+      placeholder:text-[1.4rem]
       focus:outline-none 
       focus:border-sky-500
       focus:ring-sky-500 
@@ -26,6 +28,9 @@ function Input({
 
   return (
     <span className="w-full">
+      <label htmlFor={name} className="text-left block mb-2">
+        {label}
+      </label>
       <input
         disabled={disabled}
         id={name}

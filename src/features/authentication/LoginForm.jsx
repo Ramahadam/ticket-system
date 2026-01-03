@@ -26,33 +26,39 @@ function LoginForm() {
         >
           <h1 className="mb-14 text-3xl">Login to your account</h1>
 
-          <Input
-            defaultValue="adam@itms.com"
-            register={register('email', {
-              required: 'Email is required',
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: 'Please enter a valid email',
-              },
-            })}
-            type="email"
-            placeholder="Email"
-            error={errors?.email?.message}
-          />
+          <div className="input-group flex flex-col gap-8 mb-8">
+            <Input
+              defaultValue="adam@itms.com"
+              register={register('email', {
+                required: 'Email is required',
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: 'Please enter a valid email',
+                },
+              })}
+              type="email"
+              name="email"
+              placeholder="Email"
+              label="Enter your email id:"
+              error={errors?.email?.message}
+            />
 
-          <Input
-            defaultValue="12345"
-            register={register('password', {
-              required: 'Password is required',
-              minLength: {
-                value: 5,
-                message: 'Password must be at least 5 characters',
-              },
-            })}
-            type="password"
-            placeholder="Password"
-            error={errors?.password?.message}
-          />
+            <Input
+              defaultValue="12345"
+              name="password"
+              label="Enter password:"
+              register={register('password', {
+                required: 'Password is required',
+                minLength: {
+                  value: 5,
+                  message: 'Password must be at least 5 characters',
+                },
+              })}
+              type="password"
+              placeholder="Password"
+              error={errors?.password?.message}
+            />
+          </div>
 
           <input
             type="submit"
